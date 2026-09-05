@@ -14,7 +14,7 @@ export function MainFooter() {
           {/* Brand Col */}
           <div className="space-y-3 md:col-span-1">
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="grid size-7.5 place-items-center rounded-lg bg-[#E5A93C] text-[#090A10] font-bold shadow-sm transition group-hover:scale-105">
+              <div className="grid size-7.5 place-items-center rounded-[8px] bg-[#E5A93C] text-[#090A10] font-bold shadow-sm transition group-hover:scale-105">
                 <Sparkles className="size-4 text-[#090A10]" />
               </div>
               <span className="font-serif font-bold text-sm text-[#F8FAFC]">KUNDALI.AI</span>
@@ -68,7 +68,7 @@ export function MainFooter() {
             <h4 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider flex items-center gap-1.5">
               <Globe className="size-3.5 text-[#E5A93C]" /> Language
             </h4>
-            <div className="inline-flex items-center gap-1.5 rounded-full bg-[#161B2B] border border-white/10 px-3 py-1.5 text-xs text-[#F8FAFC]">
+            <div className="inline-flex items-center gap-1.5 rounded-[8px] bg-[#161B2B] border border-white/10 px-3 py-1.5 text-xs text-[#F8FAFC]">
               <Globe className="size-3.5 text-[#E5A93C]" />
               <select
                 value={language}

@@ -34,7 +34,7 @@ export function MainNavbar() {
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-8 py-3">
         {/* Left: Branding */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="grid size-9.5 place-items-center rounded-xl bg-gradient-to-br from-[#F3C766] via-[#E5A93C] to-[#B87A14] text-[#090A10] font-bold shadow-md shadow-[#E5A93C]/15 transition-transform duration-300 group-hover:scale-105">
+          <div className="grid size-9 place-items-center rounded-[8px] bg-gradient-to-br from-[#F3C766] via-[#E5A93C] to-[#B87A14] text-[#090A10] font-bold shadow-md shadow-[#E5A93C]/15 transition-transform duration-300 group-hover:scale-105">
             <Sparkles className="size-5 text-[#090A10] stroke-[2.2]" />
           </div>
           <div>
@@ -52,7 +52,7 @@ export function MainNavbar() {
           <button
             type="button"
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center gap-2.5 rounded-full bg-[#161B2B] border border-white/15 px-4 py-2 text-xs font-bold text-[#F8FAFC] shadow-inner hover:border-[#E5A93C]/50 hover:bg-[#1E2538] transition duration-200 active:scale-95"
+            className="flex items-center gap-2.5 rounded-[8px] bg-[#161B2B] border border-white/15 px-3.5 py-2 text-xs font-bold text-[#F8FAFC] shadow-inner hover:border-[#E5A93C]/50 hover:bg-[#1E2538] transition duration-200 active:scale-95"
             aria-label="Select Application Language"
           >
             <Languages className="size-4 text-[#E5A93C]" />
@@ -67,7 +67,7 @@ export function MainNavbar() {
 
           {/* Floating Glassmorphic Dropdown Menu */}
           {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-48 overflow-hidden rounded-2xl border border-white/15 bg-[#161B2B]/95 p-1.5 shadow-2xl backdrop-blur-2xl animate-in fade-in slide-in-from-top-2 z-50">
+            <div className="absolute right-0 mt-2 w-48 overflow-hidden rounded-[8px] border border-white/15 bg-[#161B2B]/95 p-1.5 shadow-2xl backdrop-blur-2xl animate-in fade-in slide-in-from-top-2 z-50">
               <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-[#94A3B8]/70 border-b border-white/10 flex items-center justify-between">
                 <span>Select Language</span>
                 <Globe className="size-3 text-[#E5A93C]" />
@@ -83,7 +83,7 @@ export function MainNavbar() {
                         setLanguage(lang.code);
                         setDropdownOpen(false);
                       }}
-                      className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold transition ${
+                      className={`flex w-full items-center justify-between rounded-[6px] px-3 py-2 text-xs font-semibold transition ${
                         isSelected
                           ? "bg-[#E5A93C]/15 text-[#F3C766] border border-[#E5A93C]/30"
                           : "text-[#CBD5E1] hover:bg-white/5 hover:text-[#F8FAFC]"
