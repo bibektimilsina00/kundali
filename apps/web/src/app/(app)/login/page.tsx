@@ -112,9 +112,6 @@ function LoginFormContent() {
                 />
               </svg>
               <span>Continue with Google</span>
-              <span className="absolute right-3 rounded bg-[#E5A93C]/15 px-1.5 py-0.5 text-[9px] font-bold text-[#F3C766] border border-[#E5A93C]/30">
-                Fast
-              </span>
             </button>
           </div>
 
@@ -257,12 +254,6 @@ function LoginFormContent() {
               </button>
             </span>
           )}
-        </div>
-
-        {/* Security Badge Footer */}
-        <div className="border-t border-white/5 bg-[#0A0B10] py-2.5 text-center text-[10px] font-medium text-[#64748B] flex items-center justify-center gap-1.5">
-          <ShieldCheck className="size-3.5 text-[#E5A93C]" />
-          <span>Secured by Kundali Vault Encrypted Auth</span>
         </div>
       </div>
     </div>
