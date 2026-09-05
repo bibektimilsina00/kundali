@@ -62,12 +62,12 @@ export function MainNavbar() {
               </button>
             </div>
           ) : (
-            <button
-              onClick={() => openAuthModal("login")}
+            <Link
+              href="/login"
               className="rounded-[8px] bg-gradient-to-r from-[#E5A93C] to-[#B87A14] px-3.5 py-1.5 text-xs font-bold text-[#090A10] shadow-md transition hover:brightness-110"
             >
               Sign In
-            </button>
+            </Link>
           )}
         </div>
       </div>
