@@ -5,9 +5,8 @@ import { ASTROLOGER_VOICES, type AstrologerVoice } from "@/lib/constants/voices"
 import { speakText, stopSpeech } from "@/lib/utils/audio-speaker";
 import type { Language } from "@/lib/i18n/language-context";
 import {
-  Volume2,
   Play,
-  Square,
+  Pause,
   ChevronDown,
   Check,
   Mic,
@@ -196,9 +195,9 @@ export function CustomVoiceSelector({
                     }`}
                   >
                     {isPreviewing ? (
-                      <Square className="size-3.5 fill-current animate-pulse" />
+                      <Pause className="size-3.5 fill-current" />
                     ) : (
-                      <Volume2 className="size-3.5 transition-transform group-hover:scale-110" />
+                      <Play className="size-3.5 fill-current ml-0.5 transition-transform group-hover:scale-110" />
                     )}
                   </button>
                 </div>
