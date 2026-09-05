@@ -1,4 +1,4 @@
-name: CI/CD Build & Deploy Kundali to Server
+name: CI/CD Build & Deploy Kundali Microservices to Server
 
 on:
   push:
@@ -9,13 +9,13 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  REPO_OWNER: bibektimilsina00
   SERVER_HOST: 161.118.246.132
   SERVER_USER: ubuntu
 
 jobs:
   build-and-push:
-    name: Build & Push Docker Image to GHCR
+    name: Build & Push Microservices Images to GHCR
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -38,23 +38,29 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract Docker Metadata
-        id: meta
-        uses: docker/metadata-action@v5
+      # Build FastAPI Backend Image
+      - name: Build & Push FastAPI Backend Image
+        uses: docker/build-push-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=raw,value=latest
-            type=sha,prefix=
+          context: .
+          file: ./apps/api/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/kundali-api:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-      - name: Build and Push Multi-Arch Docker Image
+      # Build Next.js Web Frontend Image
+      - name: Build & Push Next.js Web Frontend Image
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/kundali-web:latest
+            ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/kundali:latest
           build-args: |
             NEXT_PUBLIC_POSTHOG_KEY=${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
             NEXT_PUBLIC_POSTHOG_HOST=${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
@@ -64,12 +70,24 @@ jobs:
           cache-to: type=gha,mode=max
 
   deploy:
-    name: Deploy to Server via SSH
+    name: Deploy Microservices Stack via SSH
     needs: build-and-push
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to Remote Server (ubuntu@161.118.246.132)
+      - name: Checkout Repository for Compose Config
+        uses: actions/checkout@v4
+
+      - name: Copy docker-compose.yml to Remote Server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ env.SERVER_HOST }}
+          username: ${{ env.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: "docker-compose.yml"
+          target: "~/kundali/"
+
+      - name: Deploy Microservices on Remote Server (ubuntu@161.118.246.132)
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ env.SERVER_HOST }}
@@ -78,7 +96,7 @@ jobs:
           script: |
             set -e
             echo "========================================="
-            echo "🚀 Starting Automated Deployment on Server"
+            echo "🚀 Launching Kundali Microservices Stack"
             echo "========================================="
 
             # 1. Login to GHCR on the remote server
@@ -89,11 +107,15 @@ jobs:
             cd ~/kundali
 
             # 3. Dynamically generate .env file from GitHub Secrets
-            echo "Creating production .env file from secrets..."
+            echo "Generating production .env configuration..."
             cat << 'EOF' > .env
             PORT=3000
             NODE_ENV=production
             PYTHON_PATH=python3
+            POSTGRES_DB=kundali
+            POSTGRES_USER=kundali
+            POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD || 'kundalipassword' }}"
+            FASTAPI_URL=http://kundali_api:8000
             AGENT_ROUTER_API_KEY="${{ secrets.AGENT_ROUTER_API_KEY }}"
             AGENT_ROUTER_BASE_URL="${{ secrets.AGENT_ROUTER_BASE_URL }}"
             AGENT_ROUTER_MODEL="${{ secrets.AGENT_ROUTER_MODEL }}"
@@ -111,29 +133,24 @@ jobs:
             NEXT_PUBLIC_UMAMI_HOST="${{ secrets.NEXT_PUBLIC_UMAMI_HOST }}"
             EOF
 
-            # 4. Pull the latest Docker container image
-            IMAGE_URI="ghcr.io/${{ github.repository }}:latest"
-            echo "Pulling latest image: $IMAGE_URI"
-            docker pull $IMAGE_URI
+            # 4. Pull microservice container images
+            echo "Pulling latest microservice images..."
+            docker compose pull || docker-compose pull
 
-            # 5. Stop and remove existing container if running
-            echo "Stopping old container instance if active..."
+            # 5. Stop single container if previously running standalone
             docker stop kundali-app || true
             docker rm kundali-app || true
 
-            # 6. Launch new container with environment variables
-            echo "Starting container on port 3000..."
-            docker run -d \
-              --name kundali-app \
-              --restart always \
-              -p 3000:3000 \
-              --env-file .env \
-              $IMAGE_URI
+            # 6. Launch 3 microservices (kundali_postgres, kundali_api, kundali_web)
+            echo "Starting docker compose stack..."
+            docker compose up -d || docker-compose up -d
 
-            # 7. Clean up unused images to free disk space
+            # 7. Clean up unused images to preserve VPS disk space
             docker image prune -f
 
             echo "========================================="
-            echo "✅ Deployment Successful!"
-            echo "🌐 Service Live at: http://${{ env.SERVER_HOST }}:3000"
+            echo "✅ Kundali Microservices Stack Deployed Successfully!"
+            echo "🌐 Web App Live at: http://${{ env.SERVER_HOST }}:3000"
+            echo "🌐 Web App (Alt Port): http://${{ env.SERVER_HOST }}:29000"
+            echo "🔌 FastAPI Backend: http://${{ env.SERVER_HOST }}:28001/health"
             echo "========================================="

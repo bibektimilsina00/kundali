@@ -1,0 +1,30 @@
+FROM node:20-slim
+
+WORKDIR /app
+
+COPY package*.json ./
+COPY apps/web/package*.json ./apps/web/
+
+RUN npm --prefix apps/web ci || npm --prefix apps/web install
+
+COPY . .
+
+# Pass NEXT_PUBLIC build arguments for Next.js bundle
+ARG NEXT_PUBLIC_POSTHOG_KEY
+ARG NEXT_PUBLIC_POSTHOG_HOST
+ARG NEXT_PUBLIC_UMAMI_WEBSITE_ID
+ARG NEXT_PUBLIC_UMAMI_HOST
+
+ENV NEXT_PUBLIC_POSTHOG_KEY=$NEXT_PUBLIC_POSTHOG_KEY
+ENV NEXT_PUBLIC_POSTHOG_HOST=$NEXT_PUBLIC_POSTHOG_HOST
+ENV NEXT_PUBLIC_UMAMI_WEBSITE_ID=$NEXT_PUBLIC_UMAMI_WEBSITE_ID
+ENV NEXT_PUBLIC_UMAMI_HOST=$NEXT_PUBLIC_UMAMI_HOST
+
+RUN npm --prefix apps/web run build
+
+EXPOSE 3000
+
+ENV PORT=3000
+ENV NODE_ENV=production
+
+CMD ["npm", "--prefix", "apps/web", "start"]

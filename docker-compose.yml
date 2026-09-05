@@ -1,18 +1,63 @@
 version: '3.8'
 
 services:
-  kundali-app:
+  kundali_postgres:
+    image: postgres:16-alpine
+    container_name: kundali_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-kundali}
+      POSTGRES_USER: ${POSTGRES_USER:-kundali}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-kundalipassword}
+    ports:
+      - "127.0.0.1:5435:5432"
+    volumes:
+      - kundali_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-kundali} -d ${POSTGRES_DB:-kundali}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  kundali_api:
     build:
       context: .
-      dockerfile: Dockerfile
-    image: ${GHCR_IMAGE:-ghcr.io/bibektimilsina/kundali:latest}
-    container_name: kundali-app
+      dockerfile: apps/api/Dockerfile
+    image: ${GHCR_IMAGE_API:-ghcr.io/bibektimilsina00/kundali-api:latest}
+    container_name: kundali_api
+    restart: always
+    ports:
+      - "28001:8000"
+    environment:
+      - ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-kundali}:${POSTGRES_PASSWORD:-kundalipassword}@kundali_postgres:5432/${POSTGRES_DB:-kundali}
+      - LLM_BASE_URL=${AGENT_ROUTER_BASE_URL:-https://agentrouter.org/v1}
+      - LLM_API_KEY=${AGENT_ROUTER_API_KEY}
+      - LLM_MODEL=${AGENT_ROUTER_MODEL:-gpt-4o-mini}
+    depends_on:
+      kundali_postgres:
+        condition: service_healthy
+
+  kundali_web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    image: ${GHCR_IMAGE_WEB:-ghcr.io/bibektimilsina00/kundali-web:latest}
+    container_name: kundali_web
     restart: always
     ports:
       - "3000:3000"
-    env_file:
-      - .env
+      - "29000:3000"
     environment:
       - PORT=3000
       - NODE_ENV=production
-      - PYTHON_PATH=python3
+      - FASTAPI_URL=http://kundali_api:8000
+      - AGENT_ROUTER_API_KEY=${AGENT_ROUTER_API_KEY}
+      - AGENT_ROUTER_BASE_URL=${AGENT_ROUTER_BASE_URL}
+      - AGENT_ROUTER_MODEL=${AGENT_ROUTER_MODEL}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    depends_on:
+      - kundali_api
+
+volumes:
+  kundali_pgdata:

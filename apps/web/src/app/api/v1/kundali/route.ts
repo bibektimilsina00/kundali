@@ -6,6 +6,32 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
+    // Check if FASTAPI_URL microservice is configured
+    const fastapiUrl = process.env.FASTAPI_URL || process.env.KUNDALI_API_URL;
+    if (fastapiUrl) {
+      try {
+        const res = await fetch(`${fastapiUrl}/v1/kundali`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            date: body.date,
+            time: body.time,
+            tz_name: body.tz_name || "Asia/Kathmandu",
+            latitude: body.latitude ?? 27.7172,
+            longitude: body.longitude ?? 85.3240,
+            place_label: body.place_label || "Kathmandu",
+            time_accuracy: body.time_accuracy || "exact",
+          }),
+        });
+        if (res.ok) {
+          const chart = await res.json();
+          return NextResponse.json(chart);
+        }
+      } catch (fastapiErr) {
+        console.warn("FastAPI service proxy connection error, using local Python fallback:", fastapiErr);
+      }
+    }
+
     // Absolute path to the python script and venv python executable
     const apiDir = path.resolve(process.cwd(), "../../apps/api");
     const fallbackApiDir = path.resolve(process.cwd(), "../api");
