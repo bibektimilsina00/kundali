@@ -10,7 +10,6 @@ import {
   Square,
   ChevronDown,
   Check,
-  Sparkles,
   Mic,
 } from "lucide-react";
 
@@ -126,7 +125,7 @@ export function CustomVoiceSelector({
           {/* Dropdown Header */}
           <div className="flex items-center justify-between border-b border-white/10 px-2.5 pb-2 pt-1">
             <div className="flex items-center gap-1.5">
-              <Sparkles className="size-3.5 text-[#E5A93C]" />
+              <Mic className="size-3.5 text-[#E5A93C]" />
               <span className="text-xs font-bold text-[#F8FAFC]">
                 {language === "ne"
                   ? "ज्योतिषी स्वर चयन गर्नुहोस्"
