@@ -212,7 +212,7 @@ export function HomepageHero() {
                       if (errors.name) setErrors({ ...errors, name: "" });
                     }}
                     placeholder={t.fullName}
-                    className={`w-full rounded-[8px] border bg-[#090A10] px-3.5 py-2.5 text-xs text-[#F8FAFC] placeholder-[#94A3B8]/40 focus:outline-none transition ${
+                    className={`w-full rounded-[8px] border bg-[#090A10] px-3.5 py-2.5 text-sm text-[#F8FAFC] placeholder-[#94A3B8] focus:outline-none transition ${
                       errors.name ? "border-rose-500" : "border-white/10 focus:border-[#E5A93C]"
                     }`}
                   />
@@ -233,7 +233,7 @@ export function HomepageHero() {
                         className={`rounded-[6px] py-1.5 text-xs font-bold capitalize transition ${
                           gender === g
                             ? "bg-[#E5A93C] text-[#090A10]"
-                            : "text-[#94A3B8] hover:text-[#F8FAFC]"
+                            : "text-[#CBD5E1] hover:text-[#F8FAFC]"
                         }`}
                       >
                         {g}

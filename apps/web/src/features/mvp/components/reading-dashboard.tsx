@@ -655,39 +655,39 @@ export function ReadingDashboard() {
                 <span className="font-bold text-[#F8FAFC]">{currentDashaText}</span>
               </div>
 
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-[11px]">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
                 <div className="flex justify-between border-b border-white/5 pb-1">
-                  <span className="text-[#94A3B8]">{t.moonSignLabel}</span>
+                  <span className="text-[#CBD5E1]">{t.moonSignLabel}</span>
                   <span className="font-bold text-[#F8FAFC]">{getSignName(activeChart.avakhada?.sign || "Sagittarius", language)}</span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-1">
-                  <span className="text-[#94A3B8]">{t.nakshatraLabel}</span>
+                  <span className="text-[#CBD5E1]">{t.nakshatraLabel}</span>
                   <span className="font-bold text-[#F3C766]">{getNakshatraName(activeChart.avakhada?.nakshatra || "Moola", language)}</span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-1">
-                  <span className="text-[#94A3B8]">{t.nakshatraPadaLabel}</span>
+                  <span className="text-[#CBD5E1]">{t.nakshatraPadaLabel}</span>
                   <span className="font-bold text-[#F8FAFC]">
                     {language === "en" ? "Pada " : "चरण "}{toLocalizedDigit(activeChart.avakhada?.charan || 2, language)}
                   </span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-1">
-                  <span className="text-[#94A3B8]">{t.nameSyllableLabel}</span>
+                  <span className="text-[#CBD5E1]">{t.nameSyllableLabel}</span>
                   <span className="font-bold text-[#F3C766]">{activeChart.avakhada?.name_syllable || "Yo"}</span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-1">
-                  <span className="text-[#94A3B8]">{t.ganaLabel}</span>
+                  <span className="text-[#CBD5E1]">{t.ganaLabel}</span>
                   <span className="font-bold text-[#F8FAFC]">{getAvakhadaTerm(activeChart.avakhada?.gana || "Rakshasa", language)}</span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-1">
-                  <span className="text-[#94A3B8]">{t.nadiLabel}</span>
+                  <span className="text-[#CBD5E1]">{t.nadiLabel}</span>
                   <span className="font-bold text-[#F8FAFC]">{getAvakhadaTerm(activeChart.avakhada?.nadi || "Adi", language)}</span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-1">
-                  <span className="text-[#94A3B8]">{t.yoniLabel}</span>
+                  <span className="text-[#CBD5E1]">{t.yoniLabel}</span>
                   <span className="font-bold text-[#F8FAFC]">{getAvakhadaTerm(activeChart.avakhada?.yoni || "Rat", language)}</span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-1">
-                  <span className="text-[#94A3B8]">{t.varnaElementLabel}</span>
+                  <span className="text-[#CBD5E1]">{t.varnaElementLabel}</span>
                   <span className="font-bold text-[#F8FAFC]">
                     {getAvakhadaTerm(activeChart.avakhada?.varna || "Kshatriya", language)} · {getAvakhadaTerm(activeChart.avakhada?.tatva || "Fire", language)}
                   </span>
@@ -704,7 +704,7 @@ export function ReadingDashboard() {
                     <Gem className="size-3.5 text-[#E5A93C]" /> {t.auspiciousTitle}
                   </h3>
 
-                  <div className="space-y-2.5 text-[11px]">
+                  <div className="space-y-2.5 text-xs">
                     <div>
                       <span className="font-bold text-[#10B981] flex items-center gap-1">
                         {t.luckyColors}
@@ -718,7 +718,7 @@ export function ReadingDashboard() {
                       <span className="font-bold text-[#EF4444] flex items-center gap-1">
                         {t.unluckyColors}
                       </span>
-                      <p className="text-[#94A3B8] mt-0.5 leading-relaxed">
+                      <p className="text-[#CBD5E1] mt-0.5 leading-relaxed">
                         {aus.unluckyColors}
                       </p>
                     </div>
@@ -736,7 +736,7 @@ export function ReadingDashboard() {
                       <span className="font-bold text-[#EF4444] flex items-center gap-1">
                         {t.unluckyGemstones}
                       </span>
-                      <p className="text-[#94A3B8] mt-0.5 leading-relaxed">
+                      <p className="text-[#CBD5E1] mt-0.5 leading-relaxed">
                         {aus.unluckyGemstones}
                       </p>
                     </div>
@@ -1110,12 +1110,12 @@ export function ReadingDashboard() {
                     </span>
                     <div>
                       <h3 className="font-serif text-base font-bold text-[#F8FAFC]">{section.title}</h3>
-                      <p className="text-xs text-[#94A3B8]">{section.subtitle}</p>
+                      <p className="text-xs text-[#CBD5E1]">{section.subtitle}</p>
                     </div>
                   </div>
 
                   {/* Deep Reading Body */}
-                  <div className="space-y-2 text-xs leading-relaxed text-[#94A3B8]">
+                  <div className="space-y-3 text-sm leading-relaxed text-[#E2E8F0] font-sans">
                     {section.content.map((p: string, idx: number) => (
                       <p key={idx}>{p}</p>
                     ))}
