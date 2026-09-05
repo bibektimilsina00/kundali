@@ -11,6 +11,8 @@ import { saveKundaliToStorage } from "@/features/kundali/store/kundali-store";
 import type { BirthDetailsIn, Place } from "@/features/kundali/types";
 import { AD_MONTHS, BS_MONTHS, convertBsToAd } from "@/lib/utils/date-converter";
 import { GeneratingScreen } from "@/features/mvp/components/generating-screen";
+import { MainNavbar } from "@/components/layout/main-navbar";
+import { MainFooter } from "@/components/layout/main-footer";
 import { useTranslation } from "@/lib/i18n/language-context";
 import { Language } from "@/lib/i18n/translations";
 import { trackKundaliGenerated } from "@/lib/utils/analytics";
@@ -29,22 +31,16 @@ export function HomepageHero() {
   const [ampm, setAmPm] = useState<"AM" | "PM">("AM");
   const [approximateTime, setApproximateTime] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Client Validation
+
     const newErrors: Record<string, string> = {};
     if (!name.trim()) {
       newErrors.name = "Full name is required";
-    }
-    if (!day || !month || !year) {
-      newErrors.date = "Please select day, month, and year of birth";
-    }
-    if (!hour || !minute) {
-      newErrors.time = "Please select birth hour and minute";
     }
     if (!selectedPlace) {
       newErrors.place = "Please search and select your birthplace";
@@ -101,76 +97,7 @@ export function HomepageHero() {
   return (
     <div className="min-h-dvh bg-[#090A10] text-[#94A3B8]">
       {/* 1. Header (Sticky Top Nav) */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#090A10]">
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-3.5">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="grid size-9 place-items-center rounded-[8px] bg-[#E5A93C] text-[#090A10] font-bold shadow-md transition hover:bg-[#F3C766]">
-              <svg className="size-5.5 text-[#090A10]" viewBox="0 0 24 24" fill="none">
-                {/* 8 Celestial Sunburst Rays */}
-                <path
-                  d="M12 1.5v2.5M12 20v2.5M1.5 12h2.5M20 12h2.5M4.58 4.58l1.77 1.77M17.65 17.65l1.77 1.77M4.58 19.42l1.77-1.77M17.65 6.35l1.77-1.77"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                {/* Sun Disk Core */}
-                <circle cx="12" cy="12" r="5.2" fill="currentColor" />
-                {/* Crescent Moon Arc Cutout */}
-                <path
-                  d="M13.8 8.2a4.5 4.5 0 0 0 0 7.6 4.2 4.2 0 1 1 0-7.6z"
-                  fill="#090A10"
-                />
-              </svg>
-            </div>
-            <div>
-              <span className="block font-serif text-base font-bold tracking-wider text-[#F8FAFC]">
-                KUNDALI.AI
-              </span>
-              <span className="block text-[10px] font-semibold uppercase tracking-widest text-[#E5A93C]">
-                Precision Vedic Astronomy &amp; AI
-              </span>
-            </div>
-          </Link>
-
-          <nav className="hidden md:flex items-center gap-6 text-xs font-semibold text-[#CBD5E1]">
-            <a href="#features" className="hover:text-[#F3C766] transition">Features</a>
-            <a href="#vargas" className="hover:text-[#F3C766] transition">Divisional Vargas</a>
-            <Link href="/reading/live" className="hover:text-[#F3C766] transition flex items-center gap-1.5">
-              <span className="inline-block size-2 rounded-full bg-rose-500 animate-pulse" />
-              Live AI Consultation
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            {/* Language Selector in Header */}
-            <div className="flex items-center gap-1.5 rounded-[8px] bg-[#161B2B] border border-white/10 px-2.5 py-1.5 text-xs font-semibold text-[#F8FAFC]">
-              <span>🌐</span>
-              <select
-                value={language}
-                onChange={(e) => setLanguage(e.target.value as Language)}
-                className="bg-transparent text-[#F3C766] text-xs font-bold focus:outline-none cursor-pointer"
-              >
-                <option value="en" className="bg-[#161B2B] text-white">English 🇬🇧</option>
-                <option value="ne" className="bg-[#161B2B] text-white">नेपाली 🇳🇵</option>
-                <option value="hi" className="bg-[#161B2B] text-white">हिन्दी 🇮🇳</option>
-              </select>
-            </div>
-
-            <Link
-              href="/reading"
-              className="rounded-[8px] border border-white/10 bg-[#161B2B] px-4 py-2 text-xs font-bold text-[#F8FAFC] transition hover:border-[#E5A93C]"
-            >
-              {t.vedicReading}
-            </Link>
-            <a
-              href="#form"
-              className="rounded-[8px] bg-[#E5A93C] px-4 py-2 text-xs font-bold text-[#090A10] transition hover:bg-[#F3C766]"
-            >
-              {t.freeKundali}
-            </a>
-          </div>
-        </div>
-      </header>
+      <MainNavbar />
 
       {/* 2. Hero Section */}
       <main className="mx-auto max-w-7xl px-6 py-10 lg:py-14">
@@ -431,32 +358,7 @@ export function HomepageHero() {
       </section>
 
       {/* 4. Footer */}
-      <footer className="border-t border-white/10 bg-[#090A10] py-8 text-xs text-[#94A3B8]">
-        <div className="mx-auto max-w-7xl px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2.5">
-            <div className="grid size-6 place-items-center rounded-[6px] bg-[#E5A93C] text-[#090A10]">
-              <svg className="size-4 text-[#090A10]" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 1.5v2.5M12 20v2.5M1.5 12h2.5M20 12h2.5M4.58 4.58l1.77 1.77M17.65 17.65l1.77 1.77M4.58 19.42l1.77-1.77M17.65 6.35l1.77-1.77"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                <circle cx="12" cy="12" r="5.2" fill="currentColor" />
-                <path
-                  d="M13.8 8.2a4.5 4.5 0 0 0 0 7.6 4.2 4.2 0 1 1 0-7.6z"
-                  fill="#090A10"
-                />
-              </svg>
-            </div>
-            <span className="font-serif font-bold text-[#F8FAFC]">KUNDALI.AI</span>
-            <span>· Precision Vedic Astronomy &amp; AI</span>
-          </div>
-          <p className="text-center sm:text-right text-[11px]">
-            Calculated via Swiss Ephemeris Lahiri Sidereal Ayanamsa · All Rights Reserved © {new Date().getFullYear()}
-          </p>
-        </div>
-      </footer>
+      <MainFooter />
     </div>
   );
 }
