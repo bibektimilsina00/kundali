@@ -11,6 +11,7 @@ import { OpenAIRealtimeWebRTCClient } from "@/lib/utils/openai-realtime-webrtc";
 import { ASTROLOGER_VOICES } from "@/lib/constants/voices";
 
 import { useTranslation } from "@/lib/i18n/language-context";
+import { trackLiveVoiceStarted } from "@/lib/utils/analytics";
 
 export function LiveModeWorkspace() {
   const router = useRouter();
@@ -599,6 +600,7 @@ export function LiveModeWorkspace() {
       // Try OpenAI Realtime WebRTC first!
       startOpenAIRealtimeWebRTC();
       addDebugLog("MODE_SWITCH", "Entered Live Voice Mode");
+      trackLiveVoiceStarted();
     } else {
       activeSessionRef.current = false;
       stopSpeech();

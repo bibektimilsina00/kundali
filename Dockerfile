@@ -20,6 +20,17 @@ RUN pip install --no-cache-dir pyswisseph tzdata pydantic pydantic-settings fast
 # Copy whole repository code
 COPY . .
 
+# Pass NEXT_PUBLIC build arguments for Next.js bundle
+ARG NEXT_PUBLIC_POSTHOG_KEY
+ARG NEXT_PUBLIC_POSTHOG_HOST
+ARG NEXT_PUBLIC_UMAMI_WEBSITE_ID
+ARG NEXT_PUBLIC_UMAMI_HOST
+
+ENV NEXT_PUBLIC_POSTHOG_KEY=$NEXT_PUBLIC_POSTHOG_KEY
+ENV NEXT_PUBLIC_POSTHOG_HOST=$NEXT_PUBLIC_POSTHOG_HOST
+ENV NEXT_PUBLIC_UMAMI_WEBSITE_ID=$NEXT_PUBLIC_UMAMI_WEBSITE_ID
+ENV NEXT_PUBLIC_UMAMI_HOST=$NEXT_PUBLIC_UMAMI_HOST
+
 # Install dependencies and build Next.js Web App
 RUN npm --prefix apps/web ci || npm --prefix apps/web install
 RUN npm --prefix apps/web run build

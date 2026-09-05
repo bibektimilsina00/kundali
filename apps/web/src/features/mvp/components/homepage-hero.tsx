@@ -13,6 +13,7 @@ import { AD_MONTHS, BS_MONTHS, convertBsToAd } from "@/lib/utils/date-converter"
 import { GeneratingScreen } from "@/features/mvp/components/generating-screen";
 import { useTranslation } from "@/lib/i18n/language-context";
 import { Language } from "@/lib/i18n/translations";
+import { trackKundaliGenerated } from "@/lib/utils/analytics";
 
 export function HomepageHero() {
   const router = useRouter();
@@ -82,6 +83,11 @@ export function HomepageHero() {
     try {
       const chart = await createKundali(birthDetails);
       saveKundaliToStorage(birthDetails, chart);
+      trackKundaliGenerated({
+        name: birthDetails.name,
+        place: birthDetails.place_label,
+        language,
+      });
     } catch (err) {
       console.error("Failed to generate Kundali", err);
       setIsSubmitting(false);

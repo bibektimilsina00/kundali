@@ -55,6 +55,11 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
+          build-args: |
+            NEXT_PUBLIC_POSTHOG_KEY=${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
+            NEXT_PUBLIC_POSTHOG_HOST=${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
+            NEXT_PUBLIC_UMAMI_WEBSITE_ID=${{ secrets.NEXT_PUBLIC_UMAMI_WEBSITE_ID }}
+            NEXT_PUBLIC_UMAMI_HOST=${{ secrets.NEXT_PUBLIC_UMAMI_HOST }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -100,6 +105,10 @@ jobs:
             LLM_API_KEY="${{ secrets.LLM_API_KEY }}"
             LLM_MODEL="${{ secrets.LLM_MODEL }}"
             JWT_SECRET="${{ secrets.JWT_SECRET }}"
+            NEXT_PUBLIC_POSTHOG_KEY="${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}"
+            NEXT_PUBLIC_POSTHOG_HOST="${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}"
+            NEXT_PUBLIC_UMAMI_WEBSITE_ID="${{ secrets.NEXT_PUBLIC_UMAMI_WEBSITE_ID }}"
+            NEXT_PUBLIC_UMAMI_HOST="${{ secrets.NEXT_PUBLIC_UMAMI_HOST }}"
             EOF
 
             # 4. Pull the latest Docker container image

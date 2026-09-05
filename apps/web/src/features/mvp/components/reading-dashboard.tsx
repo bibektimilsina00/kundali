@@ -31,6 +31,11 @@ import {
   getAvakhadaTerm,
   getLocalizedAuspiciousElements,
 } from "@/lib/i18n/vedic-translations";
+import {
+  trackAudioPlayed,
+  trackPdfDownloaded,
+  trackShareClicked,
+} from "@/lib/utils/analytics";
 
 function formatAudioTime(seconds: number): string {
   if (!seconds || isNaN(seconds)) return "00:00";
@@ -159,6 +164,7 @@ export function ReadingDashboard() {
     if (!pdfReportRef.current) return;
     setIsExportingPdf(true);
     showToast(t.pdfGenerating);
+    trackPdfDownloaded(language);
     try {
       await exportElementToPdf(pdfReportRef.current, `${activeBirth.name}_Complete_Janma_Kundali.pdf`);
       showToast(language === "en" ? "PDF report downloaded successfully!" : "पीडीएफ रिपोर्ट डाउनलोड भयो!");
@@ -171,6 +177,7 @@ export function ReadingDashboard() {
   };
 
   const handleSharePage = async () => {
+    trackShareClicked("page");
     const title = `${activeBirth.name}'s Complete Janma Kundali Reading`;
     const text = `Explore the full Vedic Astrology Kundali report for ${activeBirth.name}.`;
     const url = window.location.href;
@@ -224,6 +231,7 @@ export function ReadingDashboard() {
   };
 
   const handleShareAudio = async () => {
+    trackShareClicked("audio");
     const title = `${activeBirth.name}'s Kundali Audio Reading`;
     const text = `Listen to ${activeBirth.name}'s Vedic Astrology Audio Reading.`;
     const url = window.location.href;
@@ -813,6 +821,7 @@ export function ReadingDashboard() {
                       const rateMap: Record<string, number> = { "1x": 1.0, "1.2x": 1.2, "1.5x": 1.5 };
                       const rate = rateMap[playbackSpeed] || 1.0;
                       setIsPlaying(true);
+                      trackAudioPlayed(selectedVoice, language);
                       speakText(textToRead, {
                         rate,
                         language,

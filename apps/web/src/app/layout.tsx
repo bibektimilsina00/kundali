@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Cinzel, Inter } from "next/font/google";
+import Script from "next/script";
 
 import { QueryProvider } from "@/providers/query-provider";
 import { LanguageProvider } from "@/lib/i18n/language-context";
+import { PostHogProvider } from "@/providers/posthog-provider";
 
 import "./globals.css";
 
@@ -28,12 +30,24 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
+  const umamiHost = process.env.NEXT_PUBLIC_UMAMI_HOST || "https://cloud.umami.is/script.js";
+
   return (
     <html lang="en" className={`${cinzel.variable} ${body.variable} dark`}>
       <body className="font-body antialiased bg-[#090A10] text-[#94A3B8] min-h-dvh">
-        <LanguageProvider>
-          <QueryProvider>{children}</QueryProvider>
-        </LanguageProvider>
+        <PostHogProvider>
+          <LanguageProvider>
+            <QueryProvider>{children}</QueryProvider>
+          </LanguageProvider>
+        </PostHogProvider>
+        {umamiWebsiteId && (
+          <Script
+            src={umamiHost}
+            data-website-id={umamiWebsiteId}
+            strategy="afterInteractive"
+          />
+        )}
       </body>
     </html>
   );
