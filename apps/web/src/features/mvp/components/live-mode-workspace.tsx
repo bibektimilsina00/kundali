@@ -9,6 +9,7 @@ import type { ChatMessage } from "../types";
 import { speakText, stopSpeech } from "@/lib/utils/audio-speaker";
 import { OpenAIRealtimeWebRTCClient } from "@/lib/utils/openai-realtime-webrtc";
 import { ASTROLOGER_VOICES } from "@/lib/constants/voices";
+import { CustomVoiceSelector } from "./custom-voice-selector";
 
 import { useTranslation } from "@/lib/i18n/language-context";
 import { trackLiveVoiceStarted } from "@/lib/utils/analytics";
@@ -717,18 +718,11 @@ export function LiveModeWorkspace() {
             </>
           )}
 
-          <select
-            value={selectedVoice}
-            onChange={(e) => handleVoiceChange(e.target.value)}
-            className="rounded-[8px] border border-[#E5A93C]/40 bg-[#161B2B] px-2.5 py-1.5 text-xs font-semibold text-[#F3C766] outline-none cursor-pointer hover:border-[#E5A93C]"
-            title={t.selectVoice}
-          >
-            {ASTROLOGER_VOICES.map((v) => (
-              <option key={v.id} value={v.id}>
-                🎙️ {v.name} ({v.title})
-              </option>
-            ))}
-          </select>
+          <CustomVoiceSelector
+            selectedVoice={selectedVoice}
+            onSelectVoice={(vId) => handleVoiceChange(vId)}
+            language={selectedLanguage}
+          />
 
           <select
             value={selectedLanguage}
@@ -1146,21 +1140,11 @@ export function LiveModeWorkspace() {
                 {/* CONTROL DOCK (Language, Mute, Kundali, Interrupt, Transcript, Exit) */}
                 <div className="w-full max-w-2xl rounded-[8px] border border-white/10 bg-[#161B2B]/90 backdrop-blur-2xl p-2 flex items-center justify-between gap-1 z-20 shadow-2xl shrink-0">
                   {/* Voice Selector */}
-                  <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-[8px] bg-[#090A10]/90 border border-[#E5A93C]/40 text-xs font-semibold text-[#F8FAFC]">
-                    <span className="text-xs">🎙️</span>
-                    <select
-                      value={selectedVoice}
-                      onChange={(e) => handleVoiceChange(e.target.value)}
-                      className="bg-transparent text-[#F3C766] text-[11px] font-bold focus:outline-none cursor-pointer"
-                      title={t.selectVoice}
-                    >
-                      {ASTROLOGER_VOICES.map((v) => (
-                        <option key={v.id} value={v.id} className="bg-[#161B2B] text-white">
-                          {v.name} ({v.title})
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <CustomVoiceSelector
+                    selectedVoice={selectedVoice}
+                    onSelectVoice={(vId) => handleVoiceChange(vId)}
+                    language={selectedLanguage}
+                  />
 
                   {/* Language Selector */}
                   <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-[8px] bg-[#090A10]/90 border border-[#E5A93C]/40 text-xs font-semibold text-[#F8FAFC]">

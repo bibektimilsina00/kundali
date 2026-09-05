@@ -22,6 +22,7 @@ import { ASTROLOGER_VOICES } from "@/lib/constants/voices";
 
 import { generateDynamicAstrologyReport } from "@/features/kundali/api/report-generator";
 import { useTranslation, type Language } from "@/lib/i18n/language-context";
+import { CustomVoiceSelector } from "./custom-voice-selector";
 import {
   Download,
   Share2,
@@ -421,26 +422,6 @@ export function ReadingDashboard() {
           </div>
 
           <div className="flex items-center gap-3">
-            <select
-              value={selectedVoice}
-              onChange={(e) => {
-                const newVoice = e.target.value;
-                setSelectedVoice(newVoice);
-                if (isPlaying) {
-                  stopSpeech();
-                  setIsPlaying(false);
-                }
-              }}
-              className="rounded-[8px] border border-[#E5A93C]/40 bg-[#161B2B] px-2.5 py-1.5 text-xs font-semibold text-[#F3C766] outline-none cursor-pointer hover:border-[#E5A93C]"
-              title={t.selectVoice}
-            >
-              {ASTROLOGER_VOICES.map((v) => (
-                <option key={v.id} value={v.id}>
-                  {v.name} ({v.title})
-                </option>
-              ))}
-            </select>
-
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value as any)}
@@ -948,8 +929,20 @@ export function ReadingDashboard() {
                   </div>
                 </div>
 
-                {/* Top Right Action Icons for Audio */}
+                {/* Top Right Action Icons & Custom Voice Selector for Audio */}
                 <div className="flex items-center gap-2 shrink-0">
+                  <CustomVoiceSelector
+                    selectedVoice={selectedVoice}
+                    onSelectVoice={(newVoice) => {
+                      setSelectedVoice(newVoice);
+                      if (isPlaying) {
+                        stopSpeech();
+                        setIsPlaying(false);
+                      }
+                    }}
+                    language={language}
+                  />
+
                   <button
                     onClick={handleDownloadAudio}
                     title={t.downloadAudio}
