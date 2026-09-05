@@ -1,0 +1,14 @@
+{
+  "birth": {
+    "date": "1975-06-15",
+    "latitude": 27.7172,
+    "longitude": 85.324,
+    "time": "08:30",
+    "time_accuracy": "exact",
+    "tz_name": "Asia/Kathmandu"
+  },
+  "expected": null,
+  "name": "nepal_pre_1986",
+  "verified_against": null,
+  "why": "Kathmandu was +5:30 before 1986, not +5:45. A stored offset is 15 min wrong here \u2014 about 3.75 deg of ascendant motion."
+}

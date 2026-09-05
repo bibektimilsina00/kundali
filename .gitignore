@@ -1,0 +1,39 @@
+# secrets — nothing matching this may ever be committed
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.import_linter_cache/
+uv.lock.bak
+
+# node
+node_modules/
+.next/
+.turbo/
+*.tsbuildinfo
+
+# flutter / dart
+apps/mobile/build/
+apps/mobile/.dart_tool/
+apps/mobile/.flutter-plugins*
+apps/mobile/ios/Pods/
+apps/mobile/**/Generated.xcconfig
+*.iml
+
+# large data files — fetched by scripts, never committed
+apps/api/ephe/
+apps/api/data/
+
+# misc
+.DS_Store
+coverage/
+htmlcov/

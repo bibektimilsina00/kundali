@@ -1,0 +1,14 @@
+{
+  "birth": {
+    "date": "1942-09-01",
+    "latitude": 22.5726,
+    "longitude": 88.3639,
+    "time": "06:00",
+    "time_accuracy": "exact",
+    "tz_name": "Asia/Kolkata"
+  },
+  "expected": null,
+  "name": "india_wartime_dst",
+  "verified_against": null,
+  "why": "India ran +6:30 from Sep 1942 to Oct 1945. Missed by naive +5:30."
+}

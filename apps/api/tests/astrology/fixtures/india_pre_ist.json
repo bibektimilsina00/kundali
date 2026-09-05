@@ -1,0 +1,14 @@
+{
+  "birth": {
+    "date": "1900-03-10",
+    "latitude": 22.5726,
+    "longitude": 88.3639,
+    "time": "14:15",
+    "time_accuracy": "exact",
+    "tz_name": "Asia/Kolkata"
+  },
+  "expected": null,
+  "name": "india_pre_ist",
+  "verified_against": null,
+  "why": "Kolkata was on Madras Mean Time (+5:21:10) before 1906."
+}

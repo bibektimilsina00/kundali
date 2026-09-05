@@ -1,0 +1,14 @@
+{
+  "birth": {
+    "date": "1995-04-01",
+    "latitude": 27.7172,
+    "longitude": 85.324,
+    "time": "00:00",
+    "time_accuracy": "exact",
+    "tz_name": "Asia/Kathmandu"
+  },
+  "expected": null,
+  "name": "local_midnight",
+  "verified_against": null,
+  "why": "00:00 local. Catches date-rollover errors in the UTC conversion."
+}

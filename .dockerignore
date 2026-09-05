@@ -1,0 +1,17 @@
+.git
+.gitignore
+.next
+node_modules
+apps/web/node_modules
+apps/web/.next
+apps/api/.venv
+apps/api/.pytest_cache
+apps/api/.import_linter_cache
+apps/api/.ruff_cache
+__pycache__
+*.pyc
+*.pyo
+*.log
+.env
+.env.local
+.DS_Store

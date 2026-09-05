@@ -1,0 +1,1205 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { exportElementToPdf } from "@/lib/utils/pdf-exporter";
+import { NorthIndianChart } from "@/features/kundali/components/north-indian-chart";
+import { SouthIndianChart } from "@/features/kundali/components/south-indian-chart";
+import { loadKundaliFromStorage } from "@/features/kundali/store/kundali-store";
+import type { Chart, BirthDetailsIn } from "@/features/kundali/types";
+import type { ReportSection } from "../types";
+import { SAMPLE_BIRTH_DETAILS, MOCK_REPORT_SECTIONS } from "../data/mock-data";
+import {
+  speakText,
+  stopSpeech,
+  seekAudioBy,
+  seekAudioToPercent,
+  setPlaybackRate,
+} from "@/lib/utils/audio-speaker";
+import { GeneratingScreen } from "@/features/mvp/components/generating-screen";
+import { ASTROLOGER_VOICES } from "@/lib/constants/voices";
+
+import { generateDynamicAstrologyReport } from "@/features/kundali/api/report-generator";
+import { useTranslation, type Language } from "@/lib/i18n/language-context";
+import {
+  toLocalizedDigit,
+  getPlanetName,
+  getPlanetAbbrev,
+  getSignName,
+  getNakshatraName,
+  getAvakhadaTerm,
+  getLocalizedAuspiciousElements,
+} from "@/lib/i18n/vedic-translations";
+
+function formatAudioTime(seconds: number): string {
+  if (!seconds || isNaN(seconds)) return "00:00";
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
+
+function fmtDeg(deg: number, lang: Language = "en"): string {
+  const d = Math.floor(deg);
+  const mFull = (deg - d) * 60;
+  const m = Math.floor(mFull);
+  const s = Math.round((mFull - m) * 60);
+  const formatted = `${d}°${String(m).padStart(2, "0")}'${String(s).padStart(2, "0")}"`;
+  return toLocalizedDigit(formatted, lang);
+}
+
+function getAuspiciousElements(lagnaSign: string) {
+  const map: Record<string, { luckyColors: string; unluckyColors: string; luckyGemstones: string; unluckyGemstones: string }> = {
+    Aries: {
+      luckyColors: "Red, Saffron, Yellow, Golden & White.",
+      unluckyColors: "Black, Dark Blue & Dull Grey.",
+      luckyGemstones: "Red Coral (Moonga), Yellow Sapphire (Pukhraj) & Ruby (Manikya).",
+      unluckyGemstones: "Blue Sapphire (Neelam) & Diamond (Hira).",
+    },
+    Taurus: {
+      luckyColors: "White, Off-White, Pink, Light Blue & Green.",
+      unluckyColors: "Red, Crimson & Dark Yellow.",
+      luckyGemstones: "Diamond (Hira), White Sapphire & Emerald (Panna).",
+      unluckyGemstones: "Ruby (Manikya) & Red Coral (Moonga).",
+    },
+    Gemini: {
+      luckyColors: "Light Green, Emerald, Yellow, White & Sky Blue.",
+      unluckyColors: "Deep Red, Scarlet & Dark Orange.",
+      luckyGemstones: "Emerald (Panna), Diamond (Hira) & Blue Sapphire (Neelam).",
+      unluckyGemstones: "Red Coral (Moonga) & Ruby (Manikya).",
+    },
+    Cancer: {
+      luckyColors: "White, Silver, Cream, Sea Green & Soft Yellow.",
+      unluckyColors: "Black, Dark Charcoal & Deep Grey.",
+      luckyGemstones: "Pearl (Moti), Red Coral (Moonga) & Yellow Sapphire (Pukhraj).",
+      unluckyGemstones: "Blue Sapphire (Neelam) & Diamond (Hira).",
+    },
+    Leo: {
+      luckyColors: "Gold, Orange, Saffron, Bright Red & Light Yellow.",
+      unluckyColors: "Black, Navy Blue & Dark Grey.",
+      luckyGemstones: "Ruby (Manikya), Red Coral (Moonga) & Yellow Sapphire (Pukhraj).",
+      unluckyGemstones: "Diamond (Hira) & Blue Sapphire (Neelam).",
+    },
+    Virgo: {
+      luckyColors: "Green, Olive, White, Light Yellow & Sky Blue.",
+      unluckyColors: "Fiery Red & Deep Scarlet.",
+      luckyGemstones: "Emerald (Panna), Diamond (Hira) & White Sapphire.",
+      unluckyGemstones: "Red Coral (Moonga) & Ruby (Manikya).",
+    },
+    Libra: {
+      luckyColors: "White, Pastel Pink, Sky Blue, Royal Blue & Turquoise.",
+      unluckyColors: "Deep Yellow, Ochre & Crimson.",
+      luckyGemstones: "Diamond (Hira), Opal & Blue Sapphire (Neelam).",
+      unluckyGemstones: "Ruby (Manikya) & Yellow Sapphire (Pukhraj).",
+    },
+    Scorpio: {
+      luckyColors: "Dark Red, Maroon, Saffron, Yellow & Orange.",
+      unluckyColors: "Black, Deep Navy & Dark Green.",
+      luckyGemstones: "Red Coral (Moonga), Yellow Sapphire (Pukhraj) & Pearl (Moti).",
+      unluckyGemstones: "Diamond (Hira) & Emerald (Panna).",
+    },
+    Sagittarius: {
+      luckyColors: "Yellow, Golden, Saffron, Light Orange & White.",
+      unluckyColors: "Black, Dark Blue & Charcoal.",
+      luckyGemstones: "Yellow Sapphire (Pukhraj), Ruby (Manikya) & Red Coral (Moonga).",
+      unluckyGemstones: "Diamond (Hira) & Blue Sapphire (Neelam).",
+    },
+    Capricorn: {
+      luckyColors: "Royal Blue, Navy Blue, Black, Dark Green & Grey.",
+      unluckyColors: "Bright Red, Scarlet & Crimson.",
+      luckyGemstones: "Blue Sapphire (Neelam), Diamond (Hira) & Emerald (Panna).",
+      unluckyGemstones: "Ruby (Manikya) & Red Coral (Moonga).",
+    },
+    Aquarius: {
+      luckyColors: "Electric Blue, Cyan, Black, Dark Blue & White.",
+      unluckyColors: "Bright Red, Crimson & Deep Yellow.",
+      luckyGemstones: "Blue Sapphire (Neelam), Emerald (Panna) & Diamond (Hira).",
+      unluckyGemstones: "Ruby (Manikya) & Red Coral (Moonga).",
+    },
+    Pisces: {
+      luckyColors: "Yellow, Golden, Cream, White & Light Pink.",
+      unluckyColors: "Black, Dark Blue & Charcoal.",
+      luckyGemstones: "Yellow Sapphire (Pukhraj), Pearl (Moti) & Red Coral (Moonga).",
+      unluckyGemstones: "Diamond (Hira) & Blue Sapphire (Neelam).",
+    },
+  };
+
+  return map[lagnaSign] || map.Cancer;
+}
+
+export function ReadingDashboard() {
+  const router = useRouter();
+  const { t, language, setLanguage } = useTranslation();
+  const [chartStyle, setChartStyle] = useState<"north" | "south">("north");
+  const [chartType, setChartType] = useState<"D1" | "D9">("D1");
+  const [activeDashaTab, setActiveDashaTab] = useState<"vimshottari" | "yogini" | "tribhagi">("vimshottari");
+  const [selectedHouse, setSelectedHouse] = useState<number | null>(10);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [playbackSpeed, setPlaybackSpeed] = useState<"1x" | "1.2x" | "1.5x">("1x");
+  const [selectedVoice, setSelectedVoice] = useState<string>("onyx");
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [audioProgress, setAudioProgress] = useState(0);
+  const [audioCurrentTime, setAudioCurrentTime] = useState(0);
+  const [audioDuration, setAudioDuration] = useState(0);
+  const [showFullPlanets, setShowFullPlanets] = useState(false);
+  const [audioDebugText, setAudioDebugText] = useState<string>("");
+  const [audioSource, setAudioSource] = useState<string>("");
+  const pdfReportRef = useRef<HTMLDivElement>(null);
+  const [isExportingPdf, setIsExportingPdf] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 3200);
+  };
+
+  const handleDownloadPdf = async () => {
+    if (!pdfReportRef.current) return;
+    setIsExportingPdf(true);
+    showToast(t.pdfGenerating);
+    try {
+      await exportElementToPdf(pdfReportRef.current, `${activeBirth.name}_Complete_Janma_Kundali.pdf`);
+      showToast(language === "en" ? "PDF report downloaded successfully!" : "पीडीएफ रिपोर्ट डाउनलोड भयो!");
+    } catch (err) {
+      console.error("PDF export error:", err);
+      showToast(language === "en" ? "Failed to generate PDF" : "पीडीएफ निर्माण त्रुटि");
+    } finally {
+      setIsExportingPdf(false);
+    }
+  };
+
+  const handleSharePage = async () => {
+    const title = `${activeBirth.name}'s Complete Janma Kundali Reading`;
+    const text = `Explore the full Vedic Astrology Kundali report for ${activeBirth.name}.`;
+    const url = window.location.href;
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({ title, text, url });
+        return;
+      } catch (e) {}
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      showToast(language === "en" ? "Reading page link copied to clipboard!" : "कुण्डली लिङ्क प्रतिलिपि गरियो!");
+    } catch (e) {
+      showToast(url);
+    }
+  };
+
+  const handleDownloadAudio = async () => {
+    showToast(language === "en" ? "Preparing audio download..." : "अडियो डाउनलोड तयार गर्दै...");
+    const textToRead = reportSections
+      .map((s) => `${s.title}. ${s.summary}... ${s.content?.[0] || ""}`)
+      .join(" ... ");
+    try {
+      const res = await fetch("/api/v1/tts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          text: textToRead,
+          language,
+          voice: selectedVoice,
+        }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data?.audioUrl) {
+          const a = document.createElement("a");
+          a.href = data.audioUrl;
+          a.download = `${activeBirth.name}_Kundali_Audio.mp3`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          showToast(language === "en" ? "Audio downloaded successfully!" : "अडियो डाउनलोड भयो!");
+          return;
+        }
+      }
+      showToast(language === "en" ? "Audio file ready." : "अडियो तयार भयो।");
+    } catch (e) {
+      console.error("Audio download error:", e);
+      showToast(language === "en" ? "Audio download error" : "अडियो डाउनलोड त्रुटि");
+    }
+  };
+
+  const handleShareAudio = async () => {
+    const title = `${activeBirth.name}'s Kundali Audio Reading`;
+    const text = `Listen to ${activeBirth.name}'s Vedic Astrology Audio Reading.`;
+    const url = window.location.href;
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({ title, text, url });
+        return;
+      } catch (e) {}
+    }
+    try {
+      await navigator.clipboard.writeText(`${text}\n${url}`);
+      showToast(language === "en" ? "Audio link copied to clipboard!" : "अडियो लिङ्क प्रतिलिपि गरियो!");
+    } catch (e) {
+      showToast(url);
+    }
+  };
+
+  const [activeBirth, setActiveBirth] = useState<BirthDetailsIn>({
+    name: SAMPLE_BIRTH_DETAILS.name,
+    date: SAMPLE_BIRTH_DETAILS.date as any,
+    time: SAMPLE_BIRTH_DETAILS.time,
+    tz_name: "Asia/Kathmandu",
+    latitude: 27.7172,
+    longitude: 85.3240,
+    place_label: SAMPLE_BIRTH_DETAILS.place,
+    time_accuracy: "exact",
+  });
+
+  const [activeChart, setActiveChart] = useState<Chart | null>(null);
+
+  const [reportSections, setReportSections] = useState<ReportSection[]>(MOCK_REPORT_SECTIONS);
+
+  useEffect(() => {
+    const stored = loadKundaliFromStorage();
+    if (stored) {
+      setActiveBirth(stored.birth);
+      setActiveChart(stored.chart);
+    } else {
+      fetch("/api/v1/kundali", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(activeBirth),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.error) setActiveChart(data);
+        })
+        .catch(console.error);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!activeChart) return;
+
+    // Immediately reflect instant localized dynamic report while API completes
+    setReportSections(generateDynamicAstrologyReport(activeChart, activeBirth, language));
+
+    fetch("/api/v1/report", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chart: activeChart, birth: activeBirth, language }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.report && Array.isArray(data.report)) {
+          setReportSections(data.report);
+        }
+      })
+      .catch(console.error);
+  }, [activeChart, activeBirth, language]);
+
+  const filterCategory = (id: string) => {
+    setActiveCategory(id);
+  };
+
+  const visibleSections = activeCategory === "all"
+    ? reportSections
+    : reportSections.filter((s) => s.id === activeCategory);
+
+  if (!activeChart) {
+    return <GeneratingScreen />;
+  }
+
+  const d9Varga = activeChart.vargas?.find((v) => v.code === "D9");
+  const d9Chart: Chart = d9Varga
+    ? ({
+        lagna_sign_index: d9Varga.lagna_sign_index,
+        lagna_sign: d9Varga.lagna_sign ?? "Cancer",
+        lagna_degree: 0,
+        houses: Array.from({ length: 12 }, (_, i) => ({
+          number: i + 1,
+          sign: "",
+          sign_index: (d9Varga.lagna_sign_index + i) % 12,
+          lord: "",
+          occupants: [],
+        })),
+        planets: d9Varga.placements.map((p) => ({
+          name: p.planet,
+          house: p.house,
+          degree_in_sign: 0,
+          sign: "",
+          sign_index: 0,
+          retrograde: false,
+          combust: false,
+          avastha: "",
+          dignity: null,
+        })),
+      } as unknown as Chart)
+    : activeChart;
+
+  const chartToRender = chartType === "D1" ? activeChart : d9Chart;
+
+  const selectedHouseObj = selectedHouse
+    ? chartToRender.houses.find((h) => h.number === selectedHouse)
+    : null;
+
+  const houseOccupants = selectedHouse
+    ? chartToRender.planets.filter((p) => p.house === selectedHouse)
+    : [];
+
+  const currentDashaText = activeChart.dasha?.periods?.[0]
+    ? `${activeChart.dasha.periods[0].lord} Mahadasha ${activeChart.dasha.periods[1] ? `➔ ${activeChart.dasha.periods[1].lord} Antardasha` : ""}`
+    : "Rahu Mahadasha ➔ Jupiter Antardasha";
+
+  return (
+    <div className="min-h-dvh bg-[#090A10] text-[#94A3B8]">
+      {/* 1. STICKY TOP BAR */}
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#090A10]">
+        <div className="mx-auto flex w-full max-w-[1600px] items-center justify-between px-6 lg:px-10 py-3">
+          <div className="flex items-center gap-3">
+            <Link href="/" className="grid size-8 place-items-center rounded-[8px] bg-[#E5A93C] text-[#090A10] font-bold">
+              ✳
+            </Link>
+            <div>
+              <h1 className="font-serif text-sm font-bold text-[#F8FAFC]">
+                {activeBirth.name}&apos;s Kundali
+              </h1>
+              <p className="text-[11px] text-[#94A3B8]">
+                {activeBirth.date} · {activeBirth.time} · {activeBirth.place_label.split("(")[0]}
+              </p>
+            </div>
+          </div>
+
+          {/* Current Dasha Pill */}
+          <div className="hidden sm:flex items-center gap-2 rounded-[8px] border border-white/10 bg-[#161B2B] px-3.5 py-1.5 text-xs font-semibold text-[#F3C766]">
+            <span>🕐 {t.currentDasha}:</span>
+            <span className="text-[#F8FAFC]">{currentDashaText}</span>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <select
+              value={selectedVoice}
+              onChange={(e) => {
+                const newVoice = e.target.value;
+                setSelectedVoice(newVoice);
+                if (isPlaying) {
+                  stopSpeech();
+                  setIsPlaying(false);
+                }
+              }}
+              className="rounded-[8px] border border-[#E5A93C]/40 bg-[#161B2B] px-2.5 py-1.5 text-xs font-semibold text-[#F3C766] outline-none cursor-pointer hover:border-[#E5A93C]"
+              title={t.selectVoice}
+            >
+              {ASTROLOGER_VOICES.map((v) => (
+                <option key={v.id} value={v.id}>
+                  🎙️ {v.name} ({v.title})
+                </option>
+              ))}
+            </select>
+
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value as any)}
+              className="rounded-[8px] border border-[#E5A93C]/40 bg-[#161B2B] px-2.5 py-1.5 text-xs font-semibold text-[#F3C766] outline-none cursor-pointer hover:border-[#E5A93C]"
+            >
+              <option value="en">🌐 English</option>
+              <option value="ne">🇳🇵 नेपाली</option>
+              <option value="hi">🇮🇳 हिन्दी</option>
+            </select>
+
+            <button
+              onClick={handleDownloadPdf}
+              disabled={isExportingPdf}
+              className="flex items-center gap-1.5 rounded-[8px] border border-[#E5A93C]/40 bg-[#161B2B] px-3 py-1.5 text-xs font-semibold text-[#F3C766] hover:bg-[#E5A93C] hover:text-[#090A10] transition disabled:opacity-50 cursor-pointer"
+              title={t.downloadPdf}
+            >
+              <span>📄</span>
+              <span className="hidden sm:inline">{isExportingPdf ? t.pdfGenerating : t.downloadPdf}</span>
+            </button>
+
+            <button
+              onClick={handleSharePage}
+              className="flex items-center gap-1.5 rounded-[8px] border border-white/10 bg-[#161B2B] px-3 py-1.5 text-xs font-semibold text-[#F8FAFC] hover:border-white/30 transition cursor-pointer"
+              title={t.shareReading}
+            >
+              <span>🔗</span>
+              <span className="hidden sm:inline">{t.shareReading}</span>
+            </button>
+
+            <button
+              onClick={() => router.push("/reading/live")}
+              className="flex items-center gap-2 rounded-[8px] bg-[#E5A93C] hover:bg-[#F3C766] px-4 py-2 text-xs font-bold text-[#090A10] transition cursor-pointer"
+            >
+              <span>🔴 {t.talkToAstrologer}</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Two-Column Desktop Layout */}
+      <main className="mx-auto w-full max-w-[1600px] px-6 lg:px-10 py-6">
+        <div className="grid gap-8 lg:grid-cols-[460px_minmax(0,1fr)] xl:grid-cols-[500px_minmax(0,1fr)] lg:items-start">
+          
+          {/* LEFT COLUMN (Wider layout) - Fixed/Sticky on Scroll with Dual Charts */}
+          <aside className="space-y-6 lg:sticky lg:top-20 max-h-[calc(100vh-100px)] overflow-y-auto pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            
+            {/* 1. Dual Kundali Charts Widget (D1 Lagna & D9 Navamsha) */}
+            <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-4">
+              <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
+                <div>
+                  <h2 className="font-serif text-sm font-bold text-[#F8FAFC]">{t.kundaliChartsTitle}</h2>
+                  <p className="text-[11px] text-[#94A3B8]">{t.kundaliChartsSub}</p>
+                </div>
+                
+                {/* North / South Toggle */}
+                <div className="flex rounded-[8px] border border-white/10 bg-[#090A10] p-0.5 text-[10px]">
+                  <button
+                    onClick={() => setChartStyle("north")}
+                    className={`rounded-[6px] px-2.5 py-1 font-bold transition ${
+                      chartStyle === "north" ? "bg-[#E5A93C] text-[#090A10]" : "text-[#94A3B8]"
+                    }`}
+                  >
+                    North
+                  </button>
+                  <button
+                    onClick={() => setChartStyle("south")}
+                    className={`rounded-[6px] px-2.5 py-1 font-bold transition ${
+                      chartStyle === "south" ? "bg-[#E5A93C] text-[#090A10]" : "text-[#94A3B8]"
+                    }`}
+                  >
+                    South
+                  </button>
+                </div>
+              </div>
+
+              {/* D1 Lagna Chart Display */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-[#F3C766]">{t.d1LagnaChartTitle}</span>
+                  <span className="text-[10px] text-[#94A3B8]">
+                    {t.ascendantLabel}: {getSignName(activeChart.lagna_sign, language)} ({toLocalizedDigit(activeChart.lagna_sign_index + 1, language)})
+                  </span>
+                </div>
+                <div className="relative mx-auto w-full flex items-center justify-center">
+                  {chartStyle === "north" ? (
+                    <NorthIndianChart
+                      chart={activeChart}
+                      selectedHouse={selectedHouse}
+                      onSelectHouse={(h) => setSelectedHouse((prev) => (prev === h ? null : h))}
+                    />
+                  ) : (
+                    <SouthIndianChart
+                      chart={activeChart}
+                      selectedHouse={selectedHouse}
+                      onSelectHouse={(h) => setSelectedHouse((prev) => (prev === h ? null : h))}
+                    />
+                  )}
+                </div>
+              </div>
+
+              {/* D9 Navamsha Chart Display */}
+              <div className="space-y-2 border-t border-white/10 pt-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-[#F3C766]">{t.d9NavamshaChartTitle}</span>
+                  <span className="text-[10px] text-[#94A3B8]">
+                    {t.ascendantLabel}: {getSignName(d9Chart.lagna_sign || activeChart.lagna_sign, language)} ({toLocalizedDigit((d9Chart.lagna_sign_index !== undefined ? d9Chart.lagna_sign_index : activeChart.lagna_sign_index) + 1, language)})
+                  </span>
+                </div>
+                <div className="relative mx-auto w-full flex items-center justify-center">
+                  {chartStyle === "north" ? (
+                    <NorthIndianChart
+                      chart={d9Chart}
+                      selectedHouse={selectedHouse}
+                      onSelectHouse={(h) => setSelectedHouse((prev) => (prev === h ? null : h))}
+                    />
+                  ) : (
+                    <SouthIndianChart
+                      chart={d9Chart}
+                      selectedHouse={selectedHouse}
+                      onSelectHouse={(h) => setSelectedHouse((prev) => (prev === h ? null : h))}
+                    />
+                  )}
+                </div>
+              </div>
+
+              {/* House Detail Inspector Card */}
+              {selectedHouseObj ? (
+                <div className="rounded-[8px] border border-[#E5A93C]/40 bg-[#090A10] p-3 text-xs space-y-2">
+                  <div className="flex items-center justify-between border-b border-white/10 pb-1.5 font-bold">
+                    <span className="text-[#F3C766]">
+                      {t.houseLabel} {toLocalizedDigit(selectedHouseObj.number, language)} · {getSignName(selectedHouseObj.sign || "House", language)}
+                    </span>
+                    <span className="text-[#94A3B8]">
+                      {selectedHouseObj.lord ? `${t.lordLabel}: ${getPlanetName(selectedHouseObj.lord, language)}` : ""}
+                    </span>
+                  </div>
+                  {houseOccupants.length === 0 ? (
+                    <p className="text-[11px] text-[#94A3B8] italic">
+                      {language === "ne"
+                        ? `भाव ${toLocalizedDigit(selectedHouseObj.number, language)} मा कुनै ग्रह छैन।`
+                        : language === "hi"
+                        ? `भाव ${toLocalizedDigit(selectedHouseObj.number, language)} में कोई ग्रह नहीं है।`
+                        : `No planets located in house ${selectedHouseObj.number}.`}
+                    </p>
+                  ) : (
+                    <div className="space-y-1">
+                      {houseOccupants.map((p: any) => (
+                        <div key={p.name} className="flex justify-between items-center text-[11px]">
+                          <span className="font-semibold text-[#F8FAFC]">
+                            {getPlanetName(p.name, language)} {p.retrograde && <span className="text-[#E5A93C]">{language === "en" ? "℞" : " (व)"}</span>}
+                          </span>
+                          <span className="text-[#F3C766]">{p.degree_in_sign ? fmtDeg(p.degree_in_sign, language) : ""}</span>
+                          <span className="text-[#94A3B8] uppercase text-[9px]">{p.dignity ?? p.avastha}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <p className="text-center text-[11px] text-[#94A3B8]">
+                  {t.tapHouseHelper}
+                </p>
+              )}
+            </div>
+
+            {/* 2. Avakhada Chakra Panel */}
+            <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-3">
+              <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                <h3 className="font-serif text-xs font-bold uppercase tracking-wider text-[#F8FAFC] flex items-center gap-1.5">
+                  <span>🔮</span> {t.avakhadaTitle}
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-[11px]">
+                <div className="flex justify-between border-b border-white/5 pb-1">
+                  <span className="text-[#94A3B8]">{t.moonSignLabel}</span>
+                  <span className="font-bold text-[#F8FAFC]">{getSignName(activeChart.avakhada?.sign || "Sagittarius", language)}</span>
+                </div>
+                <div className="flex justify-between border-b border-white/5 pb-1">
+                  <span className="text-[#94A3B8]">{t.nakshatraLabel}</span>
+                  <span className="font-bold text-[#F3C766]">{getNakshatraName(activeChart.avakhada?.nakshatra || "Moola", language)}</span>
+                </div>
+                <div className="flex justify-between border-b border-white/5 pb-1">
+                  <span className="text-[#94A3B8]">{t.nakshatraPadaLabel}</span>
+                  <span className="font-bold text-[#F8FAFC]">
+                    {language === "en" ? "Pada " : "चरण "}{toLocalizedDigit(activeChart.avakhada?.charan || 2, language)}
+                  </span>
+                </div>
+                <div className="flex justify-between border-b border-white/5 pb-1">
+                  <span className="text-[#94A3B8]">{t.nameSyllableLabel}</span>
+                  <span className="font-bold text-[#F3C766]">{activeChart.avakhada?.name_syllable || "Yo"}</span>
+                </div>
+                <div className="flex justify-between border-b border-white/5 pb-1">
+                  <span className="text-[#94A3B8]">{t.ganaLabel}</span>
+                  <span className="font-bold text-[#F8FAFC]">{getAvakhadaTerm(activeChart.avakhada?.gana || "Rakshasa", language)}</span>
+                </div>
+                <div className="flex justify-between border-b border-white/5 pb-1">
+                  <span className="text-[#94A3B8]">{t.nadiLabel}</span>
+                  <span className="font-bold text-[#F8FAFC]">{getAvakhadaTerm(activeChart.avakhada?.nadi || "Adi", language)}</span>
+                </div>
+                <div className="flex justify-between border-b border-white/5 pb-1">
+                  <span className="text-[#94A3B8]">{t.yoniLabel}</span>
+                  <span className="font-bold text-[#F8FAFC]">{getAvakhadaTerm(activeChart.avakhada?.yoni || "Rat", language)}</span>
+                </div>
+                <div className="flex justify-between border-b border-white/5 pb-1">
+                  <span className="text-[#94A3B8]">{t.varnaElementLabel}</span>
+                  <span className="font-bold text-[#F8FAFC]">
+                    {getAvakhadaTerm(activeChart.avakhada?.varna || "Kshatriya", language)} · {getAvakhadaTerm(activeChart.avakhada?.tatva || "Fire", language)}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Auspicious & Inauspicious Elements */}
+            {(() => {
+              const aus = getLocalizedAuspiciousElements(activeChart.lagna_sign, language);
+              return (
+                <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-3">
+                  <h3 className="font-serif text-xs font-bold uppercase tracking-wider text-[#F8FAFC] flex items-center gap-1.5 border-b border-white/10 pb-2">
+                    <span>💎</span> {t.auspiciousTitle}
+                  </h3>
+
+                  <div className="space-y-2.5 text-[11px]">
+                    <div>
+                      <span className="font-bold text-[#10B981] flex items-center gap-1">
+                        {t.luckyColors}
+                      </span>
+                      <p className="text-[#F8FAFC] mt-0.5 leading-relaxed">
+                        {aus.luckyColors}
+                      </p>
+                    </div>
+
+                    <div>
+                      <span className="font-bold text-[#EF4444] flex items-center gap-1">
+                        {t.unluckyColors}
+                      </span>
+                      <p className="text-[#94A3B8] mt-0.5 leading-relaxed">
+                        {aus.unluckyColors}
+                      </p>
+                    </div>
+
+                    <div className="border-t border-white/5 pt-2">
+                      <span className="font-bold text-[#10B981] flex items-center gap-1">
+                        {t.luckyGemstones}
+                      </span>
+                      <p className="text-[#F3C766] mt-0.5 leading-relaxed">
+                        {aus.luckyGemstones}
+                      </p>
+                    </div>
+
+                    <div>
+                      <span className="font-bold text-[#EF4444] flex items-center gap-1">
+                        {t.unluckyGemstones}
+                      </span>
+                      <p className="text-[#94A3B8] mt-0.5 leading-relaxed">
+                        {aus.unluckyGemstones}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* 4. Planetary Positions & Longitudes */}
+            <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-3">
+              <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                <h3 className="font-serif text-xs font-bold uppercase tracking-wider text-[#F8FAFC] flex items-center gap-1.5">
+                  <span>🪐</span> {t.planetaryPositionsTitle}
+                </h3>
+                <button
+                  onClick={() => setShowFullPlanets(!showFullPlanets)}
+                  className="text-[10px] font-bold text-[#E5A93C] hover:underline"
+                >
+                  {showFullPlanets ? t.compactLabel : t.fullDetailsLabel}
+                </button>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-[10px]">
+                  <thead>
+                    <tr className="border-b border-white/10 text-[#94A3B8]">
+                      <th className="pb-1">{t.thPlanet}</th>
+                      <th className="pb-1">{t.thSign}</th>
+                      <th className="pb-1">{t.thHouse}</th>
+                      <th className="pb-1">{t.thDegree}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/5">
+                    <tr className="hover:bg-white/5 font-semibold text-[#F8FAFC]">
+                      <td className="py-1 text-[#F3C766]">{getPlanetName("Ascendant", language)}</td>
+                      <td className="py-1">{getSignName(activeChart.lagna_sign, language)}</td>
+                      <td className="py-1 text-[#F8FAFC]">{language === "en" ? "H1" : "भाव १"}</td>
+                      <td className="py-1 text-[#F3C766] font-mono">{fmtDeg(activeChart.lagna_degree, language)}</td>
+                    </tr>
+                    {activeChart.planets.map((p) => (
+                      <tr key={p.name} className="hover:bg-white/5">
+                        <td className="py-1 font-semibold text-[#F8FAFC]">
+                          {getPlanetName(p.name, language)} {p.retrograde && <span className="text-[#E5A93C]">{language === "en" ? " ℞" : " (व)"}</span>}
+                        </td>
+                        <td className="py-1 text-[#94A3B8]">{getSignName(p.sign, language)}</td>
+                        <td className="py-1 text-[#F8FAFC]">
+                          {language === "en" ? "H" : "भाव "}{toLocalizedDigit(p.house, language)}
+                        </td>
+                        <td className="py-1 text-[#F3C766] font-mono">{fmtDeg(p.degree_in_sign, language)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* 5. Active Dasha Systems & Predictions */}
+            <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-3">
+              <div className="border-b border-white/10 pb-2">
+                <h3 className="font-serif text-xs font-bold uppercase tracking-wider text-[#F8FAFC] flex items-center gap-1.5">
+                  <span>🕐</span> {t.activeDashaTitle}
+                </h3>
+              </div>
+
+              {/* Dasha Type Switcher */}
+              <div className="flex rounded-[8px] border border-white/10 bg-[#090A10] p-1 text-[10px]">
+                <button
+                  onClick={() => setActiveDashaTab("vimshottari")}
+                  className={`flex-1 rounded-[6px] py-1 font-bold transition ${
+                    activeDashaTab === "vimshottari" ? "bg-[#E5A93C] text-[#090A10]" : "text-[#94A3B8]"
+                  }`}
+                >
+                  Vimshottari
+                </button>
+                <button
+                  onClick={() => setActiveDashaTab("yogini")}
+                  className={`flex-1 rounded-[6px] py-1 font-bold transition ${
+                    activeDashaTab === "yogini" ? "bg-[#E5A93C] text-[#090A10]" : "text-[#94A3B8]"
+                  }`}
+                >
+                  Yogini
+                </button>
+                <button
+                  onClick={() => setActiveDashaTab("tribhagi")}
+                  className={`flex-1 rounded-[6px] py-1 font-bold transition ${
+                    activeDashaTab === "tribhagi" ? "bg-[#E5A93C] text-[#090A10]" : "text-[#94A3B8]"
+                  }`}
+                >
+                  Tribhagi
+                </button>
+              </div>
+
+              {/* Tab 1: Vimshottari Dasha */}
+              {activeDashaTab === "vimshottari" && (
+                <div className="space-y-3 text-[11px]">
+                  <div className="rounded-[8px] border border-[#E5A93C]/30 bg-[#090A10] p-2.5 space-y-1">
+                    <div className="flex justify-between font-bold text-[#F3C766]">
+                      <span>{getPlanetName("Venus", language)} ({language === "en" ? "Shukra" : "शुक्र"}) {language === "en" ? "Mahadasha" : "महादशा"}</span>
+                      <span>{toLocalizedDigit("2063/07/04 – 2083/07/04", language)} BS</span>
+                    </div>
+                    <div className="flex justify-between text-[#F8FAFC]">
+                      <span>{getPlanetName("Ketu", language)} {language === "en" ? "Antardasha" : "अन्तर्दशा"}:</span>
+                      <span>{toLocalizedDigit("2082/05/05 – 2083/07/04", language)} BS</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Tab 2: Yogini Dasha */}
+              {activeDashaTab === "yogini" && (
+                <div className="space-y-3 text-[11px]">
+                  <div className="rounded-[8px] border border-[#E5A93C]/30 bg-[#090A10] p-2.5 space-y-1">
+                    <div className="flex justify-between font-bold text-[#F3C766]">
+                      <span>Dhanya {language === "en" ? "Mahadasha" : "महादशा"}</span>
+                      <span>{toLocalizedDigit("2080/11/18 – 2083/11/17", language)} BS</span>
+                    </div>
+                    <div className="flex justify-between text-[#F8FAFC]">
+                      <span>Sankata {language === "en" ? "Antardasha" : "अन्तर्दशा"}:</span>
+                      <span>{toLocalizedDigit("2082/12/17 – 2083/08/14", language)} BS</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Tab 3: Tribhagi Dasha */}
+              {activeDashaTab === "tribhagi" && (
+                <div className="space-y-3 text-[11px]">
+                  <div className="rounded-[8px] border border-[#E5A93C]/30 bg-[#090A10] p-2.5 space-y-1">
+                    <div className="flex justify-between font-bold text-[#F3C766]">
+                      <span>{getPlanetName("Moon", language)} ({language === "en" ? "Chandra" : "चन्द्र"}) {language === "en" ? "Mahadasha" : "महादशा"}</span>
+                      <span>{toLocalizedDigit("2079/04/03 – 2085/12/06", language)} BS</span>
+                    </div>
+                    <div className="flex justify-between text-[#F8FAFC]">
+                      <span>{getPlanetName("Saturn", language)} ({language === "en" ? "Shani" : "शनि"}) {language === "en" ? "Antardasha" : "अन्तर्दशा"}:</span>
+                      <span>{toLocalizedDigit("2082/02/05 – 2083/02/25", language)} BS</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+          </aside>
+
+          {/* RIGHT COLUMN (65% width) - Deep Narrative & Audio */}
+          <div className="space-y-6">
+
+            {/* 1. Hero Audio Player Bar (Sticky beneath top nav) */}
+            <div className="sticky top-[57px] z-30 rounded-[8px] border border-white/10 bg-[#161B2B] p-4 flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => {
+                    if (isPlaying) {
+                      stopSpeech();
+                      setIsPlaying(false);
+                    } else {
+                      const textToRead = visibleSections
+                        .map((s) => {
+                          const mainDetail = s.content?.[0] || "";
+                          return `${s.title}. ${s.summary}... ${mainDetail}`;
+                        })
+                        .join(" ... ");
+                      const rateMap: Record<string, number> = { "1x": 1.0, "1.2x": 1.2, "1.5x": 1.5 };
+                      const rate = rateMap[playbackSpeed] || 1.0;
+                      setIsPlaying(true);
+                      speakText(textToRead, {
+                        rate,
+                        language,
+                        voice: selectedVoice,
+                        onSpokenText: (spokenText, source) => {
+                          setAudioDebugText(spokenText);
+                          setAudioSource(source);
+                        },
+                        onTimeUpdate: (pct, currentTime, duration) => {
+                          setAudioProgress(pct);
+                          setAudioCurrentTime(currentTime);
+                          setAudioDuration(duration);
+                        },
+                        onEnd: () => {
+                          setIsPlaying(false);
+                          setAudioProgress(0);
+                          setAudioCurrentTime(0);
+                        },
+                      });
+                    }
+                  }}
+                  className="grid size-10 place-items-center rounded-[8px] bg-[#E5A93C] text-[#090A10] font-bold transition hover:bg-[#F3C766]"
+                >
+                  {isPlaying ? (
+                    <svg className="size-4 fill-current" viewBox="0 0 24 24">
+                      <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                    </svg>
+                  ) : (
+                    <svg className="size-4 fill-current ml-0.5" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  )}
+                </button>
+
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-serif text-sm font-bold text-[#F8FAFC]">{t.narrativeAudioTitle}</span>
+                  </div>
+                  <p className="text-[11px] text-[#94A3B8]">
+                    Astrologer Voice: <strong className="text-[#F3C766]">{ASTROLOGER_VOICES.find(v => v.id === selectedVoice)?.name || "Acharya Dev"}</strong> ({ASTROLOGER_VOICES.find(v => v.id === selectedVoice)?.description[language as "en"|"ne"|"hi"] || "HD MP3 Stream Engine"})
+                  </p>
+                </div>
+              </div>
+
+              {/* Scrubber & Speed Controls */}
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => seekAudioBy(-10)}
+                  title="Rewind 10 seconds"
+                  className="text-xs text-[#94A3B8] hover:text-[#F8FAFC] font-mono transition active:scale-95 cursor-pointer"
+                >
+                  ⏮ 10s
+                </button>
+
+                <div className="flex items-center gap-2">
+                  <div
+                    onClick={(e) => {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const clickX = e.clientX - rect.left;
+                      const pct = Math.max(0, Math.min(100, (clickX / rect.width) * 100));
+                      setAudioProgress(pct);
+                      seekAudioToPercent(pct);
+                    }}
+                    className="w-28 sm:w-36 h-2 rounded-[4px] bg-[#090A10] overflow-hidden cursor-pointer relative group border border-white/10"
+                    title="Click to seek"
+                  >
+                    <div
+                      className="h-full bg-[#E5A93C] transition-all duration-100 group-hover:bg-[#F3C766]"
+                      style={{ width: `${audioProgress}%` }}
+                    />
+                  </div>
+                  {audioDuration > 0 && (
+                    <span className="text-[10px] font-mono text-[#94A3B8]">
+                      {formatAudioTime(audioCurrentTime)} / {formatAudioTime(audioDuration)}
+                    </span>
+                  )}
+                </div>
+
+                <button
+                  onClick={() => seekAudioBy(10)}
+                  title="Forward 10 seconds"
+                  className="text-xs text-[#94A3B8] hover:text-[#F8FAFC] font-mono transition active:scale-95 cursor-pointer"
+                >
+                  10s ⏭
+                </button>
+
+                <select
+                  value={playbackSpeed}
+                  onChange={(e) => {
+                    const speed = e.target.value as "1x" | "1.2x" | "1.5x";
+                    setPlaybackSpeed(speed);
+                    const rateMap: Record<string, number> = { "1x": 1.0, "1.2x": 1.2, "1.5x": 1.5 };
+                    setPlaybackRate(rateMap[speed] || 1.0);
+                  }}
+                  className="rounded-[8px] border border-white/10 bg-[#090A10] px-2 py-1 text-xs text-[#F3C766] cursor-pointer"
+                >
+                  <option value="1x">1.0x</option>
+                  <option value="1.2x">1.2x</option>
+                  <option value="1.5x">1.5x</option>
+                </select>
+
+                <button
+                  onClick={handleDownloadAudio}
+                  className="flex items-center gap-1.5 rounded-[8px] border border-white/10 bg-[#090A10] px-2.5 py-1 text-xs font-semibold text-[#F8FAFC] hover:border-white/30 transition cursor-pointer"
+                  title={t.downloadAudio}
+                >
+                  <span>⬇️</span>
+                  <span className="hidden sm:inline">{t.downloadAudio}</span>
+                </button>
+
+                <button
+                  onClick={handleShareAudio}
+                  className="flex items-center gap-1.5 rounded-[8px] border border-white/10 bg-[#090A10] px-2.5 py-1 text-xs font-semibold text-[#F8FAFC] hover:border-white/30 transition cursor-pointer"
+                  title={t.shareAudio}
+                >
+                  <span>📢</span>
+                  <span className="hidden sm:inline">{t.shareAudio}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Audio Telemetry & Live Teleprompter Debug Panel */}
+            {(isPlaying || audioDebugText) && (
+              <div className="rounded-[8px] border border-[#E5A93C]/40 bg-[#090A10] p-4 space-y-3 shadow-xl transition-all">
+                <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-block size-2 rounded-full bg-[#E5A93C] animate-pulse" />
+                    <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#F3C766]">
+                      🛠️ {t.telemetryTitle}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-[11px]">
+                    <span className="rounded bg-[#161B2B] px-2 py-0.5 font-mono text-[#94A3B8] border border-white/10">
+                      Engine: {audioSource || "hd_mp3_audio_engine"}
+                    </span>
+                    <span className="rounded bg-[#E5A93C] px-2 py-0.5 font-bold text-[#090A10]">
+                      {isPlaying ? "🟢 PLAYING" : "⏸ PAUSED"}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between text-[11px] text-[#94A3B8]">
+                    <span>{t.activeScriptLabel}</span>
+                    <span className="font-mono text-[#F3C766]">Playback Rate: {playbackSpeed}</span>
+                  </div>
+                  <div className="max-h-36 overflow-y-auto rounded-[6px] border border-white/10 bg-[#161B2B] p-3 text-xs leading-relaxed text-[#F8FAFC] font-sans selection:bg-[#E5A93C] selection:text-[#090A10]">
+                    <p className="border-l-2 border-[#E5A93C] pl-2.5 text-[#F3C766] font-medium leading-relaxed">
+                      {audioDebugText || "Synthesizing spoken audio script stream..."}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* 2. Category Navigation Pills */}
+            <div className="flex gap-2 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {[
+                ["all", t.catOverview],
+                ["personality", t.catPersonality],
+                ["career-finance", t.catCareer],
+                ["love-marriage", t.catMarriage],
+                ["current-dasha", t.catDasha],
+                ["remedies", t.catRemedies],
+              ].map(([id, label]) => (
+                <button
+                  key={id}
+                  onClick={() => filterCategory(id)}
+                  className={`shrink-0 rounded-[8px] px-4 py-1.5 text-xs font-semibold transition ${
+                    activeCategory === id
+                      ? "bg-[#E5A93C] text-[#090A10]"
+                      : "border border-white/10 bg-[#161B2B] text-[#94A3B8] hover:text-[#F8FAFC]"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+
+            {/* 3. Deep Narrative Reading Cards */}
+            <div className="space-y-6">
+              {visibleSections.map((section) => (
+                <div
+                  key={section.id}
+                  className={`rounded-[8px] border border-white/10 bg-[#161B2B] p-6 space-y-4 transition-all duration-200 ${
+                    selectedHouse === 10 && section.id === "career-finance"
+                      ? "border-l-4 border-l-[#E5A93C]"
+                      : ""
+                  }`}
+                >
+                  {/* Title & Icon */}
+                  <div className="flex items-center gap-3">
+                    <span className="grid size-9 place-items-center rounded-[8px] bg-[#090A10] border border-white/10 text-lg">
+                      {section.icon}
+                    </span>
+                    <div>
+                      <h3 className="font-serif text-base font-bold text-[#F8FAFC]">{section.title}</h3>
+                      <p className="text-xs text-[#94A3B8]">{section.subtitle}</p>
+                    </div>
+                  </div>
+
+                  {/* Deep Reading Body */}
+                  <div className="space-y-2 text-xs leading-relaxed text-[#94A3B8]">
+                    {section.content.map((p: string, idx: number) => (
+                      <p key={idx}>{p}</p>
+                    ))}
+                  </div>
+
+                  {/* Executive Summary Box (Below actual text) */}
+                  <div className="rounded-[8px] border border-[#E5A93C]/40 bg-[#090A10] p-3 text-xs font-bold text-[#FDE68A]">
+                    {section.summary}
+                  </div>
+
+                  {/* Astrological Grounding Footnotes */}
+                  <div className="border-t border-white/10 pt-3">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-[#E5A93C] mb-1.5">
+                      {t.astrologicalFootnotes}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {section.reasoning.map((r: any, idx: number) => (
+                        <button
+                          key={idx}
+                          onClick={() => setSelectedHouse(10)}
+                          className="inline-flex items-center gap-1.5 rounded-[8px] border border-white/10 bg-[#090A10] px-2.5 py-1 text-xs text-[#F8FAFC] hover:border-[#E5A93C] transition"
+                        >
+                          <span className="text-[#6366F1]">📍</span>
+                          <span>{r.placement}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Fixed Banner / Floating CTA */}
+            <div className="rounded-[8px] border border-[#E5A93C]/40 bg-[#161B2B] p-6 text-center space-y-3">
+              <p className="font-serif text-base font-bold text-[#F8FAFC]">
+                {t.bottomCtaQuestion}
+              </p>
+              <button
+                onClick={() => router.push("/reading/live")}
+                className="inline-flex items-center gap-2 rounded-[8px] bg-[#E5A93C] hover:bg-[#F3C766] px-6 py-3 text-sm font-bold text-[#090A10] transition cursor-pointer"
+              >
+                <span>{t.bottomCtaBtn}</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </main>
+
+      {/* PDF Export Hidden Container - Renders complete reading report without tabs */}
+      <div
+        ref={pdfReportRef}
+        style={{ display: "none" }}
+        className="bg-[#090A10] text-[#F8FAFC] p-8 space-y-8 font-sans max-w-[1100px] mx-auto"
+      >
+        <div className="border-b border-[#E5A93C] pb-6 flex items-center justify-between">
+          <div>
+            <h1 className="font-serif text-2xl font-bold text-[#F3C766]">
+              {activeBirth.name}&apos;s Complete Janma Kundali Report
+            </h1>
+            <p className="text-sm text-[#94A3B8] mt-1">
+              {activeBirth.date} · {activeBirth.time} · {activeBirth.place_label}
+            </p>
+            {activeChart && (
+              <p className="text-xs text-[#E5A93C] mt-1">
+                {t.lagnaAscendant}: {getSignName(activeChart.lagna_sign, language)} · {t.moonSign}: {getSignName(activeChart.avakhada?.sign || "Sagittarius", language)} · {t.nakshatra}: {getNakshatraName(activeChart.avakhada?.nakshatra || "Moola", language)}
+              </p>
+            )}
+          </div>
+          <div className="text-right">
+            <span className="font-serif text-lg font-bold text-[#E5A93C]">Vedic Kundali AI</span>
+            <p className="text-xs text-[#94A3B8]">Sidereal Ephemeris Analysis</p>
+          </div>
+        </div>
+
+        {/* Dual Charts side-by-side */}
+        {activeChart && (
+          <div className="grid grid-cols-2 gap-6">
+            <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-2">
+              <h3 className="font-serif text-xs font-bold text-[#F3C766] uppercase tracking-wider">{t.d1LagnaChartTitle}</h3>
+              <NorthIndianChart chart={activeChart} />
+            </div>
+            <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-2">
+              <h3 className="font-serif text-xs font-bold text-[#F3C766] uppercase tracking-wider">{t.d9NavamshaChartTitle}</h3>
+              <NorthIndianChart chart={d9Chart} />
+            </div>
+          </div>
+        )}
+
+        {/* Avakhada & Auspicious Tables side-by-side */}
+        {activeChart && (
+          <div className="grid grid-cols-2 gap-6 text-xs">
+            <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-3">
+              <h3 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">🔮 {t.avakhadaTitle}</h3>
+              <div className="grid grid-cols-2 gap-2">
+                <div><span className="text-[#94A3B8]">{t.moonSignLabel}</span> <strong>{getSignName(activeChart.avakhada?.sign || "Sagittarius", language)}</strong></div>
+                <div><span className="text-[#94A3B8]">{t.nakshatraLabel}</span> <strong>{getNakshatraName(activeChart.avakhada?.nakshatra || "Moola", language)}</strong></div>
+                <div><span className="text-[#94A3B8]">{t.ganaLabel}</span> <strong>{getAvakhadaTerm(activeChart.avakhada?.gana || "Rakshasa", language)}</strong></div>
+                <div><span className="text-[#94A3B8]">{t.nadiLabel}</span> <strong>{getAvakhadaTerm(activeChart.avakhada?.nadi || "Adi", language)}</strong></div>
+                <div><span className="text-[#94A3B8]">{t.yoniLabel}</span> <strong>{getAvakhadaTerm(activeChart.avakhada?.yoni || "Rat", language)}</strong></div>
+                <div><span className="text-[#94A3B8]">{t.varnaElementLabel}</span> <strong>{getAvakhadaTerm(activeChart.avakhada?.varna || "Kshatriya", language)} · {getAvakhadaTerm(activeChart.avakhada?.tatva || "Fire", language)}</strong></div>
+              </div>
+            </div>
+
+            {(() => {
+              const aus = getLocalizedAuspiciousElements(activeChart.lagna_sign, language);
+              return (
+                <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-3">
+                  <h3 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">💎 {t.auspiciousTitle}</h3>
+                  <div className="space-y-1.5 text-xs">
+                    <p><strong className="text-[#10B981]">{t.luckyColors}</strong> {aus.luckyColors}</p>
+                    <p><strong className="text-[#EF4444]">{t.unluckyColors}</strong> {aus.unluckyColors}</p>
+                    <p><strong className="text-[#10B981]">{t.luckyGemstones}</strong> {aus.luckyGemstones}</p>
+                    <p><strong className="text-[#EF4444]">{t.unluckyGemstones}</strong> {aus.unluckyGemstones}</p>
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+        )}
+
+        {/* Planetary Table */}
+        {activeChart && (
+          <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-3">
+            <h3 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">🪐 {t.planetaryPositionsTitle}</h3>
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="border-b border-white/10 text-[#94A3B8]">
+                  <th className="pb-1">{t.thPlanet}</th>
+                  <th className="pb-1">{t.thSign}</th>
+                  <th className="pb-1">{t.thHouse}</th>
+                  <th className="pb-1">{t.thDegree}</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/5">
+                <tr>
+                  <td className="py-1 text-[#F3C766]">{getPlanetName("Ascendant", language)}</td>
+                  <td className="py-1">{getSignName(activeChart.lagna_sign, language)}</td>
+                  <td className="py-1">{language === "en" ? "H1" : "भाव १"}</td>
+                  <td className="py-1 font-mono">{fmtDeg(activeChart.lagna_degree, language)}</td>
+                </tr>
+                {activeChart.planets.map((p) => (
+                  <tr key={p.name}>
+                    <td className="py-1">{getPlanetName(p.name, language)} {p.retrograde && (language === "en" ? " ℞" : " (व)")}</td>
+                    <td className="py-1">{getSignName(p.sign, language)}</td>
+                    <td className="py-1">{language === "en" ? "H" : "भाव "}{toLocalizedDigit(p.house, language)}</td>
+                    <td className="py-1 font-mono">{fmtDeg(p.degree_in_sign, language)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {/* ALL Narrative Report Sections - Complete without tab filtering */}
+        <div className="space-y-6">
+          <h2 className="font-serif text-lg font-bold text-[#F3C766] border-b border-white/10 pb-2">
+            {t.tabAnalysis} (Complete Kundali Analysis)
+          </h2>
+          {reportSections.map((section) => (
+            <div key={section.id} className="rounded-[8px] border border-white/10 bg-[#161B2B] p-5 space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">{section.icon}</span>
+                <h3 className="font-serif text-base font-bold text-[#F8FAFC]">{section.title}</h3>
+              </div>
+              <p className="text-xs text-[#F3C766] font-semibold">{section.summary}</p>
+              <div className="space-y-2 text-xs leading-relaxed text-[#CBD5E1]">
+                {section.content?.map((para: string, idx: number) => (
+                  <p key={idx}>{para}</p>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Floating Toast Notification */}
+      {toastMessage && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 rounded-[8px] border border-[#E5A93C] bg-[#161B2B] px-5 py-2.5 text-xs font-bold text-[#F3C766] shadow-2xl animate-fade-in flex items-center gap-2">
+          <span>✨</span>
+          <span>{toastMessage}</span>
+        </div>
+      )}
+    </div>
+  );
+}

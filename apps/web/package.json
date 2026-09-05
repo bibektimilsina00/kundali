@@ -1,0 +1,40 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint && ./scripts/design-audit.sh",
+    "generate:api": "openapi-typescript ../../contracts/openapi.json -o src/lib/api/generated/schema.d.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "design": "./scripts/design-audit.sh"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.102.8",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
+    "nepali-date-converter": "^3.4.0",
+    "next": "16.3.3",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "zod": "^4.5.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@tanstack/eslint-plugin-query": "^5.102.8",
+    "@types/html2canvas": "^0.5.35",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^6.1.1",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.3",
+    "openapi-typescript": "^7.13.0",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^4.1.11"
+  }
+}

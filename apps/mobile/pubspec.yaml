@@ -1,0 +1,39 @@
+name: kundali
+description: AI Vedic astrology — mobile client.
+publish_to: none
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # state
+  flutter_bloc: ^8.1.6
+  equatable: ^2.0.5
+  bloc_concurrency: ^0.2.5     # droppable() for the streaming chat (Phase 2)
+
+  # plumbing
+  get_it: ^7.7.0
+  dio: ^5.7.0
+  go_router: ^14.2.7
+  flutter_secure_storage: ^9.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  bloc_test: ^9.1.7
+  mocktail: ^1.0.4
+
+# Deliberately absent — see docs/mobile.md §10:
+#   freezed / json_serializable  sealed classes + hand-written fromJson cover it
+#   injectable                   30 lines of get_it beats a codegen step
+#   dartz / fpdart               core/result.dart is 20 lines
+#   drift                        added in Phase 3 with the offline cache
+#   import_lint                  tool/check_layers.dart does the job with no dependency
+
+flutter:
+  uses-material-design: true

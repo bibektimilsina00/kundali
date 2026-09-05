@@ -1,0 +1,14 @@
+{
+  "birth": {
+    "date": "2023-04-25",
+    "latitude": 27.7172,
+    "longitude": 85.324,
+    "time": "10:00",
+    "time_accuracy": "exact",
+    "tz_name": "Asia/Kathmandu"
+  },
+  "expected": null,
+  "name": "retrograde_mercury",
+  "verified_against": null,
+  "why": "Mercury retrograde 21 Apr - 14 May 2023. Exercises the retro flag and Mercury's 12-deg retro combustion orb."
+}

@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-bg: #090A10;
+  --color-card-bg: #161B2B;
+  --color-card-border: rgba(255, 255, 255, 0.15);
+  --color-gold-main: #E5A93C;
+  --color-gold-light: #F3C766;
+  --color-indigo-accent: #818CF8;
+  --color-heading-text: #FFFFFF;
+  --color-body-text: #E2E8F0;
+
+  --radius-sm: 8px;
+  --radius-md: 8px;
+  --radius-lg: 8px;
+
+  --font-serif: var(--font-serif-face), Georgia, serif;
+  --font-body: var(--font-body-face), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  color-scheme: dark;
+  background-color: #090A10;
+}
+
+body {
+  background-color: #090A10;
+  color: #E2E8F0;
+  font-family: var(--font-body);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Solid elevated cards with 8px radius */
+.solid-card {
+  background-color: #161B2B;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+}
+
+.solid-btn-gold {
+  background-color: #E5A93C;
+  color: #090A10;
+  font-weight: 700;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.solid-btn-gold:hover {
+  background-color: #F3C766;
+}
+
+/* SVG Chart Stroke Animation */
+@keyframes drawStroke {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-chart-draw {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawStroke 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Hide scrollbar handles while keeping elements scrollable */
+::-webkit-scrollbar {
+  display: none;
+  width: 0px;
+  height: 0px;
+}
+* {
+  scrollbar-width: none;
+}
+
+/* Gemini Live Voice Orb Animations */
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseRadar {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@keyframes rotateSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes equalizerWave {
+  0%, 100% {
+    height: 6px;
+  }
+  50% {
+    height: 24px;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.animate-pulse-radar {
+  animation: pulseRadar 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-rotate-slow {
+  animation: rotateSlow 20s linear infinite;
+}
+
+.animate-equalizer-1 {
+  animation: equalizerWave 0.8s ease-in-out infinite 0.1s;
+}
+.animate-equalizer-2 {
+  animation: equalizerWave 0.7s ease-in-out infinite 0.3s;
+}
+.animate-equalizer-3 {
+  animation: equalizerWave 0.9s ease-in-out infinite 0.2s;
+}
+.animate-equalizer-4 {
+  animation: equalizerWave 0.6s ease-in-out infinite 0.4s;
+}
+.animate-equalizer-5 {
+  animation: equalizerWave 0.85s ease-in-out infinite 0.15s;
+}

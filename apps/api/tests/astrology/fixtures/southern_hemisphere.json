@@ -1,0 +1,14 @@
+{
+  "birth": {
+    "date": "1990-11-02",
+    "latitude": -33.8688,
+    "longitude": 151.2093,
+    "time": "14:20",
+    "time_accuracy": "exact",
+    "tz_name": "Australia/Sydney"
+  },
+  "expected": null,
+  "name": "southern_hemisphere",
+  "verified_against": null,
+  "why": "Negative latitude. Catches sign errors in ascendant math."
+}

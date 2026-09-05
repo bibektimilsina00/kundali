@@ -1,0 +1,126 @@
+name: CI/CD Build & Deploy Kundali to Server
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  SERVER_HOST: 161.118.246.132
+  SERVER_USER: ubuntu
+
+jobs:
+  build-and-push:
+    name: Build & Push Docker Image to GHCR
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry (GHCR)
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Docker Metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest
+            type=sha,prefix=
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    name: Deploy to Server via SSH
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Remote Server (ubuntu@161.118.246.132)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ env.SERVER_HOST }}
+          username: ${{ env.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            set -e
+            echo "========================================="
+            echo "🚀 Starting Automated Deployment on Server"
+            echo "========================================="
+
+            # 1. Login to GHCR on the remote server
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+            # 2. Prepare deployment directory
+            mkdir -p ~/kundali
+            cd ~/kundali
+
+            # 3. Dynamically generate .env file from GitHub Secrets
+            echo "Creating production .env file from secrets..."
+            cat << 'EOF' > .env
+            PORT=3000
+            NODE_ENV=production
+            PYTHON_PATH=python3
+            AGENT_ROUTER_API_KEY="${{ secrets.AGENT_ROUTER_API_KEY }}"
+            AGENT_ROUTER_BASE_URL="${{ secrets.AGENT_ROUTER_BASE_URL }}"
+            AGENT_ROUTER_MODEL="${{ secrets.AGENT_ROUTER_MODEL }}"
+            OPEN_ROUTER_API_KEY="${{ secrets.OPEN_ROUTER_API_KEY }}"
+            OPEN_ROUTER_BASE_URL="${{ secrets.OPEN_ROUTER_BASE_URL }}"
+            OPEN_ROUTER_MODEL="${{ secrets.OPEN_ROUTER_MODEL }}"
+            OPENAI_API_KEY="${{ secrets.OPENAI_API_KEY }}"
+            LLM_BASE_URL="${{ secrets.LLM_BASE_URL }}"
+            LLM_API_KEY="${{ secrets.LLM_API_KEY }}"
+            LLM_MODEL="${{ secrets.LLM_MODEL }}"
+            JWT_SECRET="${{ secrets.JWT_SECRET }}"
+            EOF
+
+            # 4. Pull the latest Docker container image
+            IMAGE_URI="ghcr.io/${{ github.repository }}:latest"
+            echo "Pulling latest image: $IMAGE_URI"
+            docker pull $IMAGE_URI
+
+            # 5. Stop and remove existing container if running
+            echo "Stopping old container instance if active..."
+            docker stop kundali-app || true
+            docker rm kundali-app || true
+
+            # 6. Launch new container with environment variables
+            echo "Starting container on port 3000..."
+            docker run -d \
+              --name kundali-app \
+              --restart always \
+              -p 3000:3000 \
+              --env-file .env \
+              $IMAGE_URI
+
+            # 7. Clean up unused images to free disk space
+            docker image prune -f
+
+            echo "========================================="
+            echo "✅ Deployment Successful!"
+            echo "🌐 Service Live at: http://${{ env.SERVER_HOST }}:3000"
+            echo "========================================="

@@ -1,0 +1,64 @@
+[project]
+name = "kundali-api"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "pyswisseph>=2.10.3.2",
+    "tzdata>=2024.1",          # historical zones; do not rely on the host tz db
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pydantic-settings>=2.5",
+]
+
+[dependency-groups]
+dev = ["pytest>=8.0", "ruff>=0.6", "import-linter>=2.0", "httpx>=0.27"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/app"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+# --- the boundary from docs/architecture.md §4 -----------------------------
+[tool.importlinter]
+root_package = "app"
+include_external_packages = true
+
+[[tool.importlinter.contracts]]
+name = "astrology_core is pure"
+type = "forbidden"
+source_modules = ["app.astrology_core"]
+forbidden_modules = [
+    "fastapi", "sqlmodel", "sqlalchemy", "anthropic", "redis", "httpx",
+    "app.modules", "app.core", "app.integrations",
+]
+
+[[tool.importlinter.contracts]]
+name = "swisseph is imported directly in exactly one module"
+type = "forbidden"
+# Indirect is fine and expected: chart.py calls into ephemeris.py, which is the
+# single wrapper. What must never happen is a second module reaching for the
+# raw library and quietly picking its own ayanamsa or house system.
+allow_indirect_imports = true
+source_modules = [
+    "app.modules",
+    "app.core",
+    "app.astrology_core.chart",
+    "app.astrology_core.dasha",
+    "app.astrology_core.nakshatra",
+    "app.astrology_core.models",
+    "app.astrology_core.constants",
+]
+forbidden_modules = ["swisseph"]

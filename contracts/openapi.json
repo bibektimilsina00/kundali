@@ -1,0 +1,903 @@
+{
+  "components": {
+    "schemas": {
+      "AvakhadaOut": {
+        "description": "Traditional birth attributes, all derived from the Moon.\n\n`paya` is deliberately absent: the rules in circulation disagree and give\ndifferent metals for the same chart, so the engine declines to invent one.",
+        "properties": {
+          "charan": {
+            "description": "The Moon's nakshatra pada, 1-4",
+            "title": "Charan",
+            "type": "integer"
+          },
+          "gana": {
+            "title": "Gana",
+            "type": "string"
+          },
+          "nadi": {
+            "title": "Nadi",
+            "type": "string"
+          },
+          "nakshatra": {
+            "title": "Nakshatra",
+            "type": "string"
+          },
+          "name_syllable": {
+            "description": "Syllable traditionally used to name the child",
+            "title": "Name Syllable",
+            "type": "string"
+          },
+          "sign": {
+            "title": "Sign",
+            "type": "string"
+          },
+          "sign_lord": {
+            "title": "Sign Lord",
+            "type": "string"
+          },
+          "tatva": {
+            "title": "Tatva",
+            "type": "string"
+          },
+          "varna": {
+            "title": "Varna",
+            "type": "string"
+          },
+          "vashya": {
+            "title": "Vashya",
+            "type": "string"
+          },
+          "yoni": {
+            "title": "Yoni",
+            "type": "string"
+          },
+          "yunja": {
+            "title": "Yunja",
+            "type": "string"
+          }
+        },
+        "required": [
+          "varna",
+          "vashya",
+          "yoni",
+          "gana",
+          "nadi",
+          "sign",
+          "sign_lord",
+          "charan",
+          "tatva",
+          "nakshatra",
+          "name_syllable",
+          "yunja"
+        ],
+        "title": "AvakhadaOut",
+        "type": "object"
+      },
+      "BirthDetailsIn": {
+        "properties": {
+          "date": {
+            "format": "date",
+            "title": "Date",
+            "type": "string"
+          },
+          "latitude": {
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Latitude",
+            "type": "number"
+          },
+          "longitude": {
+            "description": "East positive",
+            "maximum": 180.0,
+            "minimum": -180.0,
+            "title": "Longitude",
+            "type": "number"
+          },
+          "name": {
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "place_label": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Place Label",
+            "type": "string"
+          },
+          "time": {
+            "examples": [
+              "08:30"
+            ],
+            "pattern": "^\\d{2}:\\d{2}(:\\d{2})?$",
+            "title": "Time",
+            "type": "string"
+          },
+          "time_accuracy": {
+            "default": "exact",
+            "enum": [
+              "exact",
+              "approximate",
+              "unknown"
+            ],
+            "title": "Time Accuracy",
+            "type": "string"
+          },
+          "tz_name": {
+            "description": "IANA zone name. NOT a UTC offset: the offset for a place changes over time, and sending a fixed one silently corrupts historical charts.",
+            "examples": [
+              "Asia/Kathmandu"
+            ],
+            "title": "Tz Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "date",
+          "time",
+          "tz_name",
+          "latitude",
+          "longitude",
+          "place_label"
+        ],
+        "title": "BirthDetailsIn",
+        "type": "object"
+      },
+      "ChartOut": {
+        "properties": {
+          "avakhada": {
+            "$ref": "#/components/schemas/AvakhadaOut"
+          },
+          "ayanamsa_name": {
+            "title": "Ayanamsa Name",
+            "type": "string"
+          },
+          "ayanamsa_value": {
+            "title": "Ayanamsa Value",
+            "type": "number"
+          },
+          "computed_at": {
+            "format": "date-time",
+            "title": "Computed At",
+            "type": "string"
+          },
+          "dasha": {
+            "$ref": "#/components/schemas/DashaOut"
+          },
+          "engine_version": {
+            "description": "Bumped whenever a calculation rule changes. Surfacing it makes 'why did my chart change?' answerable.",
+            "title": "Engine Version",
+            "type": "string"
+          },
+          "houses": {
+            "items": {
+              "$ref": "#/components/schemas/HouseOut"
+            },
+            "title": "Houses",
+            "type": "array"
+          },
+          "julian_day": {
+            "title": "Julian Day",
+            "type": "number"
+          },
+          "lagna_degree": {
+            "title": "Lagna Degree",
+            "type": "number"
+          },
+          "lagna_sign": {
+            "title": "Lagna Sign",
+            "type": "string"
+          },
+          "lagna_sign_index": {
+            "title": "Lagna Sign Index",
+            "type": "integer"
+          },
+          "panchang": {
+            "$ref": "#/components/schemas/PanchangOut"
+          },
+          "planets": {
+            "items": {
+              "$ref": "#/components/schemas/PlanetOut"
+            },
+            "title": "Planets",
+            "type": "array"
+          },
+          "vargas": {
+            "items": {
+              "$ref": "#/components/schemas/VargaChartOut"
+            },
+            "title": "Vargas",
+            "type": "array"
+          }
+        },
+        "required": [
+          "engine_version",
+          "computed_at",
+          "julian_day",
+          "ayanamsa_name",
+          "ayanamsa_value",
+          "lagna_sign",
+          "lagna_sign_index",
+          "lagna_degree",
+          "planets",
+          "houses",
+          "dasha",
+          "panchang",
+          "avakhada",
+          "vargas"
+        ],
+        "title": "ChartOut",
+        "type": "object"
+      },
+      "DashaOut": {
+        "properties": {
+          "balance_years": {
+            "title": "Balance Years",
+            "type": "number"
+          },
+          "birth_lord": {
+            "title": "Birth Lord",
+            "type": "string"
+          },
+          "periods": {
+            "items": {
+              "$ref": "#/components/schemas/DashaPeriodOut"
+            },
+            "title": "Periods",
+            "type": "array"
+          }
+        },
+        "required": [
+          "birth_lord",
+          "balance_years",
+          "periods"
+        ],
+        "title": "DashaOut",
+        "type": "object"
+      },
+      "DashaPeriodOut": {
+        "properties": {
+          "children": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/DashaPeriodOut"
+            },
+            "title": "Children",
+            "type": "array"
+          },
+          "end": {
+            "format": "date",
+            "title": "End",
+            "type": "string"
+          },
+          "level": {
+            "description": "1 maha, 2 antar, 3 pratyantar",
+            "title": "Level",
+            "type": "integer"
+          },
+          "lord": {
+            "title": "Lord",
+            "type": "string"
+          },
+          "start": {
+            "format": "date",
+            "title": "Start",
+            "type": "string"
+          }
+        },
+        "required": [
+          "lord",
+          "start",
+          "end",
+          "level"
+        ],
+        "title": "DashaPeriodOut",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "HouseOut": {
+        "properties": {
+          "lord": {
+            "title": "Lord",
+            "type": "string"
+          },
+          "number": {
+            "title": "Number",
+            "type": "integer"
+          },
+          "occupants": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Occupants",
+            "type": "array"
+          },
+          "sign": {
+            "title": "Sign",
+            "type": "string"
+          },
+          "sign_index": {
+            "description": "0-11, Aries=0. The traditional North Indian chart prints the rashi number (sign_index + 1) in each house.",
+            "title": "Sign Index",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "number",
+          "sign",
+          "sign_index",
+          "lord",
+          "occupants"
+        ],
+        "title": "HouseOut",
+        "type": "object"
+      },
+      "NakshatraOut": {
+        "properties": {
+          "lord": {
+            "title": "Lord",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "pada": {
+            "title": "Pada",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "name",
+          "pada",
+          "lord"
+        ],
+        "title": "NakshatraOut",
+        "type": "object"
+      },
+      "PanchangOut": {
+        "description": "The five limbs of the Vedic calendar, plus the day boundary they hang off.",
+        "properties": {
+          "ascendant_lord": {
+            "title": "Ascendant Lord",
+            "type": "string"
+          },
+          "ascendant_sign": {
+            "title": "Ascendant Sign",
+            "type": "string"
+          },
+          "karana": {
+            "title": "Karana",
+            "type": "string"
+          },
+          "moon_sign": {
+            "title": "Moon Sign",
+            "type": "string"
+          },
+          "moon_sign_lord": {
+            "title": "Moon Sign Lord",
+            "type": "string"
+          },
+          "nakshatra": {
+            "title": "Nakshatra",
+            "type": "string"
+          },
+          "nakshatra_lord": {
+            "title": "Nakshatra Lord",
+            "type": "string"
+          },
+          "nakshatra_pada": {
+            "title": "Nakshatra Pada",
+            "type": "integer"
+          },
+          "paksha": {
+            "description": "Shukla (waxing) or Krishna (waning)",
+            "title": "Paksha",
+            "type": "string"
+          },
+          "sunrise": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Local time. Null above the polar circles, where the Sun may neither rise nor set \u2014 a valid chart, not an error.",
+            "title": "Sunrise"
+          },
+          "sunset": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sunset"
+          },
+          "tithi_index": {
+            "description": "0-29 across the lunar month",
+            "title": "Tithi Index",
+            "type": "integer"
+          },
+          "tithi_name": {
+            "title": "Tithi Name",
+            "type": "string"
+          },
+          "vara": {
+            "description": "Weekday by Vedic reckoning: the day turns at sunrise, so a pre-dawn birth belongs to the previous weekday.",
+            "title": "Vara",
+            "type": "string"
+          },
+          "vara_lord": {
+            "title": "Vara Lord",
+            "type": "string"
+          },
+          "yoga": {
+            "description": "Nitya yoga \u2014 from Sun + Moon longitude",
+            "title": "Yoga",
+            "type": "string"
+          }
+        },
+        "required": [
+          "tithi_index",
+          "tithi_name",
+          "paksha",
+          "karana",
+          "yoga",
+          "nakshatra",
+          "nakshatra_lord",
+          "nakshatra_pada",
+          "vara",
+          "vara_lord",
+          "moon_sign",
+          "moon_sign_lord",
+          "ascendant_sign",
+          "ascendant_lord"
+        ],
+        "title": "PanchangOut",
+        "type": "object"
+      },
+      "PlaceOut": {
+        "properties": {
+          "admin1": {
+            "default": "",
+            "description": "State or province",
+            "title": "Admin1",
+            "type": "string"
+          },
+          "country": {
+            "default": "",
+            "title": "Country",
+            "type": "string"
+          },
+          "country_code": {
+            "default": "",
+            "title": "Country Code",
+            "type": "string"
+          },
+          "id": {
+            "description": "GeoNames id \u2014 stable, safe to store",
+            "title": "Id",
+            "type": "integer"
+          },
+          "label": {
+            "description": "Display string, e.g. 'Lumbini, Lumbini Province, Nepal'",
+            "title": "Label",
+            "type": "string"
+          },
+          "latitude": {
+            "title": "Latitude",
+            "type": "number"
+          },
+          "longitude": {
+            "title": "Longitude",
+            "type": "number"
+          },
+          "matched_as": {
+            "default": "",
+            "description": "The alternate name that matched, when it differs from the primary name. GeoNames calls Lumbini 'Rummin-dei'; a result labelled only by its primary name looks like the wrong place.",
+            "title": "Matched As",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "tz_name": {
+            "description": "IANA zone. This is the field that matters: it is resolved here, once, from a dataset \u2014 never guessed by the client and never a UTC offset, which would be wrong for any birth before the zone last changed.",
+            "title": "Tz Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "latitude",
+          "longitude",
+          "tz_name",
+          "label"
+        ],
+        "title": "PlaceOut",
+        "type": "object"
+      },
+      "PlaceSearchOut": {
+        "properties": {
+          "query": {
+            "title": "Query",
+            "type": "string"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/PlaceOut"
+            },
+            "title": "Results",
+            "type": "array"
+          }
+        },
+        "required": [
+          "query",
+          "results"
+        ],
+        "title": "PlaceSearchOut",
+        "type": "object"
+      },
+      "PlanetOut": {
+        "properties": {
+          "aspects_houses": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Aspects Houses",
+            "type": "array"
+          },
+          "avastha": {
+            "default": "",
+            "description": "Baladi avastha \u2014 the planet's 'age' in its sign: Bala, Kumara, Yuva, Vriddha, Mrita.",
+            "title": "Avastha",
+            "type": "string"
+          },
+          "combust": {
+            "title": "Combust",
+            "type": "boolean"
+          },
+          "degree_in_sign": {
+            "title": "Degree In Sign",
+            "type": "number"
+          },
+          "dignity": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Null for Rahu and Ketu \u2014 classical sources disagree, so the engine declines to invent one. Clients must render the absence.",
+            "title": "Dignity"
+          },
+          "house": {
+            "title": "House",
+            "type": "integer"
+          },
+          "nakshatra": {
+            "$ref": "#/components/schemas/NakshatraOut"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "retrograde": {
+            "title": "Retrograde",
+            "type": "boolean"
+          },
+          "sign": {
+            "title": "Sign",
+            "type": "string"
+          },
+          "sign_index": {
+            "title": "Sign Index",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "name",
+          "sign",
+          "sign_index",
+          "degree_in_sign",
+          "house",
+          "nakshatra",
+          "retrograde",
+          "combust",
+          "aspects_houses"
+        ],
+        "title": "PlanetOut",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "VargaChartOut": {
+        "description": "A divisional chart is a full chart in its own right \u2014 its own ascendant,\nits own houses.",
+        "properties": {
+          "code": {
+            "description": "D1, D9, D10 \u2026",
+            "title": "Code",
+            "type": "string"
+          },
+          "divisions": {
+            "title": "Divisions",
+            "type": "integer"
+          },
+          "lagna_sign": {
+            "title": "Lagna Sign",
+            "type": "string"
+          },
+          "lagna_sign_index": {
+            "title": "Lagna Sign Index",
+            "type": "integer"
+          },
+          "meaning": {
+            "title": "Meaning",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "placements": {
+            "items": {
+              "$ref": "#/components/schemas/VargaPlacementOut"
+            },
+            "title": "Placements",
+            "type": "array"
+          }
+        },
+        "required": [
+          "code",
+          "name",
+          "meaning",
+          "divisions",
+          "lagna_sign",
+          "lagna_sign_index",
+          "placements"
+        ],
+        "title": "VargaChartOut",
+        "type": "object"
+      },
+      "VargaPlacementOut": {
+        "properties": {
+          "house": {
+            "title": "House",
+            "type": "integer"
+          },
+          "planet": {
+            "title": "Planet",
+            "type": "string"
+          },
+          "sign": {
+            "title": "Sign",
+            "type": "string"
+          },
+          "sign_index": {
+            "title": "Sign Index",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "planet",
+          "sign",
+          "sign_index",
+          "house"
+        ],
+        "title": "VargaPlacementOut",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "\nOne backend, two clients (web and Flutter).\n\n**Compatibility:** additive changes only within `/v1` \u2014 no removed or renamed\nfields, no newly-required request fields, no narrowed types. App Store users\nstay on old builds for months. Clients must treat unknown enum values as\n\"other\". See docs/architecture.md \u00a77.\n\n**Errors** are always `{\"error\": {\"code\", \"message\", \"details\"}}`. Switch on\n`code`; never parse `message`.\n",
+    "title": "Kundali API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Health Health Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Liveness probe",
+        "tags": [
+          "meta"
+        ]
+      }
+    },
+    "/v1/kundali": {
+      "post": {
+        "description": "Computes a full Vedic chart from birth details: Lahiri ayanamsa, whole-sign houses, mean nodes, Vimshottari dasha. Deterministic and synchronous \u2014 the calculation is local arithmetic against an ephemeris, not a job.\n\nSee docs/astrology-methodology.md for every methodology decision.",
+        "operationId": "create_kundali_v1_kundali_post",
+        "parameters": [
+          {
+            "description": "Dasha levels to return: 1 maha, 2 +antar, 3 +pratyantar. Defaults to 2 \u2014 the full tree is 819 periods and ~78KB, against ~12KB for two levels. Request 3 only when drilling into a specific period.",
+            "in": "query",
+            "name": "dasha_depth",
+            "required": false,
+            "schema": {
+              "default": 2,
+              "description": "Dasha levels to return: 1 maha, 2 +antar, 3 +pratyantar. Defaults to 2 \u2014 the full tree is 819 periods and ~78KB, against ~12KB for two levels. Request 3 only when drilling into a specific period.",
+              "maximum": 3,
+              "minimum": 1,
+              "title": "Dasha Depth",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BirthDetailsIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChartOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Generate a birth chart",
+        "tags": [
+          "kundali"
+        ]
+      }
+    },
+    "/v1/places": {
+      "get": {
+        "description": "Prefix search over 786,650 populated places. Every populated place in Nepal and India, plus everywhere worldwide with population >= 1000.\n\nAlternate names are searched too \u2014 GeoNames records Lumbini under the primary name 'Rummin-dei', so searching primary names alone would make it unfindable.\n\nEach result carries an **IANA zone name**, resolved here rather than guessed by the client.",
+        "operationId": "search_v1_places_get",
+        "parameters": [
+          {
+            "description": "Place name",
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "schema": {
+              "description": "Place name",
+              "maxLength": 80,
+              "minLength": 2,
+              "title": "Q",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 50,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlaceSearchOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Search birthplaces",
+        "tags": [
+          "places"
+        ]
+      }
+    }
+  }
+}
