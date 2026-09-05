@@ -14,6 +14,19 @@ import { CustomLanguageSelector } from "@/components/ui/custom-language-selector
 
 import { useTranslation } from "@/lib/i18n/language-context";
 import { trackLiveVoiceStarted } from "@/lib/utils/analytics";
+import {
+  ArrowLeft,
+  Sparkles,
+  Mic,
+  MicOff,
+  Zap,
+  FileText,
+  Map,
+  Bug,
+  Monitor,
+  Radio,
+  LogOut,
+} from "lucide-react";
 
 export function LiveModeWorkspace() {
   const router = useRouter();
@@ -653,131 +666,43 @@ export function LiveModeWorkspace() {
   return (
     <div className="h-dvh max-h-dvh overflow-hidden bg-[#090A10] text-[#94A3B8] flex flex-col font-sans selection:bg-[#E5A93C]/30 selection:text-[#F3C766]">
       {/* Top Header Bar */}
-      <header className="border-b border-white/10 bg-[#090A10]/90 backdrop-blur-md px-6 py-3 flex items-center justify-between z-20 sticky top-0">
-        <div className="flex items-center gap-4">
+      <header className="border-b border-white/10 bg-[#090A10]/90 backdrop-blur-md px-4 sm:px-6 py-3 flex items-center justify-between z-20 sticky top-0">
+        <div className="flex items-center gap-3 sm:gap-4">
           <button
             onClick={() => {
               toggleLiveVoiceMode(false);
               router.push("/reading");
             }}
-            className="flex items-center gap-2 rounded-[8px] border border-white/10 bg-[#161B2B] px-4 py-1.5 text-xs font-semibold text-[#F8FAFC] hover:border-white/20 transition"
+            className="flex items-center gap-2 rounded-[8px] border border-white/10 bg-[#161B2B] px-3 py-1.5 text-xs font-semibold text-[#F8FAFC] hover:border-[#E5A93C]/40 hover:bg-[#1E2538] transition cursor-pointer active:scale-95"
           >
-            <span>← Back to Full Report</span>
+            <ArrowLeft className="size-3.5 text-[#E5A93C]" />
+            <span className="hidden sm:inline">Back to Report</span>
           </button>
-          <span className="font-serif text-sm font-bold text-[#F8FAFC] flex items-center gap-2">
-            <span className="inline-block size-2.5 rounded-full bg-red-500 animate-ping" />
-            Live Astrologer Desk
-          </span>
-        </div>
-
-        {/* View Mode, VU Meter & Debug Switcher */}
-        <div className="flex items-center gap-3">
-          {viewMode === "live_voice" && (
-            <>
-              {/* Real-time Hardware Mic Level Indicator (VU Meter) */}
-              <div className="hidden sm:flex items-center gap-2 bg-[#161B2B] border border-white/10 rounded-[8px] px-3 py-1.5 text-[10px] text-[#94A3B8]">
-                <span className="font-medium">Mic VU:</span>
-                <div className="w-12 bg-[#090A10] h-2 rounded-[8px] overflow-hidden border border-white/10">
-                  <div
-                    className="h-full bg-gradient-to-r from-emerald-500 via-cyan-400 to-[#E5A93C] transition-all duration-75"
-                    style={{ width: `${Math.max(5, audioLevel)}%` }}
-                  />
-                </div>
-              </div>
-
-              <span
-                className={`inline-flex items-center gap-1.5 rounded-[8px] px-3 py-1.5 text-xs font-bold border transition-all ${
-                  voiceState === "listening"
-                    ? "bg-cyan-500/10 border-cyan-500/50 text-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.25)]"
-                    : voiceState === "thinking"
-                    ? "bg-[#E5A93C]/10 border-[#E5A93C]/50 text-[#F3C766] shadow-[0_0_15px_rgba(229,169,60,0.25)]"
-                    : voiceState === "speaking"
-                    ? "bg-amber-500/10 border-amber-500/50 text-amber-300 shadow-[0_0_20px_rgba(243,199,102,0.35)]"
-                    : "bg-slate-800/80 border-slate-700 text-slate-300"
-                }`}
-              >
-                {voiceState === "listening" && (
-                  <>
-                    <span className="size-2 rounded-full bg-cyan-400 animate-ping" />
-                    Realtime Listening...
-                  </>
-                )}
-                {voiceState === "thinking" && (
-                  <>
-                    <span className="size-2 rounded-full bg-[#E5A93C] animate-spin" />
-                    Analyzing Speech...
-                  </>
-                )}
-                {voiceState === "speaking" && (
-                  <>
-                    <span className="size-2 rounded-full bg-amber-400 animate-pulse" />
-                    Astrologer Speaking...
-                  </>
-                )}
-                {voiceState === "paused" && <>⏸️ Voice Paused</>}
-              </span>
-            </>
-          )}
-
-          <CustomVoiceSelector
-            selectedVoice={selectedVoice}
-            onSelectVoice={(vId) => handleVoiceChange(vId)}
-            language={selectedLanguage}
-          />
-
-          <CustomLanguageSelector
-            value={selectedLanguage}
-            onChange={(lang) => {
-              setSelectedLanguage(lang);
-              selectedLanguageRef.current = lang;
-              setGlobalLang(lang);
-              addDebugLog("LANGUAGE_CHANGED", `Astrologer language switched to ${lang.toUpperCase()}`);
-              if (isWebRTCActiveRef.current && webrtcClientRef.current) {
-                webrtcClientRef.current.disconnect();
-                startOpenAIRealtimeWebRTC();
-              }
-            }}
-          />
-
-          <button
-            onClick={handleToggleDebugPanel}
-            className={`rounded-[8px] border px-3 py-1.5 text-xs font-bold transition flex items-center gap-1.5 ${
-              showDebugPanel
-                ? "bg-amber-500/20 border-amber-500/60 text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.3)]"
-                : "bg-[#161B2B] border-white/10 text-[#94A3B8] hover:text-[#F8FAFC]"
-            }`}
-          >
-            <span>🐛</span>
-            <span>Debug Panel</span>
-          </button>
-
-          <div className="flex items-center rounded-[8px] bg-[#161B2B] border border-white/10 p-1">
-            <button
-              onClick={() => toggleLiveVoiceMode(false)}
-              className={`rounded-[8px] px-3 py-1 text-xs font-semibold transition ${
-                viewMode === "desk"
-                  ? "bg-[#E5A93C] text-[#090A10]"
-                  : "text-[#94A3B8] hover:text-[#F8FAFC]"
-              }`}
-            >
-              💻 Desk View
-            </button>
-            <button
-              onClick={() => toggleLiveVoiceMode(true)}
-              className={`flex items-center gap-1.5 rounded-[8px] px-3 py-1 text-xs font-semibold transition ${
-                viewMode === "live_voice"
-                  ? "bg-[#E5A93C] text-[#090A10]"
-                  : "text-[#F3C766] hover:text-[#F8FAFC]"
-              }`}
-            >
-              <span className="relative flex size-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E5A93C] opacity-75"></span>
-                <span className="relative inline-flex rounded-full size-2 bg-[#E5A93C]"></span>
-              </span>
-              🎙️ Realtime Voice
-            </button>
+          
+          <div className="flex items-center gap-2">
+            <div className="grid size-7 place-items-center rounded-[6px] bg-[#E5A93C] text-[#090A10] font-bold">
+              <Sparkles className="size-4 text-[#090A10]" />
+            </div>
+            <span className="font-serif text-sm font-bold text-[#F8FAFC]">
+              Kundali Live AI
+            </span>
           </div>
         </div>
+
+        {/* Right ONLY: Reusable Custom Language Selector */}
+        <CustomLanguageSelector
+          value={selectedLanguage}
+          onChange={(lang) => {
+            setSelectedLanguage(lang);
+            selectedLanguageRef.current = lang;
+            setGlobalLang(lang);
+            addDebugLog("LANGUAGE_CHANGED", `Astrologer language switched to ${lang.toUpperCase()}`);
+            if (isWebRTCActiveRef.current && webrtcClientRef.current) {
+              webrtcClientRef.current.disconnect();
+              startOpenAIRealtimeWebRTC();
+            }
+          }}
+        />
       </header>
 
       {/* =================================================================== */}
@@ -923,7 +848,94 @@ export function LiveModeWorkspace() {
       {viewMode === "live_voice" ? (
         <div className="relative flex-1 min-h-0 h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#1E1B4B]/40 via-[#090A10] to-[#090A10] flex flex-col items-start justify-start p-4 sm:p-5 overflow-hidden">
           
-          {/* MAIN SPLIT GRID (LEFT: Name Card + Realtime Response Card, RIGHT: Orb Visualizer & Controls) */}
+          {/* Top Status & Mode Control Bar inside Live Room */}
+          <div className="w-full flex flex-wrap items-center justify-between gap-3 bg-[#161B2B]/90 border border-white/10 rounded-[8px] p-2.5 shadow-xl mb-3 shrink-0">
+            {/* Realtime Status Badge & Mic VU Meter */}
+            <div className="flex items-center gap-3">
+              <span
+                className={`inline-flex items-center gap-1.5 rounded-[6px] px-3 py-1 text-xs font-bold border transition-all ${
+                  voiceState === "listening"
+                    ? "bg-cyan-500/10 border-cyan-500/50 text-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.25)]"
+                    : voiceState === "thinking"
+                    ? "bg-[#E5A93C]/10 border-[#E5A93C]/50 text-[#F3C766] shadow-[0_0_15px_rgba(229,169,60,0.25)]"
+                    : voiceState === "speaking"
+                    ? "bg-amber-500/10 border-amber-500/50 text-amber-300 shadow-[0_0_20px_rgba(243,199,102,0.35)]"
+                    : "bg-slate-800/80 border-slate-700 text-slate-300"
+                }`}
+              >
+                {voiceState === "listening" && (
+                  <>
+                    <span className="size-2 rounded-full bg-cyan-400 animate-ping" />
+                    Realtime Listening...
+                  </>
+                )}
+                {voiceState === "thinking" && (
+                  <>
+                    <span className="size-2 rounded-full bg-[#E5A93C] animate-spin" />
+                    Analyzing Speech...
+                  </>
+                )}
+                {voiceState === "speaking" && (
+                  <>
+                    <span className="size-2 rounded-full bg-amber-400 animate-pulse" />
+                    Astrologer Speaking...
+                  </>
+                )}
+                {voiceState === "paused" && <>Voice Ready / Paused</>}
+              </span>
+
+              {/* Hardware Mic Level Indicator (VU Meter) */}
+              <div className="hidden sm:flex items-center gap-2 bg-[#090A10] border border-white/10 rounded-[6px] px-2.5 py-1 text-[10px] text-[#94A3B8]">
+                <span className="font-medium">Mic VU:</span>
+                <div className="w-12 bg-[#161B2B] h-2 rounded-[4px] overflow-hidden border border-white/10">
+                  <div
+                    className="h-full bg-gradient-to-r from-emerald-500 via-cyan-400 to-[#E5A93C] transition-all duration-75"
+                    style={{ width: `${Math.max(5, audioLevel)}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* View Mode & Debug Toggle */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleToggleDebugPanel}
+                className={`rounded-[6px] border px-2.5 py-1 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                  showDebugPanel
+                    ? "bg-amber-500/20 border-amber-500/60 text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.3)]"
+                    : "bg-[#090A10] border-white/10 text-[#94A3B8] hover:text-[#F8FAFC]"
+                }`}
+              >
+                <Bug className="size-3.5 text-[#E5A93C]" />
+                <span className="hidden sm:inline">Debug</span>
+              </button>
+
+              <div className="flex items-center rounded-[6px] bg-[#090A10] border border-white/10 p-0.5 text-xs">
+                <button
+                  onClick={() => toggleLiveVoiceMode(false)}
+                  className={`flex items-center gap-1.5 rounded-[4px] px-2.5 py-0.5 text-[11px] font-semibold transition ${
+                    (viewMode as string) === "desk"
+                      ? "bg-[#E5A93C] text-[#090A10]"
+                      : "text-[#94A3B8] hover:text-[#F8FAFC]"
+                  }`}
+                >
+                  <Monitor className="size-3" />
+                  <span>Desk</span>
+                </button>
+                <button
+                  onClick={() => toggleLiveVoiceMode(true)}
+                  className={`flex items-center gap-1.5 rounded-[4px] px-2.5 py-0.5 text-[11px] font-semibold transition ${
+                    viewMode === "live_voice"
+                      ? "bg-[#E5A93C] text-[#090A10]"
+                      : "text-[#F3C766] hover:text-[#F8FAFC]"
+                  }`}
+                >
+                  <Radio className="size-3 text-[#090A10] animate-pulse" />
+                  <span>Voice</span>
+                </button>
+              </div>
+            </div>
+          </div>
           <div className="w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch min-h-0">
             
             {/* LEFT COLUMN (4 COLS): SEEKER NAME CARD + REALTIME RESPONSE CARD - DYNAMICALLY FIT TO SCREEN */}
@@ -1132,76 +1144,72 @@ export function LiveModeWorkspace() {
                   ))}
                 </div>
 
-                {/* CONTROL DOCK (Language, Mute, Kundali, Interrupt, Transcript, Exit) */}
-                <div className="w-full max-w-2xl rounded-[8px] border border-white/10 bg-[#161B2B]/90 backdrop-blur-2xl p-2 flex items-center justify-between gap-1 z-20 shadow-2xl shrink-0">
-                  {/* Voice Selector */}
+                {/* CONTROL DOCK (Voice, Mute, Kundali, Interrupt, Transcript, Exit) */}
+                <div className="w-full max-w-2xl rounded-[8px] border border-white/10 bg-[#161B2B]/95 backdrop-blur-2xl p-2 flex flex-wrap items-center justify-between gap-1.5 z-20 shadow-2xl shrink-0">
+                  {/* Custom Voice Selector with Sound Preview */}
                   <CustomVoiceSelector
                     selectedVoice={selectedVoice}
                     onSelectVoice={(vId) => handleVoiceChange(vId)}
                     language={selectedLanguage}
                   />
 
-                  {/* Language Selector */}
-                  <CustomLanguageSelector
-                    value={selectedLanguage}
-                    onChange={(lang) => {
-                      setSelectedLanguage(lang);
-                      selectedLanguageRef.current = lang;
-                      setGlobalLang(lang);
-                      addDebugLog("LANGUAGE_CHANGED", `Astrologer language switched to ${lang.toUpperCase()}`);
-                      if (isWebRTCActiveRef.current && webrtcClientRef.current) {
-                        webrtcClientRef.current.disconnect();
-                        startOpenAIRealtimeWebRTC();
-                      }
-                    }}
-                    dropUp={true}
-                    size="sm"
-                  />
-
+                  {/* Mute / Unmute Button */}
                   <button
+                    type="button"
                     onClick={() => setIsMicMuted(!isMicMuted)}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-xs font-semibold transition ${
-                      isMicMuted ? "bg-red-500/20 text-red-400 border border-red-500/40" : "text-[#F8FAFC] hover:bg-white/5"
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-xs font-semibold transition cursor-pointer ${
+                      isMicMuted ? "bg-red-500/20 text-red-400 border border-red-500/40" : "text-[#F8FAFC] hover:bg-white/5 border border-white/10"
                     }`}
                   >
-                    <span>{isMicMuted ? "🔇" : "🎙️"}</span>
+                    {isMicMuted ? <MicOff className="size-3.5 text-red-400" /> : <Mic className="size-3.5 text-[#E5A93C]" />}
                     <span className="text-[11px]">{isMicMuted ? "Unmute" : "Mute"}</span>
                   </button>
 
+                  {/* Kundali Chart Drawer Button */}
                   <button
+                    type="button"
                     onClick={() => setShowChartDrawer(!showChartDrawer)}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-xs font-semibold transition ${
-                      showChartDrawer ? "bg-[#E5A93C]/20 text-[#F3C766] border border-[#E5A93C]/40" : "text-[#F8FAFC] hover:bg-white/5"
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-xs font-semibold transition cursor-pointer ${
+                      showChartDrawer ? "bg-[#E5A93C]/20 text-[#F3C766] border border-[#E5A93C]/40" : "text-[#F8FAFC] hover:bg-white/5 border border-white/10"
                     }`}
                   >
-                    <span>🗺️</span>
+                    <Map className="size-3.5 text-[#E5A93C]" />
                     <span className="text-[11px]">Kundali</span>
                   </button>
 
+                  {/* Interrupt Button */}
                   <button
+                    type="button"
                     onClick={handleInterrupt}
-                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-[8px] bg-gradient-to-r from-[#E5A93C] to-[#F3C766] text-[#090A10] font-bold text-xs hover:shadow-[0_0_20px_rgba(229,169,60,0.4)] transition shadow-lg scale-105"
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-[8px] bg-gradient-to-r from-[#E5A93C] to-[#F3C766] text-[#090A10] font-bold text-xs hover:shadow-[0_0_20px_rgba(229,169,60,0.4)] transition shadow-lg scale-105 cursor-pointer active:scale-95"
                   >
-                    <span>⚡</span>
+                    <Zap className="size-3.5 fill-current" />
                     <span className="text-[11px]">Interrupt</span>
                   </button>
 
+                  {/* Transcript Drawer Button */}
                   <button
+                    type="button"
                     onClick={() => setShowTranscriptDrawer(!showTranscriptDrawer)}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-xs font-semibold transition ${
-                      showTranscriptDrawer ? "bg-[#E5A93C]/20 text-[#F3C766] border border-[#E5A93C]/40" : "text-[#F8FAFC] hover:bg-white/5"
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-xs font-semibold transition cursor-pointer ${
+                      showTranscriptDrawer ? "bg-[#E5A93C]/20 text-[#F3C766] border border-[#E5A93C]/40" : "text-[#F8FAFC] hover:bg-white/5 border border-white/10"
                     }`}
                   >
-                    <span>📜</span>
+                    <FileText className="size-3.5 text-[#E5A93C]" />
                     <span className="text-[11px]">Transcript</span>
                   </button>
 
+                  {/* Exit Consultation Button */}
                   <button
-                    onClick={() => toggleLiveVoiceMode(false)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-xs font-semibold text-red-400 hover:bg-red-500/10 transition"
+                    type="button"
+                    onClick={() => {
+                      toggleLiveVoiceMode(false);
+                      router.push("/reading");
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-xs font-semibold text-red-400 hover:bg-red-500/10 border border-red-500/20 transition cursor-pointer"
                   >
-                    <span>❌</span>
-                    <span className="text-[11px]">Exit Voice</span>
+                    <LogOut className="size-3.5 text-red-400" />
+                    <span className="text-[11px]">Exit</span>
                   </button>
                 </div>
 
