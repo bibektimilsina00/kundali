@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { ChevronDown } from "lucide-react";
 
 export interface CustomSelectOption {
   value: string;
@@ -47,17 +48,11 @@ export function CustomSelect({
         className="flex w-full items-center justify-between rounded-[8px] border border-white/10 bg-[#090A10] px-3 py-2.5 text-xs font-semibold text-[#F8FAFC] hover:border-[#E5A93C] focus:border-[#E5A93C] focus:outline-none transition"
       >
         <span className="truncate">{selectedOption ? selectedOption.label : placeholder}</span>
-        <svg
+        <ChevronDown
           className={`size-3.5 shrink-0 text-[#94A3B8] transition-transform duration-200 ${
             isOpen ? "rotate-180 text-[#E5A93C]" : ""
           }`}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-        </svg>
+        />
       </button>
 
       {/* Popover Options Menu */}

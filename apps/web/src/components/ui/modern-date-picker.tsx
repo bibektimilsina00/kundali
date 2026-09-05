@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { Calendar, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { AD_MONTH_SHORT, BS_MONTH_SHORT, getDaysInBsMonth } from "@/lib/utils/date-converter";
 import { CustomSelect, type CustomSelectOption } from "@/components/ui/custom-select";
 
@@ -98,7 +99,7 @@ export function ModernDatePicker({
         }`}
       >
         <div className="flex items-center gap-2.5">
-          <span className="text-base text-[#E5A93C]">📅</span>
+          <Calendar className="size-4 text-[#E5A93C]" />
           <span className={day && month && year ? "text-[#F8FAFC] font-medium" : "text-[#94A3B8]/50"}>
             {formatDisplayDate()}
           </span>
@@ -107,15 +108,9 @@ export function ModernDatePicker({
           <span className="rounded bg-[#161B2B] px-2 py-0.5 text-[10px] font-bold text-[#E5A93C] border border-white/10">
             {era}
           </span>
-          <svg
+          <ChevronDown
             className={`size-4 text-[#94A3B8] transition-transform duration-200 ${isOpen ? "rotate-180 text-[#E5A93C]" : ""}`}
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
+          />
         </div>
       </button>
 
@@ -155,7 +150,7 @@ export function ModernDatePicker({
               className="size-8 shrink-0 rounded-[6px] border border-white/10 bg-[#090A10] text-xs font-bold text-[#F8FAFC] hover:border-[#E5A93C] transition flex items-center justify-center"
               title="Previous Month"
             >
-              ‹
+              <ChevronLeft className="size-4" />
             </button>
 
             {/* Custom Month Dropdown */}
@@ -180,7 +175,7 @@ export function ModernDatePicker({
               className="size-8 shrink-0 rounded-[6px] border border-white/10 bg-[#090A10] text-xs font-bold text-[#F8FAFC] hover:border-[#E5A93C] transition flex items-center justify-center"
               title="Next Month"
             >
-              ›
+              <ChevronRight className="size-4" />
             </button>
           </div>
 

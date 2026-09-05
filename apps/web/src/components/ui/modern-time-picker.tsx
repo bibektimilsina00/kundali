@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { Clock, ChevronDown, Sunrise, Sun, Sunset, Moon, Plus, Minus } from "lucide-react";
 
 interface ModernTimePickerProps {
   hour: string;
@@ -13,10 +14,10 @@ interface ModernTimePickerProps {
 }
 
 const PRESET_TIMES = [
-  { label: "🌅 Morning", h: "06", m: "00", ap: "AM" as const },
-  { label: "☀️ Noon", h: "12", m: "00", ap: "PM" as const },
-  { label: "🌇 Evening", h: "06", m: "00", ap: "PM" as const },
-  { label: "🌙 Night", h: "10", m: "00", ap: "PM" as const },
+  { label: "Morning", Icon: Sunrise, h: "06", m: "00", ap: "AM" as const },
+  { label: "Noon", Icon: Sun, h: "12", m: "00", ap: "PM" as const },
+  { label: "Evening", Icon: Sunset, h: "06", m: "00", ap: "PM" as const },
+  { label: "Night", Icon: Moon, h: "10", m: "00", ap: "PM" as const },
 ];
 
 export function ModernTimePicker({
@@ -69,7 +70,7 @@ export function ModernTimePicker({
         }`}
       >
         <div className="flex items-center gap-2.5">
-          <span className="text-base text-[#E5A93C]">🕒</span>
+          <Clock className="size-4 text-[#E5A93C]" />
           <span className={hour && minute ? "text-[#F8FAFC] font-medium" : "text-[#94A3B8]/50"}>
             {formatDisplayTime()}
           </span>
@@ -78,15 +79,9 @@ export function ModernTimePicker({
           <span className="rounded bg-[#161B2B] px-2 py-0.5 text-[10px] font-bold text-[#E5A93C] border border-white/10">
             {curAmPm}
           </span>
-          <svg
+          <ChevronDown
             className={`size-4 text-[#94A3B8] transition-transform duration-200 ${isOpen ? "rotate-180 text-[#E5A93C]" : ""}`}
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
+          />
         </div>
       </button>
 
@@ -126,17 +121,23 @@ export function ModernTimePicker({
           <div className="space-y-1.5">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#94A3B8]">Quick Time Presets</span>
             <div className="grid grid-cols-2 gap-1.5">
-              {PRESET_TIMES.map((preset) => (
-                <button
-                  key={preset.label}
-                  type="button"
-                  onClick={() => onTimeChange(preset.h, preset.m, preset.ap)}
-                  className="rounded-[6px] border border-white/10 bg-[#090A10] py-1.5 px-2 text-[11px] font-semibold text-[#CBD5E1] hover:border-[#E5A93C] hover:text-[#F3C766] transition flex items-center justify-between"
-                >
-                  <span>{preset.label}</span>
-                  <span className="text-[10px] text-[#94A3B8]">{preset.h}:{preset.m} {preset.ap}</span>
-                </button>
-              ))}
+              {PRESET_TIMES.map((preset) => {
+                const PresetIcon = preset.Icon;
+                return (
+                  <button
+                    key={preset.label}
+                    type="button"
+                    onClick={() => onTimeChange(preset.h, preset.m, preset.ap)}
+                    className="rounded-[6px] border border-white/10 bg-[#090A10] py-1.5 px-2 text-[11px] font-semibold text-[#CBD5E1] hover:border-[#E5A93C] hover:text-[#F3C766] transition flex items-center justify-between"
+                  >
+                    <span className="flex items-center gap-1.5">
+                      <PresetIcon className="size-3.5 text-[#E5A93C]" />
+                      {preset.label}
+                    </span>
+                    <span className="text-[10px] text-[#94A3B8]">{preset.h}:{preset.m} {preset.ap}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -172,17 +173,17 @@ export function ModernTimePicker({
                 <button
                   type="button"
                   onClick={() => adjustMinute(-1)}
-                  className="size-6 rounded border border-white/10 bg-[#090A10] text-xs font-bold text-[#F8FAFC] hover:border-[#E5A93C]"
+                  className="size-6 rounded border border-white/10 bg-[#090A10] text-xs font-bold text-[#F8FAFC] hover:border-[#E5A93C] flex items-center justify-center"
                 >
-                  -
+                  <Minus className="size-3" />
                 </button>
                 <span className="text-xs font-bold font-mono text-[#F3C766] px-1">{curMinute}</span>
                 <button
                   type="button"
                   onClick={() => adjustMinute(1)}
-                  className="size-6 rounded border border-white/10 bg-[#090A10] text-xs font-bold text-[#F8FAFC] hover:border-[#E5A93C]"
+                  className="size-6 rounded border border-white/10 bg-[#090A10] text-xs font-bold text-[#F8FAFC] hover:border-[#E5A93C] flex items-center justify-center"
                 >
-                  +
+                  <Plus className="size-3" />
                 </button>
               </div>
             </div>
