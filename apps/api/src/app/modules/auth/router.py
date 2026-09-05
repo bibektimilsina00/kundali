@@ -44,9 +44,7 @@ def get_current_user(authorization: str | None = Header(None)) -> str:
 @router.post("/signup", response_model=TokenResponse)
 def signup(body: UserSignupIn) -> TokenResponse:
     conn = get_db()
-    cursor = conn.cursor()
-
-    existing = cursor.execute("SELECT id FROM users WHERE email = ?", (body.email.lower(),)).fetchone()
+    existing = conn.execute("SELECT id FROM users WHERE email = ?", (body.email.lower(),)).fetchone()
     if existing:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,

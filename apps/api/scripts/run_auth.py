@@ -32,8 +32,7 @@ def main():
         password = payload.get("password", "")
         full_name = payload.get("full_name", "")
 
-        cursor = conn.cursor()
-        existing = cursor.execute("SELECT id FROM users WHERE email = ?", (email,)).fetchone()
+        existing = conn.execute("SELECT id FROM users WHERE email = ?", (email,)).fetchone()
         if existing:
             print(json.dumps({"status": 400, "detail": "Email is already registered"}))
             return

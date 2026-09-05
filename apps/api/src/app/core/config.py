@@ -34,6 +34,7 @@ class Settings(BaseSettings):
     CORS_ORIGINS: list[str] = []
     JWT_SECRET: str = "kundali-dev-secret-key-change-in-production-2026"
     JWT_ALGORITHM: str = "HS256"
+    DATABASE_URL: str | None = None
 
 
 @lru_cache
