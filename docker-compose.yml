@@ -41,11 +41,12 @@ services:
   kundali_web:
     build:
       context: .
-      dockerfile: apps/web/Dockerfile
+      dockerfile: Dockerfile
     image: ${GHCR_IMAGE_WEB:-ghcr.io/bibektimilsina00/kundali-web:latest}
     container_name: kundali_web
     restart: always
     ports:
+      - "80:3000"
       - "3000:3000"
       - "29000:3000"
     environment:
