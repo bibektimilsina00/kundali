@@ -855,109 +855,132 @@ export function ReadingDashboard() {
           <div className="space-y-6">
 
             {/* 1. Hero Audio Player Bar (Sticky beneath top nav) */}
-            <div className="sticky top-[57px] z-30 rounded-[8px] border border-white/10 bg-[#161B2B] p-4 flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => {
-                    if (isPlaying) {
-                      stopSpeech();
-                      setIsPlaying(false);
-                    } else {
-                      const textToRead = visibleSections
-                        .map((s) => {
-                          const mainDetail = s.content?.[0] || "";
-                          return `${s.title}. ${s.summary}... ${mainDetail}`;
-                        })
-                        .join(" ... ");
-                      const rateMap: Record<string, number> = { "1x": 1.0, "1.2x": 1.2, "1.5x": 1.5 };
-                      const rate = rateMap[playbackSpeed] || 1.0;
-                      setIsPlaying(true);
-                      trackAudioPlayed(selectedVoice, language);
-                      speakText(textToRead, {
-                        rate,
-                        language,
-                        voice: selectedVoice,
-                        onSpokenText: (spokenText, source) => {
-                          setAudioDebugText(spokenText);
-                          setAudioSource(source);
-                        },
-                        onTimeUpdate: (pct, currentTime, duration) => {
-                          setAudioProgress(pct);
-                          setAudioCurrentTime(currentTime);
-                          setAudioDuration(duration);
-                        },
-                        onEnd: () => {
-                          setIsPlaying(false);
-                          setAudioProgress(0);
-                          setAudioCurrentTime(0);
-                        },
-                      });
-                    }
-                  }}
-                  className="grid size-10 place-items-center rounded-[8px] bg-[#E5A93C] text-[#090A10] font-bold transition hover:bg-[#F3C766]"
-                >
-                  {isPlaying ? (
-                    <svg className="size-4 fill-current" viewBox="0 0 24 24">
-                      <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-                    </svg>
-                  ) : (
-                    <svg className="size-4 fill-current ml-0.5" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  )}
-                </button>
+            <div className="sticky top-[57px] z-30 rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-3 shadow-xl backdrop-blur-md">
+              {/* Top Row: Play Info on Left, Modern Action Icons on Top Right */}
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => {
+                      if (isPlaying) {
+                        stopSpeech();
+                        setIsPlaying(false);
+                      } else {
+                        const textToRead = visibleSections
+                          .map((s) => {
+                            const mainDetail = s.content?.[0] || "";
+                            return `${s.title}. ${s.summary}... ${mainDetail}`;
+                          })
+                          .join(" ... ");
+                        const rateMap: Record<string, number> = { "1x": 1.0, "1.2x": 1.2, "1.5x": 1.5 };
+                        const rate = rateMap[playbackSpeed] || 1.0;
+                        setIsPlaying(true);
+                        trackAudioPlayed(selectedVoice, language);
+                        speakText(textToRead, {
+                          rate,
+                          language,
+                          voice: selectedVoice,
+                          onSpokenText: (spokenText, source) => {
+                            setAudioDebugText(spokenText);
+                            setAudioSource(source);
+                          },
+                          onTimeUpdate: (pct, currentTime, duration) => {
+                            setAudioProgress(pct);
+                            setAudioCurrentTime(currentTime);
+                            setAudioDuration(duration);
+                          },
+                          onEnd: () => {
+                            setIsPlaying(false);
+                            setAudioProgress(0);
+                            setAudioCurrentTime(0);
+                          },
+                        });
+                      }
+                    }}
+                    className="grid size-10 shrink-0 place-items-center rounded-[8px] bg-[#E5A93C] text-[#090A10] font-bold transition hover:bg-[#F3C766] active:scale-95 cursor-pointer shadow-md"
+                    title={isPlaying ? "Pause Audio" : "Play Audio"}
+                  >
+                    {isPlaying ? (
+                      <Pause className="size-4 fill-current" />
+                    ) : (
+                      <Play className="size-4 fill-current ml-0.5" />
+                    )}
+                  </button>
 
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-serif text-sm font-bold text-[#F8FAFC]">{t.narrativeAudioTitle}</span>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-serif text-sm font-bold text-[#F8FAFC]">{t.narrativeAudioTitle}</span>
+                    </div>
+                    <p className="text-[11px] text-[#94A3B8]">
+                      Voice: <strong className="text-[#F3C766]">{ASTROLOGER_VOICES.find(v => v.id === selectedVoice)?.name || "Acharya Dev"}</strong> ({ASTROLOGER_VOICES.find(v => v.id === selectedVoice)?.description[language as "en"|"ne"|"hi"] || "HD MP3 Stream Engine"})
+                    </p>
                   </div>
-                  <p className="text-[11px] text-[#94A3B8]">
-                    Astrologer Voice: <strong className="text-[#F3C766]">{ASTROLOGER_VOICES.find(v => v.id === selectedVoice)?.name || "Acharya Dev"}</strong> ({ASTROLOGER_VOICES.find(v => v.id === selectedVoice)?.description[language as "en"|"ne"|"hi"] || "HD MP3 Stream Engine"})
-                  </p>
+                </div>
+
+                {/* Top Right Action Icons for Audio */}
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    onClick={handleDownloadAudio}
+                    title={t.downloadAudio}
+                    aria-label={t.downloadAudio}
+                    className="group relative flex size-8 items-center justify-center rounded-[8px] border border-[#E5A93C]/40 bg-[#090A10] text-[#E5A93C] transition-all duration-200 hover:border-[#E5A93C] hover:bg-[#E5A93C] hover:text-[#090A10] hover:shadow-md hover:shadow-[#E5A93C]/20 active:scale-95 cursor-pointer"
+                  >
+                    <Download className="size-4 transition-transform duration-200 group-hover:scale-110" />
+                  </button>
+
+                  <button
+                    onClick={handleShareAudio}
+                    title={t.shareAudio}
+                    aria-label={t.shareAudio}
+                    className="group relative flex size-8 items-center justify-center rounded-[8px] border border-white/10 bg-[#090A10] text-[#CBD5E1] transition-all duration-200 hover:border-[#E5A93C] hover:bg-[#161B2B] hover:text-[#F3C766] hover:shadow-md active:scale-95 cursor-pointer"
+                  >
+                    <Share2 className="size-4 transition-transform duration-200 group-hover:scale-110" />
+                  </button>
                 </div>
               </div>
 
-              {/* Scrubber & Speed Controls */}
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => seekAudioBy(-10)}
-                  title="Rewind 10 seconds"
-                  className="text-xs text-[#94A3B8] hover:text-[#F8FAFC] font-mono transition active:scale-95 cursor-pointer"
-                >
-                  ⏮ 10s
-                </button>
-
-                <div className="flex items-center gap-2">
-                  <div
-                    onClick={(e) => {
-                      const rect = e.currentTarget.getBoundingClientRect();
-                      const clickX = e.clientX - rect.left;
-                      const pct = Math.max(0, Math.min(100, (clickX / rect.width) * 100));
-                      setAudioProgress(pct);
-                      seekAudioToPercent(pct);
-                    }}
-                    className="w-28 sm:w-36 h-2 rounded-[4px] bg-[#090A10] overflow-hidden cursor-pointer relative group border border-white/10"
-                    title="Click to seek"
+              {/* Bottom Scrubber & Speed Controls Bar */}
+              <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-2.5">
+                <div className="flex items-center gap-3 flex-1">
+                  <button
+                    onClick={() => seekAudioBy(-10)}
+                    title="Rewind 10 seconds"
+                    className="text-xs text-[#94A3B8] hover:text-[#F8FAFC] font-mono transition active:scale-95 cursor-pointer"
                   >
-                    <div
-                      className="h-full bg-[#E5A93C] transition-all duration-100 group-hover:bg-[#F3C766]"
-                      style={{ width: `${audioProgress}%` }}
-                    />
-                  </div>
-                  {audioDuration > 0 && (
-                    <span className="text-[10px] font-mono text-[#94A3B8]">
-                      {formatAudioTime(audioCurrentTime)} / {formatAudioTime(audioDuration)}
-                    </span>
-                  )}
-                </div>
+                    ⏮ 10s
+                  </button>
 
-                <button
-                  onClick={() => seekAudioBy(10)}
-                  title="Forward 10 seconds"
-                  className="text-xs text-[#94A3B8] hover:text-[#F8FAFC] font-mono transition active:scale-95 cursor-pointer"
-                >
-                  10s ⏭
-                </button>
+                  <div className="flex items-center gap-2 flex-1 max-w-xs">
+                    <div
+                      onClick={(e) => {
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        const clickX = e.clientX - rect.left;
+                        const pct = Math.max(0, Math.min(100, (clickX / rect.width) * 100));
+                        setAudioProgress(pct);
+                        seekAudioToPercent(pct);
+                      }}
+                      className="w-full h-2 rounded-[4px] bg-[#090A10] overflow-hidden cursor-pointer relative group border border-white/10"
+                      title="Click to seek"
+                    >
+                      <div
+                        className="h-full bg-[#E5A93C] transition-all duration-100 group-hover:bg-[#F3C766]"
+                        style={{ width: `${audioProgress}%` }}
+                      />
+                    </div>
+                    {audioDuration > 0 && (
+                      <span className="text-[10px] font-mono text-[#94A3B8] shrink-0">
+                        {formatAudioTime(audioCurrentTime)} / {formatAudioTime(audioDuration)}
+                      </span>
+                    )}
+                  </div>
+
+                  <button
+                    onClick={() => seekAudioBy(10)}
+                    title="Forward 10 seconds"
+                    className="text-xs text-[#94A3B8] hover:text-[#F8FAFC] font-mono transition active:scale-95 cursor-pointer"
+                  >
+                    10s ⏭
+                  </button>
+                </div>
 
                 <select
                   value={playbackSpeed}
@@ -973,24 +996,6 @@ export function ReadingDashboard() {
                   <option value="1.2x">1.2x</option>
                   <option value="1.5x">1.5x</option>
                 </select>
-
-                <button
-                  onClick={handleDownloadAudio}
-                  className="flex items-center gap-1.5 rounded-[8px] border border-white/10 bg-[#090A10] px-2.5 py-1 text-xs font-semibold text-[#F8FAFC] hover:border-white/30 transition cursor-pointer"
-                  title={t.downloadAudio}
-                >
-                  <span>⬇️</span>
-                  <span className="hidden sm:inline">{t.downloadAudio}</span>
-                </button>
-
-                <button
-                  onClick={handleShareAudio}
-                  className="flex items-center gap-1.5 rounded-[8px] border border-white/10 bg-[#090A10] px-2.5 py-1 text-xs font-semibold text-[#F8FAFC] hover:border-white/30 transition cursor-pointer"
-                  title={t.shareAudio}
-                >
-                  <span>📢</span>
-                  <span className="hidden sm:inline">{t.shareAudio}</span>
-                </button>
               </div>
             </div>
 
