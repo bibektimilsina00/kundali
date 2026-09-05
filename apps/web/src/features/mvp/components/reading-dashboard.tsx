@@ -424,14 +424,6 @@ export function ReadingDashboard() {
 
           <div className="flex items-center gap-3">
             <CustomLanguageSelector />
-
-            <button
-              onClick={() => router.push("/reading/live")}
-              className="flex items-center gap-2 rounded-[8px] bg-[#E5A93C] hover:bg-[#F3C766] px-4 py-2 text-xs font-bold text-[#090A10] transition cursor-pointer"
-            >
-              <Radio className="size-3.5 animate-pulse" />
-              <span>{t.talkToAstrologer}</span>
-            </button>
           </div>
         </div>
       </header>
@@ -860,7 +852,41 @@ export function ReadingDashboard() {
           {/* RIGHT COLUMN (65% width) - Deep Narrative & Audio */}
           <div className="space-y-6">
 
-            {/* 1. Hero Audio Player Bar (Sticky beneath top nav) */}
+            {/* 1. Live AI Astrologer Voice Consultation Card */}
+            <div className="rounded-[8px] border border-[#E5A93C]/40 bg-gradient-to-r from-[#161B2B] via-[#1A2035] to-[#090A10] p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
+              <div className="flex items-center gap-3.5">
+                <div className="grid size-11 shrink-0 place-items-center rounded-[8px] bg-[#E5A93C]/15 border border-[#E5A93C]/40 text-[#E5A93C]">
+                  <Radio className="size-5 text-[#E5A93C] animate-pulse" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-serif text-sm font-bold text-[#F8FAFC]">
+                      {language === "ne" ? "लाइभ ज्योतिषी परामर्श" : language === "hi" ? "लाइव ज्योतिषी परामर्श" : "Live AI Voice Consultation"}
+                    </h3>
+                    <span className="rounded-[4px] bg-[#10B981]/20 border border-[#10B981]/40 px-1.5 py-0.5 text-[9px] font-bold uppercase text-[#10B981] animate-pulse">
+                      Online
+                    </span>
+                  </div>
+                  <p className="text-xs text-[#CBD5E1] mt-0.5 leading-snug">
+                    {language === "ne"
+                      ? "तपाईंको कुण्डली, दशा र उपायहरूका बारेमा सोध्न प्रत्यक्ष स्वर कुराकानी गर्नुहोस्।"
+                      : language === "hi"
+                      ? "अपनी कुंडली, दशा और उपायों के बारे में सवाल पूछने के लिए सीधी आवाज़ में बात करें।"
+                      : "Have a real-time voice conversation to ask questions about your Kundali, Dasha & remedies."}
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => router.push("/reading/live")}
+                className="group flex shrink-0 items-center gap-2 rounded-[8px] bg-[#E5A93C] hover:bg-[#F3C766] px-4 py-2.5 text-xs font-bold text-[#090A10] shadow-lg shadow-[#E5A93C]/20 transition-all duration-200 active:scale-95 cursor-pointer"
+              >
+                <Radio className="size-4 animate-pulse" />
+                <span>{t.talkToAstrologer}</span>
+              </button>
+            </div>
+
+            {/* 2. Hero Audio Player Bar (Sticky beneath top nav) */}
             <div className="sticky top-[57px] z-30 rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-3 shadow-xl backdrop-blur-md">
               {/* Top Row: Play Info on Left, Modern Action Icons on Top Right */}
               <div className="flex items-center justify-between gap-4">
@@ -1284,6 +1310,18 @@ export function ReadingDashboard() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Sticky Floating Live Astrologer Action Button */}
+      <div className="fixed bottom-6 right-6 z-40">
+        <button
+          onClick={() => router.push("/reading/live")}
+          className="group flex items-center gap-2.5 rounded-[8px] bg-[#E5A93C] hover:bg-[#F3C766] px-4 py-3 text-xs font-bold text-[#090A10] shadow-2xl shadow-[#E5A93C]/40 border border-[#F3C766]/50 transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+          title={t.talkToAstrologer}
+        >
+          <Radio className="size-4 text-[#090A10] animate-pulse" />
+          <span>{t.talkToAstrologer}</span>
+        </button>
       </div>
 
       {/* Floating Toast Notification */}
