@@ -1,4 +1,22 @@
 import { NextResponse } from "next/server";
+import fs from "node:fs";
+import path from "node:path";
+import crypto from "node:crypto";
+
+export const runtime = "nodejs";
+
+const CACHE_DIR = path.join(process.cwd(), "public", "audio-cache");
+
+function getCacheFileName(voice: string, lang: string, text: string): string {
+  const hash = crypto
+    .createHash("sha256")
+    .update(`${voice}_${lang}_${text.trim()}`)
+    .digest("hex")
+    .slice(0, 20);
+  const safeVoice = voice.replace(/[^a-zA-Z0-9]/g, "");
+  const safeLang = lang.replace(/[^a-zA-Z0-9]/g, "");
+  return `${safeVoice}_${safeLang}_${hash}.mp3`;
+}
 
 function splitTextIntoSentences(text: string, maxLen = 180): string[] {
   const clean = text
@@ -62,23 +80,47 @@ export async function POST(req: Request) {
     const targetLangCode =
       lang || (language === "ne" ? "ne-NP" : language === "hi" ? "hi-IN" : "en-US");
 
-    let spokenText = text;
+    const selectedVoice = voice && ["onyx", "ash", "sage", "coral", "echo", "alloy", "shimmer", "ballad", "verse"].includes(voice) ? voice : "onyx";
+
+    let spokenText = text
+      .replace(/\*\*/g, "")
+      .replace(/\*/g, "")
+      .replace(/#/g, "")
+      .replace(/```[\s\S]*?```/g, "")
+      .replace(/([0-9]+)°([0-9]*)/g, "$1 degrees $2 minutes")
+      .replace(/°/g, " degrees ")
+      .trim();
+
+    // Check disk cache first to avoid re-generating audio and save cost
+    const fileName = getCacheFileName(selectedVoice, targetLangCode, spokenText);
+    const filePath = path.join(CACHE_DIR, fileName);
+    const publicAudioUrl = `/audio-cache/${fileName}`;
+
+    if (fs.existsSync(filePath)) {
+      return NextResponse.json({
+        audioUrl: publicAudioUrl,
+        spokenText,
+        status: "cached",
+        source: `disk_cache_${selectedVoice}`,
+      });
+    }
+
+    // Ensure audio cache directory exists
+    if (!fs.existsSync(CACHE_DIR)) {
+      try {
+        fs.mkdirSync(CACHE_DIR, { recursive: true });
+      } catch (err) {
+        console.warn("Could not create audio cache directory:", err);
+      }
+    }
+
+    let combinedBuffer: Buffer | null = null;
+    let audioSource = `openai_tts_${selectedVoice}`;
 
     // Use OpenAI Audio Speech API if OPENAI_API_KEY is available for hyper-realistic human voice
     const openaiApiKey = process.env.OPENAI_API_KEY;
     if (openaiApiKey) {
       try {
-        const cleanForSpeech = text
-          .replace(/\*\*/g, "")
-          .replace(/\*/g, "")
-          .replace(/#/g, "")
-          .replace(/```[\s\S]*?```/g, "")
-          .replace(/([0-9]+)°([0-9]*)/g, "$1 degrees $2 minutes")
-          .replace(/°/g, " degrees ")
-          .trim();
-
-        const selectedVoice = voice && ["onyx", "ash", "sage", "coral", "echo", "alloy", "shimmer", "ballad", "verse"].includes(voice) ? voice : "onyx";
-
         const speechRes = await fetch("https://api.openai.com/v1/audio/speech", {
           method: "POST",
           headers: {
@@ -87,7 +129,7 @@ export async function POST(req: Request) {
           },
           body: JSON.stringify({
             model: "tts-1",
-            input: cleanForSpeech.slice(0, 4000),
+            input: spokenText.slice(0, 4000),
             voice: selectedVoice,
             speed: 1.0,
           }),
@@ -95,40 +137,47 @@ export async function POST(req: Request) {
 
         if (speechRes.ok) {
           const arrayBuffer = await speechRes.arrayBuffer();
-          const combinedBuffer = Buffer.from(arrayBuffer);
-          const base64Audio = combinedBuffer.toString("base64");
-          const audioUrl = `data:audio/mp3;base64,${base64Audio}`;
-
-          return NextResponse.json({
-            audioUrl,
-            spokenText: cleanForSpeech,
-            status: "ready",
-            source: `openai_tts_${selectedVoice}`,
-          });
+          combinedBuffer = Buffer.from(arrayBuffer);
         }
       } catch (e) {
         console.warn("OpenAI TTS speech synthesis error, using fallback engine:", e);
       }
     }
 
-    // Split spoken text into audio chunks for fallback engine
-    const chunks = splitTextIntoSentences(spokenText, 170);
+    // If OpenAI API didn't produce a buffer (or no key), use fallback engine
+    if (!combinedBuffer) {
+      audioSource = "google_tts_fallback";
+      const chunks = splitTextIntoSentences(spokenText, 170);
+      const buffers = await Promise.all(
+        chunks.map((chunk) => fetchAudioBuffer(chunk, targetLangCode))
+      );
+      combinedBuffer = Buffer.concat(buffers);
+    }
 
-    // Fetch MP3 audio buffers in parallel
-    const buffers = await Promise.all(
-      chunks.map((chunk) => fetchAudioBuffer(chunk, targetLangCode))
-    );
+    // Save audio buffer to disk cache for all future requests
+    if (combinedBuffer && fs.existsSync(CACHE_DIR)) {
+      try {
+        fs.writeFileSync(filePath, combinedBuffer);
+        return NextResponse.json({
+          audioUrl: publicAudioUrl,
+          spokenText,
+          status: "ready",
+          source: audioSource,
+        });
+      } catch (err) {
+        console.warn("Could not write audio to disk cache:", err);
+      }
+    }
 
-    // Combine audio buffers into a single MP3 stream
-    const combinedBuffer = Buffer.concat(buffers);
-    const base64Audio = combinedBuffer.toString("base64");
-    const audioUrl = `data:audio/mp3;base64,${base64Audio}`;
+    // Fallback data URL response if disk writing was unavailable
+    const base64Audio = combinedBuffer ? combinedBuffer.toString("base64") : "";
+    const dataUrl = `data:audio/mp3;base64,${base64Audio}`;
 
     return NextResponse.json({
-      audioUrl,
+      audioUrl: dataUrl,
       spokenText,
       status: "ready",
-      source: "google_tts_fallback",
+      source: audioSource,
     });
 
   } catch (err: any) {
