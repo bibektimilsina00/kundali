@@ -384,7 +384,13 @@ export function LiveModeWorkspace() {
       const mahaLord = activeChart.dasha?.periods?.[0]?.lord ?? "Main";
       const antarLord = activeChart.dasha?.periods?.[1]?.lord ?? "Sub";
       const dashaText = `${mahaLord}-${antarLord} Dasha`;
-      const greeting = `Namaste ${activeBirth.name}! I have thoroughly analyzed your Kundali. Your ${activeChart.lagna_sign} Ascendant${activeChart.panchang?.moon_sign ? ` with ${activeChart.panchang.moon_sign} Moon` : ""} under current ${dashaText} make this a significant phase for your personal growth. What specific questions do you have today?`;
+
+      const greeting =
+        selectedLanguage === "ne"
+          ? `नमस्ते ${activeBirth.name}! मैले तपाईंको कुण्डलीको विस्तृत विश्लेषण गरेको छु। तपाईंको ${activeChart.lagna_sign} लग्न${activeChart.panchang?.moon_sign ? ` र ${activeChart.panchang.moon_sign} चन्द्रमा` : ""} तथा वर्तमान ${mahaLord}-${antarLord} दशाले तपाईंको जीवनमा नयाँ अवसर सङ्केत गर्दछ। आज तपाईं के सोध्न चाहनुहुन्छ?`
+          : selectedLanguage === "hi"
+          ? `नमस्ते ${activeBirth.name}! मैंने आपकी कुंडली का विस्तृत विश्लेषण किया है। आपका ${activeChart.lagna_sign} लग्न${activeChart.panchang?.moon_sign ? ` एवं ${activeChart.panchang.moon_sign} चंद्रमा` : ""} तथा वर्तमान ${mahaLord}-${antarLord} दशा आपके जीवन में महत्वपूर्ण समय का संकेत देती है। आज आप क्या पूछना चाहते हैं?`
+          : `Namaste ${activeBirth.name}! I have thoroughly analyzed your Kundali. Your ${activeChart.lagna_sign} Ascendant${activeChart.panchang?.moon_sign ? ` with ${activeChart.panchang.moon_sign} Moon` : ""} under current ${dashaText} make this a significant phase for your personal growth. What specific questions do you have today?`;
 
       setMessages([
         {
@@ -399,7 +405,7 @@ export function LiveModeWorkspace() {
       setTeleprompterBasis(`${activeChart.lagna_sign} Ascendant · ${dashaText}`);
       addDebugLog("SESSION_INIT", `Dynamic greeting built for ${activeBirth.name} (${activeChart.lagna_sign} Ascendant)`);
     }
-  }, [activeChart, activeBirth, messages.length]);
+  }, [activeChart, activeBirth, messages.length, selectedLanguage]);
 
   // Send message query function
   const handleSend = async (textToSend?: string) => {
@@ -654,8 +660,8 @@ export function LiveModeWorkspace() {
     return (
       <div className="min-h-dvh bg-[#090A10] flex flex-col items-center justify-center space-y-4 text-center">
         <div className="size-12 animate-spin rounded-full border-4 border-[#E5A93C] border-t-transparent" />
-        <p className="font-serif text-sm font-bold text-[#F8FAFC]">Connecting to Live Astrologer Desk...</p>
-        <p className="text-xs text-[#94A3B8]">Calculating Swiss Ephemeris chart coordinates</p>
+        <p className="font-serif text-sm font-bold text-[#F8FAFC]">{t.connectingToDesk}</p>
+        <p className="text-xs text-[#94A3B8]">{t.calculatingEphemeris}</p>
       </div>
     );
   }
@@ -676,7 +682,7 @@ export function LiveModeWorkspace() {
             className="flex items-center gap-2 rounded-[8px] border border-white/10 bg-[#161B2B] px-3 py-1.5 text-xs font-semibold text-[#F8FAFC] hover:border-[#E5A93C]/40 hover:bg-[#1E2538] transition cursor-pointer active:scale-95"
           >
             <ArrowLeft className="size-3.5 text-[#E5A93C]" />
-            <span className="hidden sm:inline">Back to Report</span>
+            <span className="hidden sm:inline">{t.backToReport}</span>
           </button>
           
           <div className="flex items-center gap-2">
@@ -684,7 +690,7 @@ export function LiveModeWorkspace() {
               <Sparkles className="size-4 text-[#090A10]" />
             </div>
             <span className="font-serif text-sm font-bold text-[#F8FAFC]">
-              Kundali Live AI
+              {t.brandName} Live AI
             </span>
           </div>
         </div>
@@ -866,27 +872,27 @@ export function LiveModeWorkspace() {
                 {voiceState === "listening" && (
                   <>
                     <span className="size-2 rounded-full bg-cyan-400 animate-ping" />
-                    Realtime Listening...
+                    {t.realtimeListening}
                   </>
                 )}
                 {voiceState === "thinking" && (
                   <>
                     <span className="size-2 rounded-full bg-[#E5A93C] animate-spin" />
-                    Analyzing Speech...
+                    {t.analyzingSpeech}
                   </>
                 )}
                 {voiceState === "speaking" && (
                   <>
                     <span className="size-2 rounded-full bg-amber-400 animate-pulse" />
-                    Astrologer Speaking...
+                    {t.astrologerSpeaking}
                   </>
                 )}
-                {voiceState === "paused" && <>Voice Ready / Paused</>}
+                {voiceState === "paused" && <>{t.voiceReadyPaused}</>}
               </span>
 
               {/* Hardware Mic Level Indicator (VU Meter) */}
               <div className="hidden sm:flex items-center gap-2 bg-[#090A10] border border-white/10 rounded-[6px] px-2.5 py-1 text-[10px] text-[#94A3B8]">
-                <span className="font-medium">Mic VU:</span>
+                <span className="font-medium">{t.micVu}:</span>
                 <div className="w-12 bg-[#161B2B] h-2 rounded-[4px] overflow-hidden border border-white/10">
                   <div
                     className="h-full bg-gradient-to-r from-emerald-500 via-cyan-400 to-[#E5A93C] transition-all duration-75"
@@ -907,7 +913,7 @@ export function LiveModeWorkspace() {
                 }`}
               >
                 <Bug className="size-3.5 text-[#E5A93C]" />
-                <span className="hidden sm:inline">Debug</span>
+                <span className="hidden sm:inline">{t.debugLabel}</span>
               </button>
 
               <div className="flex items-center rounded-[6px] bg-[#090A10] border border-white/10 p-0.5 text-xs">
@@ -920,7 +926,7 @@ export function LiveModeWorkspace() {
                   }`}
                 >
                   <Monitor className="size-3" />
-                  <span>Desk</span>
+                  <span>{t.deskView}</span>
                 </button>
                 <button
                   onClick={() => toggleLiveVoiceMode(true)}
@@ -931,7 +937,7 @@ export function LiveModeWorkspace() {
                   }`}
                 >
                   <Radio className="size-3 text-[#090A10] animate-pulse" />
-                  <span>Voice</span>
+                  <span>{t.voiceView}</span>
                 </button>
               </div>
             </div>
@@ -948,7 +954,7 @@ export function LiveModeWorkspace() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <span className="text-sm font-bold text-[#F8FAFC] block truncate leading-tight">{activeBirth.name}</span>
-                  <span className="text-[11px] text-[#94A3B8] block truncate">{activeChart.lagna_sign} Ascendant · {mahaLord}-{antarLord} Dasha</span>
+                  <span className="text-[11px] text-[#94A3B8] block truncate">{activeChart.lagna_sign} {t.ascendantLabel} · {mahaLord}-{antarLord} {selectedLanguage === "ne" ? "दशा" : selectedLanguage === "hi" ? "दशा" : "Dasha"}</span>
                 </div>
               </div>
 
@@ -959,7 +965,7 @@ export function LiveModeWorkspace() {
                 <div className="flex items-center justify-between border-b border-white/10 pb-3 shrink-0">
                   <span className="text-xs font-serif font-bold text-[#E5A93C] flex items-center gap-2">
                     <span className="size-2 rounded-full bg-[#E5A93C] animate-pulse" />
-                    📜 Realtime Response
+                    📜 {t.realtimeResponse}
                   </span>
                   {teleprompterBasis && (
                     <button
@@ -983,20 +989,20 @@ export function LiveModeWorkspace() {
                   ) : (
                     <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-2 text-[#94A3B8]/60">
                       <span className="text-3xl">🪔</span>
-                      <p className="text-xs font-serif font-semibold text-[#F8FAFC]">Listening to your voice...</p>
-                      <p className="text-[10px]">Ask any question or tap the cosmic orb to speak with your Master Astrologer.</p>
+                      <p className="text-xs font-serif font-semibold text-[#F8FAFC]">{t.listeningToVoice}</p>
+                      <p className="text-[10px]">{t.askAnyQuestionOrb}</p>
                     </div>
                   )}
                 </div>
 
                 {/* Session Summary & Transcript Button Footer */}
                 <div className="border-t border-white/10 pt-3 flex items-center justify-between text-[10px] text-[#94A3B8] shrink-0">
-                  <span>Messages: <strong className="text-[#F8FAFC]">{messages.length}</strong></span>
+                  <span>{t.messagesCount}: <strong className="text-[#F8FAFC]">{messages.length}</strong></span>
                   <button
                     onClick={() => setShowTranscriptDrawer(true)}
                     className="text-[#E5A93C] font-semibold hover:underline flex items-center gap-1"
                   >
-                    <span>📜</span> Transcript →
+                    <span>📜</span> {t.viewTranscript}
                   </button>
                 </div>
               </div>
@@ -1076,15 +1082,15 @@ export function LiveModeWorkspace() {
                       <span className="block text-4xl md:text-5xl drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]">🕉️</span>
                       <span className="block font-serif text-xs font-bold tracking-wide text-[#F8FAFC] leading-snug">
                         {voiceState === "listening"
-                          ? "Listening... Speak Now"
+                          ? t.listeningState
                           : voiceState === "thinking"
-                          ? "Analyzing Chart & Speech..."
+                          ? t.thinkingState
                           : voiceState === "speaking"
-                          ? "Tap to Interrupt"
-                          : "Tap to Start Realtime Voice"}
+                          ? t.tapToInterrupt
+                          : t.tapToStartVoice}
                       </span>
                       <span className="text-[10px] text-[#F3C766]/80 block font-medium">
-                        {isWebRTCActive ? "Realtime Audio Engine" : "Vedic Voice Engine"}
+                        {isWebRTCActive ? t.realtimeAudioEngine : t.vedicVoiceEngine}
                       </span>
                     </div>
                   </button>
@@ -1100,7 +1106,7 @@ export function LiveModeWorkspace() {
                       onClick={() => handleSend(interimTranscript)}
                       className="rounded-[8px] bg-gradient-to-r from-[#E5A93C] to-[#F3C766] hover:from-[#F3C766] hover:to-[#E5A93C] px-4 py-2 text-xs font-bold text-[#090A10] transition shrink-0 shadow-lg"
                     >
-                      Send Now
+                      {t.sendNow}
                     </button>
                   </div>
                 )}
@@ -1162,7 +1168,7 @@ export function LiveModeWorkspace() {
                     }`}
                   >
                     {isMicMuted ? <MicOff className="size-3.5 text-red-400" /> : <Mic className="size-3.5 text-[#E5A93C]" />}
-                    <span className="text-[11px]">{isMicMuted ? "Unmute" : "Mute"}</span>
+                    <span className="text-[11px]">{isMicMuted ? t.unmute : t.mute}</span>
                   </button>
 
                   {/* Kundali Chart Drawer Button */}
@@ -1174,7 +1180,7 @@ export function LiveModeWorkspace() {
                     }`}
                   >
                     <Map className="size-3.5 text-[#E5A93C]" />
-                    <span className="text-[11px]">Kundali</span>
+                    <span className="text-[11px]">{t.kundaliChart}</span>
                   </button>
 
                   {/* Interrupt Button */}
@@ -1184,7 +1190,7 @@ export function LiveModeWorkspace() {
                     className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-[8px] bg-gradient-to-r from-[#E5A93C] to-[#F3C766] text-[#090A10] font-bold text-xs hover:shadow-[0_0_20px_rgba(229,169,60,0.4)] transition shadow-lg scale-105 cursor-pointer active:scale-95"
                   >
                     <Zap className="size-3.5 fill-current" />
-                    <span className="text-[11px]">Interrupt</span>
+                    <span className="text-[11px]">{t.interrupt}</span>
                   </button>
 
                   {/* Transcript Drawer Button */}
@@ -1196,7 +1202,7 @@ export function LiveModeWorkspace() {
                     }`}
                   >
                     <FileText className="size-3.5 text-[#E5A93C]" />
-                    <span className="text-[11px]">Transcript</span>
+                    <span className="text-[11px]">{t.transcript}</span>
                   </button>
 
                   {/* Exit Consultation Button */}
@@ -1209,7 +1215,7 @@ export function LiveModeWorkspace() {
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-xs font-semibold text-red-400 hover:bg-red-500/10 border border-red-500/20 transition cursor-pointer"
                   >
                     <LogOut className="size-3.5 text-red-400" />
-                    <span className="text-[11px]">Exit</span>
+                    <span className="text-[11px]">{t.exitVoice}</span>
                   </button>
                 </div>
 
@@ -1254,7 +1260,7 @@ export function LiveModeWorkspace() {
                   onClick={() => setShowChartDrawer(false)}
                   className="text-xs text-[#94A3B8] hover:text-[#F8FAFC]"
                 >
-                  ✕ Close
+                  ✕ {t.closeChartDrawer}
                 </button>
               </div>
               <div className="bg-[#090A10] rounded-[8px] border border-[#E5A93C]/30 p-2">
@@ -1265,7 +1271,7 @@ export function LiveModeWorkspace() {
                 />
               </div>
               <p className="text-[10px] text-center text-[#94A3B8]">
-                {activeChart.lagna_sign} Ascendant ({activeChart.lagna_degree.toFixed(2)}°)
+                {activeChart.lagna_sign} {t.ascendantLabel} ({activeChart.lagna_degree.toFixed(2)}°)
               </p>
             </div>
           )}
@@ -1281,7 +1287,7 @@ export function LiveModeWorkspace() {
                   onClick={() => setShowTranscriptDrawer(false)}
                   className="text-xs font-semibold text-[#E5A93C] hover:underline"
                 >
-                  ✕ Close Transcript
+                  ✕ {t.closeTranscriptDrawer}
                 </button>
               </div>
               <div className="flex-1 overflow-y-auto space-y-3 pr-2">
@@ -1322,11 +1328,11 @@ export function LiveModeWorkspace() {
                     <h2 className="font-serif text-sm font-bold text-[#F8FAFC] tracking-wide leading-tight">
                       {activeBirth.name}&apos;s Kundali
                     </h2>
-                    <span className="text-[10px] text-[#94A3B8] block">D1 Sidereal Birth Chart</span>
+                    <span className="text-[10px] text-[#94A3B8] block">{t.d1SiderealBirthChart}</span>
                   </div>
                 </div>
                 <span className="rounded-[8px] bg-[#E5A93C]/10 border border-[#E5A93C]/30 text-[#F3C766] px-2.5 py-0.5 text-[10px] font-bold">
-                  {activeChart.lagna_sign} Lagna
+                  {activeChart.lagna_sign} {t.ascendantLabel}
                 </span>
               </div>
               
@@ -1339,7 +1345,7 @@ export function LiveModeWorkspace() {
                 />
               </div>
               <p className="text-center text-[10px] text-[#94A3B8]/80 leading-tight">
-                📍 Click interactive house tags in chat to highlight coordinates on this chart.
+                {t.tapHouseHelper}
               </p>
             </div>
 
@@ -1347,24 +1353,24 @@ export function LiveModeWorkspace() {
             <div className="rounded-[8px] border border-white/10 bg-gradient-to-b from-[#161B2B] to-[#121625] p-4 space-y-3 text-xs shadow-lg">
               <div className="flex items-center justify-between border-b border-white/10 pb-2">
                 <h3 className="font-serif text-xs font-bold text-[#F8FAFC] flex items-center gap-1.5">
-                  <span>🪔</span> Active Time Lords (Dasha)
+                  <span>🪔</span> {t.activeTimeLords}
                 </h3>
                 <span className="text-[10px] text-[#E5A93C] font-mono font-bold">Vimshottari</span>
               </div>
               
               <div className="grid grid-cols-2 gap-2">
                 <div className="rounded-[8px] bg-[#090A10]/70 border border-white/5 p-2.5 space-y-0.5">
-                  <span className="text-[10px] text-[#94A3B8] block uppercase font-medium">Mahadasha</span>
-                  <span className="font-serif font-bold text-[#F3C766] text-xs">{mahaLord} Period</span>
+                  <span className="text-[10px] text-[#94A3B8] block uppercase font-medium">{t.mahadashaLabel}</span>
+                  <span className="font-serif font-bold text-[#F3C766] text-xs">{mahaLord}</span>
                 </div>
                 <div className="rounded-[8px] bg-[#090A10]/70 border border-white/5 p-2.5 space-y-0.5">
-                  <span className="text-[10px] text-[#94A3B8] block uppercase font-medium">Antardasha</span>
-                  <span className="font-serif font-bold text-amber-300 text-xs">{antarLord} Sub-period</span>
+                  <span className="text-[10px] text-[#94A3B8] block uppercase font-medium">{t.antardashaLabel}</span>
+                  <span className="font-serif font-bold text-amber-300 text-xs">{antarLord}</span>
                 </div>
               </div>
 
               <div className="pt-1 flex items-center justify-between text-[11px] text-[#94A3B8]">
-                <span>Ascendant Placement:</span>
+                <span>{t.ascendantPlacementLabel}</span>
                 <span className="font-mono text-[#F8FAFC] font-semibold">{activeChart.lagna_sign} ({activeChart.lagna_degree.toFixed(2)}°)</span>
               </div>
             </div>
@@ -1372,14 +1378,27 @@ export function LiveModeWorkspace() {
             {/* Suggested Consultations */}
             <div className="space-y-2.5">
               <h3 className="font-serif text-xs font-bold uppercase tracking-wider text-[#94A3B8] flex items-center gap-1.5">
-                <span>💡</span> Consult Suggested Topics
+                <span>💡</span> {t.consultSuggestedTopics}
               </h3>
               <div className="space-y-2">
-                {[
-                  { icon: "✨", query: "When is the strongest period for my career growth?" },
-                  { icon: "❤️", query: "Analyze my 7th house for marriage & relationship." },
-                  { icon: "🪔", query: `What remedies help my ${mahaLord} Dasha period?` }
-                ].map((q) => (
+                {(selectedLanguage === "ne"
+                  ? [
+                      { icon: "✨", query: "मेरो करियर र नोकरीमा कहिले राम्रो समय आउँछ?" },
+                      { icon: "❤️", query: "मेरो विवाह र दाम्पत्य जीवनको विश्लेषण गर्नुहोस्।" },
+                      { icon: "🪔", query: `मेरो ${mahaLord} महादशाको लागि के शान्ति उपायहरू छन्?` }
+                    ]
+                  : selectedLanguage === "hi"
+                  ? [
+                      { icon: "✨", query: "मेरे करियर और पदोन्नति का सबसे अच्छा समय कब है?" },
+                      { icon: "❤️", query: "मेरे विवाह और 7वें भाव का विस्तृत विश्लेषण करें।" },
+                      { icon: "🪔", query: `मेरी ${mahaLord} महादशा के लिए कौन से उपाय करने चाहिए?` }
+                    ]
+                  : [
+                      { icon: "✨", query: "When is the strongest period for my career growth?" },
+                      { icon: "❤️", query: "Analyze my 7th house for marriage & relationship." },
+                      { icon: "🪔", query: `What remedies help my ${mahaLord} Dasha period?` }
+                    ]
+                ).map((q) => (
                   <button
                     key={q.query}
                     onClick={() => handleSend(q.query)}
@@ -1410,7 +1429,7 @@ export function LiveModeWorkspace() {
                     <div className="flex flex-col items-start space-y-1 max-w-[88%] animate-fade-in">
                       <div className="flex items-center gap-2 px-1">
                         <span className="size-5 rounded-full bg-gradient-to-br from-[#E5A93C] to-[#F3C766] text-[#090A10] flex items-center justify-center font-serif text-[10px] font-bold shadow-sm">🕉️</span>
-                        <span className="text-[11px] font-serif font-bold text-[#E5A93C]">Master Astrologer</span>
+                        <span className="text-[11px] font-serif font-bold text-[#E5A93C]">{t.masterAstrologer}</span>
                         <span className="text-[10px] text-[#94A3B8]/60">• {msg.timestamp}</span>
                       </div>
                       <div className="rounded-[8px] border border-white/10 bg-gradient-to-br from-[#161B2B] via-[#121625] to-[#0D0F19] p-4 text-xs leading-relaxed text-[#F8FAFC] shadow-xl space-y-3">
@@ -1420,7 +1439,7 @@ export function LiveModeWorkspace() {
                         {msg.astrologicalBasis && (
                           <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-white/10 pt-2.5 text-[11px]">
                             <span className="text-[#E5A93C] font-semibold flex items-center gap-1">
-                              <span>📍</span> Grounded in Chart:
+                              <span>📍</span> {t.groundedInChart}:
                             </span>
                             <button
                               onClick={() => setHighlightedHouse(msg.text.includes("7th") ? 7 : 10)}
@@ -1450,17 +1469,34 @@ export function LiveModeWorkspace() {
                 <div className="flex items-center gap-2 shrink-0 pr-1">
                   <span className="inline-flex items-center gap-1.5 rounded-[8px] bg-[#E5A93C]/15 border border-[#E5A93C]/40 px-3 py-1 text-[10px] font-bold text-[#F3C766] shadow-sm uppercase tracking-wider">
                     <span className="size-1.5 rounded-full bg-[#E5A93C] animate-pulse" />
-                    Suggested Follow-ups
+                    {t.suggestedFollowups}
                   </span>
                 </div>
 
-                {[
-                  { icon: "✨", title: "Foreign relocation timing?", query: `Will I travel or relocate abroad during my ${mahaLord} dasha?` },
-                  { icon: "💎", title: `Gemstone for ${activeChart.lagna_sign}`, query: `What gemstone is recommended for my ${activeChart.lagna_sign} Ascendant?` },
-                  { icon: "🪔", title: `${mahaLord} Dasha remedies`, query: `What remedies help balance my ${mahaLord} period?` },
-                  { icon: "❤️", title: "Marriage & compatibility", query: "Analyze my 7th house for marriage & relationship timing." },
-                  { icon: "📈", title: "Peak career growth window", query: "When is the strongest period for my career growth?" },
-                ].map((chip) => (
+                {(selectedLanguage === "ne"
+                  ? [
+                      { icon: "✨", title: "विदेश यात्रा योग?", query: `के मेरो ${mahaLord} महादशामा विदेश यात्रा वा बसाइँसराइको योग छ?` },
+                      { icon: "💎", title: `${activeChart.lagna_sign} को लागि भाग्यशाली रत्न`, query: `मेरो ${activeChart.lagna_sign} लग्नको लागि कुन रत्न उत्तम हुन्छ?` },
+                      { icon: "🪔", title: `${mahaLord} दशा शान्ति उपाय`, query: `मेरो ${mahaLord} महादशा सन्तुलन गर्न के उपाय गर्नुपर्छ?` },
+                      { icon: "❤️", title: "विवाह र सम्बन्ध योग", query: "मेरो विवाह र दाम्पत्य जीवनको ७औं भाव विश्लेषण गर्नुहोस्।" },
+                      { icon: "📈", title: "करियर र धन वृद्धि", query: "मेरो करियरमा कहिले राम्रो सफलता प्राप्त हुन्छ?" },
+                    ]
+                  : selectedLanguage === "hi"
+                  ? [
+                      { icon: "✨", title: "विदेश यात्रा का योग?", query: `क्या मेरी ${mahaLord} महादशा में विदेश यात्रा या बसने का योग है?` },
+                      { icon: "💎", title: `${activeChart.lagna_sign} के लिए रत्न`, query: `मेरे ${activeChart.lagna_sign} लग्न के लिए कौन सा रत्न शुभ है?` },
+                      { icon: "🪔", title: `${mahaLord} दशा के उपाय`, query: `मेरी ${mahaLord} महादशा को संतुलित करने के उपाय बताएं।` },
+                      { icon: "❤️", title: "विवाह और वैवाहिक जीवन", query: "मेरे विवाह और 7वें भाव का विस्तृत विश्लेषण करें।" },
+                      { icon: "📈", title: "करियर में वृद्धि", query: "मेरे करियर में सबसे अच्छा समय कब आएगा?" },
+                    ]
+                  : [
+                      { icon: "✨", title: "Foreign relocation timing?", query: `Will I travel or relocate abroad during my ${mahaLord} dasha?` },
+                      { icon: "💎", title: `Gemstone for ${activeChart.lagna_sign}`, query: `What gemstone is recommended for my ${activeChart.lagna_sign} Ascendant?` },
+                      { icon: "🪔", title: `${mahaLord} Dasha remedies`, query: `What remedies help balance my ${mahaLord} period?` },
+                      { icon: "❤️", title: "Marriage & compatibility", query: "Analyze my 7th house for marriage & relationship timing." },
+                      { icon: "📈", title: "Peak career growth window", query: "When is the strongest period for my career growth?" },
+                    ]
+                ).map((chip) => (
                   <button
                     key={chip.title}
                     onClick={() => handleSend(chip.query)}
@@ -1498,7 +1534,7 @@ export function LiveModeWorkspace() {
                   type="text"
                   value={inputQuery}
                   onChange={(e) => setInputQuery(e.target.value)}
-                  placeholder="Ask your astrologer anything... (Press Enter to send)"
+                  placeholder={t.askPlaceholder}
                   className="flex-1 rounded-[8px] border border-white/10 bg-[#090A10] px-4 py-3 text-xs text-[#F8FAFC] placeholder-[#94A3B8]/40 focus:border-[#E5A93C] focus:ring-1 focus:ring-[#E5A93C]/40 focus:outline-none transition"
                 />
 
@@ -1507,7 +1543,7 @@ export function LiveModeWorkspace() {
                   disabled={!inputQuery.trim() || isThinking}
                   className="rounded-[8px] bg-gradient-to-r from-[#E5A93C] to-[#F3C766] hover:from-[#F3C766] hover:to-[#E5A93C] px-6 py-3 text-xs font-bold text-[#090A10] transition shadow-lg disabled:opacity-40"
                 >
-                  {isThinking ? "Thinking..." : "Send"}
+                  {isThinking ? "..." : t.sendQuery}
                 </button>
               </form>
             </footer>

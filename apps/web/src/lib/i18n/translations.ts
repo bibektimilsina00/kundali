@@ -112,6 +112,42 @@ export interface TranslationCatalog {
   downloadAudio: string;
   shareAudio: string;
   pdfGenerating: string;
+
+  // Live Workspace Extra UI Translations
+  realtimeResponse: string;
+  listeningToVoice: string;
+  askAnyQuestionOrb: string;
+  messagesCount: string;
+  viewTranscript: string;
+  closeChartDrawer: string;
+  closeTranscriptDrawer: string;
+  d1SiderealBirthChart: string;
+  activeTimeLords: string;
+  consultSuggestedTopics: string;
+  groundedInChart: string;
+  suggestedFollowups: string;
+  realtimeListening: string;
+  analyzingSpeech: string;
+  astrologerSpeaking: string;
+  voiceReadyPaused: string;
+  micHardwareStatus: string;
+  micVu: string;
+  debugLabel: string;
+  deskView: string;
+  voiceView: string;
+  tapToInterrupt: string;
+  tapToStartVoice: string;
+  realtimeAudioEngine: string;
+  vedicVoiceEngine: string;
+  sendNow: string;
+  exitLabel: string;
+  closePanel: string;
+  connectingToDesk: string;
+  calculatingEphemeris: string;
+  mahadashaLabel: string;
+  antardashaLabel: string;
+  ascendantPlacementLabel: string;
+  masterAstrologer: string;
 }
 
 export const translations: Record<Language, TranslationCatalog> = {
@@ -221,6 +257,41 @@ export const translations: Record<Language, TranslationCatalog> = {
     downloadAudio: "Download Audio",
     shareAudio: "Share Audio",
     pdfGenerating: "Generating complete PDF report...",
+
+    realtimeResponse: "Realtime Response",
+    listeningToVoice: "Listening to your voice...",
+    askAnyQuestionOrb: "Ask any question or tap the cosmic orb to speak with your Master Astrologer.",
+    messagesCount: "Messages",
+    viewTranscript: "Transcript →",
+    closeChartDrawer: "Close Chart",
+    closeTranscriptDrawer: "Close Transcript",
+    d1SiderealBirthChart: "D1 Sidereal Birth Chart",
+    activeTimeLords: "Active Time Lords (Dasha)",
+    consultSuggestedTopics: "Consult Suggested Topics",
+    groundedInChart: "Grounded in Chart",
+    suggestedFollowups: "Suggested Follow-ups",
+    realtimeListening: "Realtime Listening...",
+    analyzingSpeech: "Analyzing Speech...",
+    astrologerSpeaking: "Astrologer Speaking...",
+    voiceReadyPaused: "Voice Ready / Paused",
+    micHardwareStatus: "Mic Hardware Status",
+    micVu: "Mic VU",
+    debugLabel: "Debug",
+    deskView: "Desk",
+    voiceView: "Voice",
+    tapToInterrupt: "Tap to Interrupt",
+    tapToStartVoice: "Tap to Start Realtime Voice",
+    realtimeAudioEngine: "Realtime Audio Engine",
+    vedicVoiceEngine: "Vedic Voice Engine",
+    sendNow: "Send Now",
+    exitLabel: "Exit",
+    closePanel: "Close Panel",
+    connectingToDesk: "Connecting to Live Astrologer Desk...",
+    calculatingEphemeris: "Calculating Swiss Ephemeris chart coordinates",
+    mahadashaLabel: "Mahadasha",
+    antardashaLabel: "Antardasha",
+    ascendantPlacementLabel: "Ascendant Placement:",
+    masterAstrologer: "Master Astrologer",
   },
 
   ne: {
@@ -329,6 +400,41 @@ export const translations: Record<Language, TranslationCatalog> = {
     downloadAudio: "अडियो डाउनलोड",
     shareAudio: "अडियो सेयर",
     pdfGenerating: "सम्पूर्ण कुण्डली पीडीएफ तयार हुँदैछ...",
+
+    realtimeResponse: "प्रत्यक्ष उत्तर",
+    listeningToVoice: "तपाईंको आवाज सुन्दैछ...",
+    askAnyQuestionOrb: "मास्टर ज्योतिषीसँग बोल्न कुनै पनि प्रश्न सोध्नुहोस् वा ब्रह्माण्ड चक्र थिच्नुहोस्।",
+    messagesCount: "सन्देशहरू",
+    viewTranscript: "इतिहास →",
+    closeChartDrawer: "कुण्डली बन्द गर्नुहोस्",
+    closeTranscriptDrawer: "इतिहास बन्द गर्नुहोस्",
+    d1SiderealBirthChart: "D1 निरयण जन्म कुण्डली",
+    activeTimeLords: "सक्रिय दशा (काल स्वामी)",
+    consultSuggestedTopics: "सुझाइएका परामर्श विषयहरू",
+    groundedInChart: "कुण्डलीमा आधारित",
+    suggestedFollowups: "सुझाइएका प्रश्नहरू",
+    realtimeListening: "प्रत्यक्ष सुन्दैछ...",
+    analyzingSpeech: "आवाज र कुण्डली विश्लेषण गर्दै...",
+    astrologerSpeaking: "ज्योतिषी बोल्दै हुनुहुन्छ...",
+    voiceReadyPaused: "आवाज तयार / रोकिएको",
+    micHardwareStatus: "माइक्रोफोन स्थिति",
+    micVu: "माइक सङ्केत",
+    debugLabel: "डिबग",
+    deskView: "डेस्क",
+    voiceView: "आवाज",
+    tapToInterrupt: "रोक्न थिच्नुहोस्",
+    tapToStartVoice: "प्रत्यक्ष कुराकानी सुरु गर्न थिच्नुहोस्",
+    realtimeAudioEngine: "प्रत्यक्ष अडियो इन्जिन",
+    vedicVoiceEngine: "वैदिक भ्वाइस इन्जिन",
+    sendNow: "अहिले पठाउनुहोस्",
+    exitLabel: "बाहिरिनुहोस्",
+    closePanel: "प्यानल बन्द गर्नुहोस्",
+    connectingToDesk: "प्रत्यक्ष एआई ज्योतिषी कक्षमा जोडिँदैछ...",
+    calculatingEphemeris: "स्वीस एफेमेरिस कुण्डली गणना हुँदैछ",
+    mahadashaLabel: "महादशा",
+    antardashaLabel: "अन्तरदशा",
+    ascendantPlacementLabel: "लग्न स्थिति:",
+    masterAstrologer: "मास्टर ज्योतिषी",
   },
 
   hi: {
@@ -437,6 +543,41 @@ export const translations: Record<Language, TranslationCatalog> = {
     downloadAudio: "ऑडियो डाउनलोड",
     shareAudio: "ऑडियो शेयर",
     pdfGenerating: "संपूर्ण कुंडली पीडीएफ तैयार हो रही है...",
+
+    realtimeResponse: "लाइव उत्तर",
+    listeningToVoice: "आपकी आवाज़ सुन रहा है...",
+    askAnyQuestionOrb: "मास्टर ज्योतिषी से बात करने के लिए कोई भी प्रश्न पूछें या ब्रह्मांड चक्र दबाएं।",
+    messagesCount: "संदेश",
+    viewTranscript: "इतिहास →",
+    closeChartDrawer: "कुंडली बंद करें",
+    closeTranscriptDrawer: "इतिहास बंद करें",
+    d1SiderealBirthChart: "D1 निरयण जन्म कुंडली",
+    activeTimeLords: "सक्रिय दशा (काल स्वामी)",
+    consultSuggestedTopics: "सुझाए गए परामर्श विषय",
+    groundedInChart: "कुंडली पर आधारित",
+    suggestedFollowups: "सुझाए गए प्रश्न",
+    realtimeListening: "लाइव सुन रहा है...",
+    analyzingSpeech: "वाणी एवं कुंडली का विश्लेषण हो रहा है...",
+    astrologerSpeaking: "ज्योतिषी मार्गदर्शन दे रहे हैं...",
+    voiceReadyPaused: "आवाज़ तैयार / रुकी हुई",
+    micHardwareStatus: "माइक हार्डवेयर स्थिति",
+    micVu: "माइक संकेत",
+    debugLabel: "डिबग",
+    deskView: "डेस्क",
+    voiceView: "आवाज़",
+    tapToInterrupt: "रोकने के लिए दबाएं",
+    tapToStartVoice: "लाइव बातचीत शुरू करने के लिए दबाएं",
+    realtimeAudioEngine: "लाइव ऑडियो इंजन",
+    vedicVoiceEngine: "वैदिक वॉइस इंजन",
+    sendNow: "अभी भेजें",
+    exitLabel: "बाहर निकलें",
+    closePanel: "पैनल बंद करें",
+    connectingToDesk: "लाइव एआई ज्योतिषी कक्ष से जुड़ रहा है...",
+    calculatingEphemeris: "स्विस एफेमेरिस कुंडली गणना हो रही है",
+    mahadashaLabel: "महादशा",
+    antardashaLabel: "अंतर्दशा",
+    ascendantPlacementLabel: "लग्न स्थिति:",
+    masterAstrologer: "मास्टर ज्योतिषी",
   },
 };
 
