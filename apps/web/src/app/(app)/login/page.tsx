@@ -12,7 +12,6 @@ import {
   Eye,
   EyeOff,
   ArrowRight,
-  ShieldCheck,
 } from "lucide-react";
 
 function LoginFormContent() {
@@ -61,21 +60,21 @@ function LoginFormContent() {
   };
 
   return (
-    <div className="relative w-full max-w-[420px] z-20 mx-auto">
+    <div className="relative w-full max-w-[400px] z-20 mx-auto">
       {/* Central Login Card */}
-      <div className="overflow-hidden rounded-[22px] border border-white/10 bg-[#12141D]/95 backdrop-blur-2xl shadow-2xl shadow-black/80 transition-all">
+      <div className="overflow-hidden rounded-[14px] border border-white/10 bg-[#12141D]/95 backdrop-blur-2xl shadow-2xl shadow-black/90 transition-all">
         
         {/* Main Card Content */}
         <div className="p-7 sm:p-8">
           
           {/* App Logo Badge */}
-          <div className="mx-auto mb-4 grid size-12 place-items-center rounded-[14px] bg-gradient-to-br from-[#F3C766] via-[#E5A93C] to-[#B87A14] text-[#090A10] shadow-lg shadow-[#E5A93C]/25 transition-transform duration-300 hover:scale-105">
-            <Sparkles className="size-6 text-[#090A10] stroke-[2.2]" />
+          <div className="mx-auto mb-4 grid size-11 place-items-center rounded-[12px] bg-gradient-to-br from-[#F3C766] via-[#E5A93C] to-[#B87A14] text-[#090A10] shadow-lg shadow-[#E5A93C]/20 transition-transform duration-300 hover:scale-105">
+            <Sparkles className="size-5 text-[#090A10] stroke-[2.2]" />
           </div>
 
           {/* Heading & Subtitle */}
           <div className="text-center mb-6">
-            <h1 className="font-serif text-2xl font-bold tracking-tight text-[#F8FAFC]">
+            <h1 className="font-serif text-xl font-bold tracking-tight text-[#F8FAFC]">
               {mode === "login" ? "Sign in to Kundali.AI" : "Create your Kundali account"}
             </h1>
             <p className="mt-1 text-xs text-[#94A3B8]">
@@ -90,7 +89,7 @@ function LoginFormContent() {
             <button
               type="button"
               onClick={handleGoogleSignIn}
-              className="relative flex w-full items-center justify-center gap-3 rounded-[10px] border border-white/10 bg-[#1A1D2A] px-4 py-2.5 text-xs font-semibold text-[#F8FAFC] transition duration-200 hover:border-white/20 hover:bg-[#222638]"
+              className="flex w-full items-center justify-center gap-3 rounded-[8px] border border-white/10 bg-[#1A1D2A] px-4 py-2.5 text-xs font-semibold text-[#F8FAFC] transition duration-200 hover:border-white/20 hover:bg-[#222638]"
             >
               {/* Google G Logo */}
               <svg className="size-4" viewBox="0 0 24 24">
@@ -125,7 +124,7 @@ function LoginFormContent() {
 
           {/* Error Banner */}
           {error && (
-            <div className="mb-4 rounded-[10px] border border-red-500/30 bg-red-500/10 p-3 text-xs text-red-300">
+            <div className="mb-4 rounded-[8px] border border-red-500/30 bg-red-500/10 p-2.5 text-xs text-red-300">
               {error}
             </div>
           )}
@@ -145,7 +144,7 @@ function LoginFormContent() {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="Enter your full name"
-                    className="w-full rounded-[10px] border border-white/10 bg-[#1A1D2A] py-2.5 pl-10 pr-3.5 text-xs text-white placeholder-slate-500 focus:border-[#E5A93C] focus:outline-none focus:ring-1 focus:ring-[#E5A93C] transition"
+                    className="w-full rounded-[8px] border border-white/10 bg-[#1A1D2A] py-2.5 pl-10 pr-3.5 text-xs text-white placeholder-slate-500 focus:border-[#E5A93C] focus:outline-none focus:ring-1 focus:ring-[#E5A93C] transition"
                   />
                 </div>
               </div>
@@ -163,7 +162,7 @@ function LoginFormContent() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email address"
-                  className="w-full rounded-[10px] border border-white/10 bg-[#1A1D2A] py-2.5 pl-10 pr-3.5 text-xs text-white placeholder-slate-500 focus:border-[#E5A93C] focus:outline-none focus:ring-1 focus:ring-[#E5A93C] transition"
+                  className="w-full rounded-[8px] border border-white/10 bg-[#1A1D2A] py-2.5 pl-10 pr-3.5 text-xs text-white placeholder-slate-500 focus:border-[#E5A93C] focus:outline-none focus:ring-1 focus:ring-[#E5A93C] transition"
                 />
               </div>
             </div>
@@ -188,7 +187,7 @@ function LoginFormContent() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full rounded-[10px] border border-white/10 bg-[#1A1D2A] py-2.5 pl-10 pr-10 text-xs text-white placeholder-slate-500 focus:border-[#E5A93C] focus:outline-none focus:ring-1 focus:ring-[#E5A93C] transition"
+                  className="w-full rounded-[8px] border border-white/10 bg-[#1A1D2A] py-2.5 pl-10 pr-10 text-xs text-white placeholder-slate-500 focus:border-[#E5A93C] focus:outline-none focus:ring-1 focus:ring-[#E5A93C] transition"
                 />
                 <button
                   type="button"
@@ -204,7 +203,7 @@ function LoginFormContent() {
             <button
               type="submit"
               disabled={loading}
-              className="mt-2 flex w-full items-center justify-center gap-2 rounded-[10px] bg-gradient-to-r from-[#E5A93C] via-[#F3C766] to-[#B87A14] py-3 text-xs font-bold text-[#090A10] shadow-md shadow-[#E5A93C]/20 transition hover:brightness-110 active:scale-[0.99] disabled:opacity-50"
+              className="mt-2 flex w-full items-center justify-center gap-2 rounded-[8px] bg-gradient-to-r from-[#E5A93C] via-[#F3C766] to-[#B87A14] py-2.5 text-xs font-bold text-[#090A10] shadow-md shadow-[#E5A93C]/20 transition hover:brightness-110 active:scale-[0.99] disabled:opacity-50"
             >
               {loading ? (
                 <span className="inline-block size-4 animate-spin rounded-full border-2 border-[#090A10] border-t-transparent" />
@@ -224,7 +223,7 @@ function LoginFormContent() {
         </div>
 
         {/* Bottom Sub-Card Section */}
-        <div className="border-t border-white/10 bg-[#0E1017] px-7 py-4 text-center text-xs text-[#94A3B8]">
+        <div className="border-t border-white/10 bg-[#0E1017] px-7 py-3.5 text-center text-xs text-[#94A3B8]">
           {mode === "login" ? (
             <span>
               Don't have an account?{" "}
@@ -262,7 +261,7 @@ function LoginFormContent() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-[#0A0B10] text-[#F8FAFC] flex flex-col justify-between relative overflow-hidden font-body">
+    <div className="min-h-screen bg-[#0D0E14] text-[#F8FAFC] flex flex-col justify-between relative overflow-hidden font-body">
       
       {/* Top Header Bar */}
       <header className="relative z-30 flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
@@ -283,36 +282,20 @@ export default function LoginPage() {
         </Link>
       </header>
 
-      {/* BACKGROUND GRAPHICS: Ultra Clean Polygonal Graphic Panels & Celestial Orbs */}
+      {/* BACKGROUND GRAPHICS: Exactly Matching Reference Image (image copy.png) */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        {/* Central Golden Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[650px] rounded-full bg-[#E5A93C]/[0.06] blur-[150px]" />
         
-        {/* Left Side Polygonal Graphic Outline Panel */}
-        <div className="hidden lg:block absolute left-[-6%] top-1/2 -translate-y-1/2 w-[34%] h-[72vh] rounded-r-[32px] border-r border-y border-white/[0.07] bg-[#12141D]/30 backdrop-blur-[2px] [clip-path:polygon(0_0,82%_0,100%_50%,82%_100%,0_100%)] transition-all">
-          {/* Subtle Inner Line Grid */}
-          <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#E5A93C_1px,transparent_1px)] [background-size:24px_24px]" />
-          <svg className="absolute inset-0 size-full opacity-15" viewBox="0 0 400 700" fill="none">
-            <path d="M50 100 L300 100 L350 350 L300 600 L50 600" stroke="#E5A93C" strokeWidth="1" strokeDasharray="4 4" />
-            <circle cx="350" cy="350" r="6" fill="#E5A93C" />
-            <circle cx="150" cy="200" r="3" fill="#FFF" />
-            <circle cx="220" cy="480" r="3" fill="#FFF" />
-          </svg>
+        {/* Left Polygonal Outline Panel */}
+        <div className="hidden lg:block absolute left-[-5%] top-1/2 -translate-y-1/2 w-[34%] h-[72vh] rounded-r-[24px] border-r border-y border-white/[0.06] bg-[#12141D]/20 backdrop-blur-[1px] [clip-path:polygon(0_0,80%_0,100%_50%,80%_100%,0_100%)] transition-all">
+          <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#E5A93C_1px,transparent_1px)] [background-size:28px_28px]" />
         </div>
 
-        {/* Right Side Polygonal Graphic Outline Panel */}
-        <div className="hidden lg:block absolute right-[-6%] top-1/2 -translate-y-1/2 w-[34%] h-[72vh] rounded-l-[32px] border-l border-y border-white/[0.07] bg-[#12141D]/30 backdrop-blur-[2px] [clip-path:polygon(18%_0,100%_0,100%_100%,18%_100%,0_50%)] transition-all">
-          {/* Subtle Inner Line Grid */}
-          <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#E5A93C_1px,transparent_1px)] [background-size:24px_24px]" />
-          <svg className="absolute inset-0 size-full opacity-15" viewBox="0 0 400 700" fill="none">
-            <path d="M350 100 L100 100 L50 350 L100 600 L350 600" stroke="#E5A93C" strokeWidth="1" strokeDasharray="4 4" />
-            <circle cx="50" cy="350" r="6" fill="#E5A93C" />
-            <circle cx="250" cy="220" r="3" fill="#FFF" />
-            <circle cx="180" cy="520" r="3" fill="#FFF" />
-          </svg>
+        {/* Right Polygonal Outline Panel */}
+        <div className="hidden lg:block absolute right-[-5%] top-1/2 -translate-y-1/2 w-[34%] h-[72vh] rounded-l-[24px] border-l border-y border-white/[0.06] bg-[#12141D]/20 backdrop-blur-[1px] [clip-path:polygon(20%_0,100%_0,100%_100%,20%_100%,0_50%)] transition-all">
+          <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#E5A93C_1px,transparent_1px)] [background-size:28px_28px]" />
           
-          {/* Glowing Accent Line (Matching the reference photo accent line at bottom right!) */}
-          <div className="absolute bottom-12 left-10 w-24 h-[3px] rounded-full bg-gradient-to-r from-[#E5A93C] to-[#F3C766] shadow-[0_0_12px_#E5A93C]" />
+          {/* Glowing Horizontal Line (Exact Match to bottom right glowing accent in reference photo!) */}
+          <div className="absolute bottom-10 left-12 w-20 h-[3px] rounded-full bg-gradient-to-r from-[#E5A93C] to-[#F3C766] shadow-[0_0_15px_#E5A93C]" />
         </div>
       </div>
 
