@@ -16,6 +16,21 @@ import { MainFooter } from "@/components/layout/main-footer";
 import { useTranslation } from "@/lib/i18n/language-context";
 import { Language } from "@/lib/i18n/translations";
 import { trackKundaliGenerated } from "@/lib/utils/analytics";
+import {
+  User,
+  Calendar,
+  Clock,
+  MapPin,
+  Sparkles,
+  ArrowRight,
+  Zap,
+  Flame,
+  Radio,
+  Orbit,
+  BarChart3,
+  Mic,
+  ScrollText,
+} from "lucide-react";
 
 export function HomepageHero() {
   const router = useRouter();
@@ -151,15 +166,21 @@ export function HomepageHero() {
             {/* Feature Highlights Strip */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
               <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-3.5 text-xs space-y-1">
-                <span className="block text-[#E5A93C] font-bold text-sm">⚡ {t.feature1Title}</span>
+                <span className="block text-[#E5A93C] font-bold text-sm flex items-center gap-1.5">
+                  <Zap className="size-4 text-[#E5A93C]" /> {t.feature1Title}
+                </span>
                 <span className="text-[#94A3B8]">{t.feature1Desc}</span>
               </div>
               <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-3.5 text-xs space-y-1">
-                <span className="block text-[#E5A93C] font-bold text-sm">🪔 {t.feature2Title}</span>
+                <span className="block text-[#E5A93C] font-bold text-sm flex items-center gap-1.5">
+                  <Flame className="size-4 text-[#E5A93C]" /> {t.feature2Title}
+                </span>
                 <span className="text-[#94A3B8]">{t.feature2Desc}</span>
               </div>
               <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-3.5 text-xs space-y-1">
-                <span className="block text-[#6366F1] font-bold text-sm">🎙️ {t.feature3Title}</span>
+                <span className="block text-[#6366F1] font-bold text-sm flex items-center gap-1.5">
+                  <Radio className="size-4 text-[#6366F1]" /> {t.feature3Title}
+                </span>
                 <span className="text-[#94A3B8]">{t.feature3Desc}</span>
               </div>
             </div>
@@ -180,8 +201,8 @@ export function HomepageHero() {
               <form onSubmit={handleGenerate} className="space-y-4.5">
                 {/* Full Name */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5">
-                    {t.fullName} <span className="text-[#E5A93C]">*</span>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5 flex items-center gap-1.5">
+                    <User className="size-3.5 text-[#E5A93C]" /> {t.fullName} <span className="text-[#E5A93C]">*</span>
                   </label>
                   <input
                     type="text"
@@ -200,8 +221,8 @@ export function HomepageHero() {
 
                 {/* Gender 3-way toggle */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5">
-                    Gender
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5 flex items-center gap-1.5">
+                    <Sparkles className="size-3.5 text-[#E5A93C]" /> Gender
                   </label>
                   <div className="grid grid-cols-3 gap-2 rounded-[8px] border border-white/10 bg-[#090A10] p-1">
                     {(["male", "female", "other"] as const).map((g) => (
@@ -223,8 +244,8 @@ export function HomepageHero() {
 
                 {/* Modern Date of Birth Calendar Picker */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5">
-                    {t.birthDate} <span className="text-[#E5A93C]">*</span>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5 flex items-center gap-1.5">
+                    <Calendar className="size-3.5 text-[#E5A93C]" /> {t.birthDate} <span className="text-[#E5A93C]">*</span>
                   </label>
                   <ModernDatePicker
                     era={era}
@@ -245,8 +266,8 @@ export function HomepageHero() {
 
                 {/* Modern Time of Birth Visual Clock Picker */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5">
-                    {t.birthTime} <span className="text-[#E5A93C]">*</span>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5 flex items-center gap-1.5">
+                    <Clock className="size-3.5 text-[#E5A93C]" /> {t.birthTime} <span className="text-[#E5A93C]">*</span>
                   </label>
                   <ModernTimePicker
                     hour={hour}
@@ -267,8 +288,8 @@ export function HomepageHero() {
 
                 {/* Custom Place of Birth Autocomplete */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5">
-                    {t.birthPlace} <span className="text-[#E5A93C]">*</span>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5 flex items-center gap-1.5">
+                    <MapPin className="size-3.5 text-[#E5A93C]" /> {t.birthPlace} <span className="text-[#E5A93C]">*</span>
                   </label>
                   <CustomPlaceInput
                     value={selectedPlace?.label ?? ""}
@@ -287,8 +308,9 @@ export function HomepageHero() {
                   disabled={isSubmitting}
                   className="w-full rounded-[8px] bg-[#E5A93C] hover:bg-[#F3C766] py-3.5 text-sm font-bold text-[#090A10] transition flex items-center justify-center gap-2 disabled:opacity-50 shadow-md mt-1"
                 >
-                  <span>✨ {t.calculateKundali}</span>
-                  <span className="text-base">→</span>
+                  <Sparkles className="size-4 text-[#090A10]" />
+                  <span>{t.calculateKundali}</span>
+                  <ArrowRight className="size-4 text-[#090A10]" />
                 </button>
               </form>
             </div>
@@ -312,8 +334,8 @@ export function HomepageHero() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Card 1 */}
             <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-6 space-y-4 transition hover:border-[#E5A93C]/50">
-              <div className="size-12 rounded-[8px] bg-[#090A10] border border-white/10 flex items-center justify-center text-2xl text-[#E5A93C]">
-                🪐
+              <div className="size-12 rounded-[8px] bg-[#090A10] border border-white/10 flex items-center justify-center text-[#E5A93C]">
+                <Orbit className="size-6 text-[#E5A93C]" />
               </div>
               <h3 className="font-serif text-base font-bold text-[#F8FAFC]">Swiss Ephemeris Core</h3>
               <p className="text-xs leading-relaxed text-[#94A3B8]">
@@ -323,8 +345,8 @@ export function HomepageHero() {
 
             {/* Card 2 */}
             <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-6 space-y-4 transition hover:border-[#E5A93C]/50">
-              <div className="size-12 rounded-[8px] bg-[#090A10] border border-white/10 flex items-center justify-center text-2xl text-[#F3C766]">
-                📊
+              <div className="size-12 rounded-[8px] bg-[#090A10] border border-white/10 flex items-center justify-center text-[#F3C766]">
+                <BarChart3 className="size-6 text-[#F3C766]" />
               </div>
               <h3 className="font-serif text-base font-bold text-[#F8FAFC]">Dual D1 &amp; D9 Charts</h3>
               <p className="text-xs leading-relaxed text-[#94A3B8]">
@@ -334,8 +356,8 @@ export function HomepageHero() {
 
             {/* Card 3 */}
             <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-6 space-y-4 transition hover:border-[#E5A93C]/50">
-              <div className="size-12 rounded-[8px] bg-[#090A10] border border-white/10 flex items-center justify-center text-2xl text-[#6366F1]">
-                🎙️
+              <div className="size-12 rounded-[8px] bg-[#090A10] border border-white/10 flex items-center justify-center text-[#6366F1]">
+                <Mic className="size-6 text-[#6366F1]" />
               </div>
               <h3 className="font-serif text-base font-bold text-[#F8FAFC]">Spoken Audio &amp; Voice</h3>
               <p className="text-xs leading-relaxed text-[#94A3B8]">
@@ -345,8 +367,8 @@ export function HomepageHero() {
 
             {/* Card 4 */}
             <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-6 space-y-4 transition hover:border-[#E5A93C]/50">
-              <div className="size-12 rounded-[8px] bg-[#090A10] border border-white/10 flex items-center justify-center text-2xl text-[#E5A93C]">
-                📜
+              <div className="size-12 rounded-[8px] bg-[#090A10] border border-white/10 flex items-center justify-center text-[#E5A93C]">
+                <ScrollText className="size-6 text-[#E5A93C]" />
               </div>
               <h3 className="font-serif text-base font-bold text-[#F8FAFC]">16 Varga Divisions</h3>
               <p className="text-xs leading-relaxed text-[#94A3B8]">

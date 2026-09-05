@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useTranslation, type Language } from "@/lib/i18n/language-context";
+import { Sparkles, Globe, ShieldCheck, Compass, Radio, Layers } from "lucide-react";
 
 export function MainFooter() {
   const { language, setLanguage, t } = useTranslation();
@@ -12,21 +13,9 @@ export function MainFooter() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-white/5">
           {/* Brand Col */}
           <div className="space-y-3 md:col-span-1">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="grid size-7.5 place-items-center rounded-[6px] bg-[#E5A93C] text-[#090A10] font-bold shadow-sm">
-                <svg className="size-4.5 text-[#090A10]" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M12 1.5v2.5M12 20v2.5M1.5 12h2.5M20 12h2.5M4.58 4.58l1.77 1.77M17.65 17.65l1.77 1.77M4.58 19.42l1.77-1.77M17.65 6.35l1.77-1.77"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  <circle cx="12" cy="12" r="5.2" fill="currentColor" />
-                  <path
-                    d="M13.8 8.2a4.5 4.5 0 0 0 0 7.6 4.2 4.2 0 1 1 0-7.6z"
-                    fill="#090A10"
-                  />
-                </svg>
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <div className="grid size-7.5 place-items-center rounded-lg bg-[#E5A93C] text-[#090A10] font-bold shadow-sm transition group-hover:scale-105">
+                <Sparkles className="size-4 text-[#090A10]" />
               </div>
               <span className="font-serif font-bold text-sm text-[#F8FAFC]">KUNDALI.AI</span>
             </Link>
@@ -37,7 +26,9 @@ export function MainFooter() {
 
           {/* Quick Links */}
           <div className="space-y-2.5">
-            <h4 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">Features</h4>
+            <h4 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider flex items-center gap-1.5">
+              <Compass className="size-3.5 text-[#E5A93C]" /> Features
+            </h4>
             <ul className="space-y-2 text-xs">
               <li>
                 <a href="#form" className="hover:text-[#F3C766] transition">
@@ -50,7 +41,8 @@ export function MainFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/reading/live" className="hover:text-[#F3C766] transition">
+                <Link href="/reading/live" className="hover:text-[#F3C766] transition flex items-center gap-1.5">
+                  <Radio className="size-3 text-rose-400" />
                   Live AI Consultation
                 </Link>
               </li>
@@ -59,9 +51,13 @@ export function MainFooter() {
 
           {/* Vargas & Calculations */}
           <div className="space-y-2.5">
-            <h4 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">Engine Accuracy</h4>
+            <h4 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider flex items-center gap-1.5">
+              <ShieldCheck className="size-3.5 text-[#E5A93C]" /> Engine Accuracy
+            </h4>
             <ul className="space-y-2 text-xs">
-              <li className="text-[#94A3B8]">Swiss Ephemeris 0.001° Sidereal</li>
+              <li className="text-[#94A3B8] flex items-center gap-1.5">
+                <Layers className="size-3 text-[#F3C766]" /> Swiss Ephemeris 0.001° Sidereal
+              </li>
               <li className="text-[#94A3B8]">Lahiri Ayanamsa Standard</li>
               <li className="text-[#94A3B8]">16 Divisional Vargas (D1 - D60)</li>
             </ul>
@@ -69,9 +65,11 @@ export function MainFooter() {
 
           {/* Language Switcher */}
           <div className="space-y-2.5">
-            <h4 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">Language</h4>
-            <div className="inline-flex items-center gap-1.5 rounded-[8px] bg-[#161B2B] border border-white/10 px-3 py-1.5 text-xs text-[#F8FAFC]">
-              <span>🌐</span>
+            <h4 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider flex items-center gap-1.5">
+              <Globe className="size-3.5 text-[#E5A93C]" /> Language
+            </h4>
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-[#161B2B] border border-white/10 px-3 py-1.5 text-xs text-[#F8FAFC]">
+              <Globe className="size-3.5 text-[#E5A93C]" />
               <select
                 value={language}
                 onChange={(e) => setLanguage(e.target.value as Language)}
