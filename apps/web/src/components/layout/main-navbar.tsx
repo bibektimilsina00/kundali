@@ -2,9 +2,12 @@
 
 import Link from "next/link";
 import { CustomLanguageSelector } from "@/components/ui/custom-language-selector";
-import { Sparkles } from "lucide-react";
+import { Sparkles, HeartHandshake, User, LogOut, BookmarkCheck } from "lucide-react";
+import { useAuth } from "@/features/auth/auth-context";
 
 export function MainNavbar() {
+  const { user, openAuthModal, logout, savedKundalis } = useAuth();
+
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#090A10]/90 backdrop-blur-xl transition-all">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-8 py-3">
@@ -23,8 +26,50 @@ export function MainNavbar() {
           </div>
         </Link>
 
-        {/* Right: Reusable Custom Language Selector */}
-        <CustomLanguageSelector />
+        {/* Navigation Links & Actions */}
+        <div className="flex items-center gap-3 sm:gap-4">
+          <Link
+            href="/milan"
+            className="flex items-center gap-1.5 rounded-[8px] border border-[#E5A93C]/30 bg-[#161B2B] px-3 py-1.5 text-xs font-semibold text-[#F3C766] transition hover:bg-[#E5A93C]/15"
+          >
+            <HeartHandshake className="size-4 text-[#E5A93C]" />
+            <span className="hidden sm:inline">Kundali Milan</span>
+          </Link>
+
+          {/* Reusable Custom Language Selector */}
+          <CustomLanguageSelector />
+
+          {/* Auth Button / Profile */}
+          {user ? (
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 rounded-[8px] border border-white/10 bg-[#161B2B] px-3 py-1.5 text-xs font-medium text-slate-200">
+                <User className="size-3.5 text-[#E5A93C]" />
+                <span className="max-w-[100px] truncate">{user.full_name.split(" ")[0]}</span>
+                {savedKundalis.length > 0 && (
+                  <span className="flex items-center gap-0.5 rounded-full bg-[#E5A93C]/20 px-1.5 py-0.2 text-[10px] font-bold text-[#F3C766]">
+                    <BookmarkCheck className="size-3" />
+                    {savedKundalis.length}
+                  </span>
+                )}
+              </div>
+
+              <button
+                onClick={logout}
+                title="Sign Out"
+                className="rounded-[8px] border border-white/10 p-1.5 text-slate-400 hover:bg-white/10 hover:text-white transition"
+              >
+                <LogOut className="size-4" />
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => openAuthModal("login")}
+              className="rounded-[8px] bg-gradient-to-r from-[#E5A93C] to-[#B87A14] px-3.5 py-1.5 text-xs font-bold text-[#090A10] shadow-md transition hover:brightness-110"
+            >
+              Sign In
+            </button>
+          )}
+        </div>
       </div>
     </header>
   );

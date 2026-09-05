@@ -32,6 +32,8 @@ class Settings(BaseSettings):
     LLM_MODEL: str = "claude-opus-5"
 
     CORS_ORIGINS: list[str] = []
+    JWT_SECRET: str = "kundali-dev-secret-key-change-in-production-2026"
+    JWT_ALGORITHM: str = "HS256"
 
 
 @lru_cache

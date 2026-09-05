@@ -7,8 +7,11 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import get_settings
 from app.core.errors import install_error_handlers
+from app.modules.auth.router import router as auth_router
 from app.modules.kundali.router import router as kundali_router
+from app.modules.milan.router import router as milan_router
 from app.modules.places.router import router as places_router
+from app.modules.vault.router import router as vault_router
 
 API_DESCRIPTION = """
 One backend, two clients (web and Flutter).
@@ -48,6 +51,9 @@ def create_app() -> FastAPI:
         )
 
     install_error_handlers(app)
+    app.include_router(auth_router)
+    app.include_router(vault_router)
+    app.include_router(milan_router)
     app.include_router(kundali_router)
     app.include_router(places_router)
 

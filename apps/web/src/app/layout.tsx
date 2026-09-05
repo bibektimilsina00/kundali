@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Cinzel, Inter } from "next/font/google";
 import Script from "next/script";
 
+import { AuthProvider } from "@/features/auth/auth-context";
+import { AuthModal } from "@/features/auth/auth-modal";
 import { QueryProvider } from "@/providers/query-provider";
 import { LanguageProvider } from "@/lib/i18n/language-context";
 import { PostHogProvider } from "@/providers/posthog-provider";
@@ -38,7 +40,12 @@ export default function RootLayout({
       <body className="font-body antialiased bg-[#090A10] text-[#94A3B8] min-h-dvh">
         <PostHogProvider>
           <LanguageProvider>
-            <QueryProvider>{children}</QueryProvider>
+            <AuthProvider>
+              <QueryProvider>
+                {children}
+                <AuthModal />
+              </QueryProvider>
+            </AuthProvider>
           </LanguageProvider>
         </PostHogProvider>
         {umamiWebsiteId && (
