@@ -27,6 +27,7 @@ import {
   Bug,
   Monitor,
   Radio,
+  Headphones,
   LogOut,
 } from "lucide-react";
 
@@ -1616,7 +1617,7 @@ export function LiveModeWorkspace() {
                   }
                 >
                   <div className="relative">
-                    <Radio className="size-5 text-[#F3C766] group-hover:scale-110 transition-transform" />
+                    <Headphones className="size-5 text-[#F3C766] group-hover:scale-110 transition-transform" />
                     <span className="absolute -top-1 -right-1 size-2 rounded-full bg-[#E5A93C] animate-ping" />
                   </div>
                 </button>
