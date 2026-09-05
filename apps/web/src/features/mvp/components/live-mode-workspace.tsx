@@ -63,6 +63,71 @@ export function LiveModeWorkspace() {
   const [micPermissionError, setMicPermissionError] = useState<string | null>(null);
   const [isWebRTCActive, setIsWebRTCActive] = useState<boolean>(false);
   const [isRecordingMedia, setIsRecordingMedia] = useState<boolean>(false);
+  const [isDictating, setIsDictating] = useState<boolean>(false);
+
+  const dictationRef = useRef<any>(null);
+
+  // Toggle Voice Dictation (Speech-to-Text directly into inputQuery text field)
+  const toggleDictation = () => {
+    if (typeof window === "undefined") return;
+    const SpeechRecognitionClass = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+    if (isDictating) {
+      if (dictationRef.current) {
+        try { dictationRef.current.stop(); } catch (e) {}
+      }
+      setIsDictating(false);
+      addDebugLog("DICTATION_STOPPED", "Voice dictation ended");
+      return;
+    }
+
+    if (!SpeechRecognitionClass) {
+      addDebugLog("DICTATION_UNSUPPORTED", "Browser does not support Web Speech API");
+      setMicPermissionError("Speech recognition is not supported in this browser. Please type your query.");
+      return;
+    }
+
+    try {
+      const recognition = new SpeechRecognitionClass();
+      recognition.continuous = false;
+      recognition.interimResults = true;
+      recognition.lang = selectedLanguageRef.current === "ne" ? "ne-NP" : selectedLanguageRef.current === "hi" ? "hi-IN" : "en-US";
+
+      recognition.onstart = () => {
+        setIsDictating(true);
+        addDebugLog("DICTATION_START", `Voice dictation listening in ${selectedLanguageRef.current.toUpperCase()}...`);
+      };
+
+      recognition.onresult = (event: any) => {
+        let currentTranscript = "";
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          currentTranscript += event.results[i][0].transcript;
+        }
+        if (currentTranscript.trim()) {
+          setInputQuery(currentTranscript);
+          addDebugLog("DICTATION_RESULT", `Captured text: "${currentTranscript}"`);
+        }
+      };
+
+      recognition.onerror = (e: any) => {
+        console.warn("Dictation error:", e);
+        addDebugLog("DICTATION_ERROR", e?.error || "Dictation error");
+        setIsDictating(false);
+      };
+
+      recognition.onend = () => {
+        setIsDictating(false);
+        addDebugLog("DICTATION_ENDED", "Dictation speech stream closed");
+      };
+
+      recognition.start();
+      dictationRef.current = recognition;
+    } catch (err: any) {
+      console.error("Dictation initialization error:", err);
+      addDebugLog("DICTATION_INIT_ERROR", err?.message || "Dictation failed");
+      setIsDictating(false);
+    }
+  };
   
   // Realtime Audio & Debug Telemetry
   const [audioLevel, setAudioLevel] = useState<number>(0);
@@ -1238,19 +1303,38 @@ export function LiveModeWorkspace() {
                       e.preventDefault();
                       handleSend();
                     }}
-                    className="flex items-center gap-3"
+                    className="flex items-center gap-2.5"
                   >
+                    <button
+                      type="button"
+                      onClick={toggleDictation}
+                      className={`grid size-11 shrink-0 place-items-center rounded-[8px] border transition group cursor-pointer active:scale-95 ${
+                        isDictating
+                          ? "bg-red-500/20 border-red-500 text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.4)] animate-pulse"
+                          : "border-white/20 bg-[#161B2B]/95 text-[#94A3B8] hover:text-[#F3C766] hover:border-[#E5A93C]/50"
+                      }`}
+                      title={isDictating ? "Stop Voice Dictation" : "Dictate Question by Voice"}
+                    >
+                      {isDictating ? (
+                        <MicOff className="size-5 text-red-400" />
+                      ) : (
+                        <Mic className="size-5 group-hover:scale-110 transition-transform text-[#E5A93C]" />
+                      )}
+                    </button>
+
                     <input
                       type="text"
                       value={inputQuery}
                       onChange={(e) => setInputQuery(e.target.value)}
-                      placeholder={t.askPlaceholder}
-                      className="flex-1 rounded-[8px] border border-white/20 bg-[#161B2B]/95 backdrop-blur-2xl px-5 py-3.5 text-sm text-[#F8FAFC] placeholder-[#94A3B8]/50 focus:border-[#E5A93C] focus:ring-2 focus:ring-[#E5A93C]/40 focus:outline-none transition shadow-2xl"
+                      placeholder={isDictating ? "Listening... Speak now..." : t.askPlaceholder}
+                      className={`flex-1 rounded-[8px] border bg-[#161B2B]/95 backdrop-blur-2xl px-5 py-3.5 text-sm text-[#F8FAFC] placeholder-[#94A3B8]/50 focus:border-[#E5A93C] focus:ring-2 focus:ring-[#E5A93C]/40 focus:outline-none transition shadow-2xl ${
+                        isDictating ? "border-amber-400/70 ring-2 ring-amber-400/20" : "border-white/20"
+                      }`}
                     />
                     <button
                       type="submit"
                       disabled={!inputQuery.trim() || isThinking}
-                      className="rounded-[8px] bg-gradient-to-r from-[#E5A93C] to-[#F3C766] hover:from-[#F3C766] hover:to-[#E5A93C] px-6 py-3.5 text-xs sm:text-sm font-bold text-[#090A10] transition shrink-0 disabled:opacity-40 shadow-xl active:scale-95"
+                      className="rounded-[8px] bg-gradient-to-r from-[#E5A93C] to-[#F3C766] hover:from-[#F3C766] hover:to-[#E5A93C] px-6 py-3.5 text-xs sm:text-sm font-bold text-[#090A10] transition shrink-0 disabled:opacity-40 shadow-xl active:scale-95 cursor-pointer"
                     >
                       {isThinking ? "..." : t.sendQuery}
                     </button>
@@ -1516,31 +1600,79 @@ export function LiveModeWorkspace() {
                   e.preventDefault();
                   handleSend();
                 }}
-                className="flex items-center gap-3 max-w-4xl mx-auto"
+                className="flex items-center gap-2.5 max-w-4xl mx-auto"
               >
+                {/* Button 1: Live Voice Consultation Mode Switcher */}
                 <button
                   type="button"
                   onClick={() => toggleLiveVoiceMode(true)}
-                  className="grid size-11 shrink-0 place-items-center rounded-[8px] border border-[#E5A93C]/50 bg-gradient-to-br from-[#161B2B] to-[#2A1F0D] text-[#F3C766] hover:border-[#E5A93C] hover:shadow-[0_0_20px_rgba(229,169,60,0.3)] transition group"
-                  title="Switch to OpenAI Realtime Voice Mode"
+                  className="grid size-11 shrink-0 place-items-center rounded-[8px] border border-[#E5A93C]/50 bg-gradient-to-br from-[#161B2B] to-[#2A1F0D] text-[#F3C766] hover:border-[#E5A93C] hover:shadow-[0_0_20px_rgba(229,169,60,0.35)] hover:scale-105 transition group cursor-pointer active:scale-95"
+                  title={
+                    selectedLanguage === "ne"
+                      ? "प्रत्यक्ष एआई भ्वाइस परामर्श सुरु गर्नुहोस्"
+                      : selectedLanguage === "hi"
+                      ? "लाइव एआई वॉइस परामर्श शुरू करें"
+                      : "Talk to Live AI Astrologer (Realtime Voice Mode)"
+                  }
                 >
-                  <svg className="size-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-                  </svg>
+                  <div className="relative">
+                    <Radio className="size-5 text-[#F3C766] group-hover:scale-110 transition-transform" />
+                    <span className="absolute -top-1 -right-1 size-2 rounded-full bg-[#E5A93C] animate-ping" />
+                  </div>
+                </button>
+
+                {/* Button 2: Speech-to-Text Dictation Mic (fills inputQuery field) */}
+                <button
+                  type="button"
+                  onClick={toggleDictation}
+                  className={`grid size-11 shrink-0 place-items-center rounded-[8px] border transition group cursor-pointer active:scale-95 ${
+                    isDictating
+                      ? "bg-red-500/20 border-red-500 text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.4)] animate-pulse"
+                      : "border-white/10 bg-[#090A10] text-[#94A3B8] hover:text-[#F3C766] hover:border-[#E5A93C]/50"
+                  }`}
+                  title={
+                    isDictating
+                      ? selectedLanguage === "ne"
+                        ? "आवाज रेकर्डिङ रोक्नुहोस्"
+                        : selectedLanguage === "hi"
+                        ? "आवाज़ रिकॉर्डिंग रोकें"
+                        : "Stop Voice Dictation"
+                      : selectedLanguage === "ne"
+                      ? "बोलेर प्रश्न लेख्नुहोस् (भ्वाइस टाइपिङ)"
+                      : selectedLanguage === "hi"
+                      ? "बोलकर प्रश्न लिखें (वॉइस टाइपिंग)"
+                      : "Dictate Question by Voice (Speech-to-Text)"
+                  }
+                >
+                  {isDictating ? (
+                    <MicOff className="size-5 text-red-400" />
+                  ) : (
+                    <Mic className="size-5 group-hover:scale-110 transition-transform text-[#E5A93C]" />
+                  )}
                 </button>
 
                 <input
                   type="text"
                   value={inputQuery}
                   onChange={(e) => setInputQuery(e.target.value)}
-                  placeholder={t.askPlaceholder}
-                  className="flex-1 rounded-[8px] border border-white/10 bg-[#090A10] px-4 py-3 text-xs text-[#F8FAFC] placeholder-[#94A3B8]/40 focus:border-[#E5A93C] focus:ring-1 focus:ring-[#E5A93C]/40 focus:outline-none transition"
+                  placeholder={
+                    isDictating
+                      ? selectedLanguage === "ne"
+                        ? "आवाज सुन्दैछ... बोल्नुहोस्..."
+                        : selectedLanguage === "hi"
+                        ? "आवाज़ सुन रहा है... बोलिए..."
+                        : "Listening to your voice... Speak now..."
+                      : t.askPlaceholder
+                  }
+                  className={`flex-1 rounded-[8px] border bg-[#090A10] px-4 py-3 text-xs sm:text-sm text-[#F8FAFC] placeholder-[#94A3B8]/50 focus:border-[#E5A93C] focus:ring-1 focus:ring-[#E5A93C]/40 focus:outline-none transition ${
+                    isDictating ? "border-amber-400/70 ring-2 ring-amber-400/20" : "border-white/10"
+                  }`}
                 />
 
                 <button
                   type="submit"
                   disabled={!inputQuery.trim() || isThinking}
-                  className="rounded-[8px] bg-gradient-to-r from-[#E5A93C] to-[#F3C766] hover:from-[#F3C766] hover:to-[#E5A93C] px-6 py-3 text-xs font-bold text-[#090A10] transition shadow-lg disabled:opacity-40"
+                  className="rounded-[8px] bg-gradient-to-r from-[#E5A93C] to-[#F3C766] hover:from-[#F3C766] hover:to-[#E5A93C] px-6 py-3 text-xs sm:text-sm font-bold text-[#090A10] transition shadow-lg disabled:opacity-40 cursor-pointer active:scale-95 shrink-0"
                 >
                   {isThinking ? "..." : t.sendQuery}
                 </button>
