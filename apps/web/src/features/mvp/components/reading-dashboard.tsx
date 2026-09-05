@@ -32,9 +32,41 @@ import {
   Play,
   Pause,
   RotateCcw,
+  RotateCw,
   Volume2,
   Globe,
+  User,
+  Scale,
+  Briefcase,
+  Heart,
+  Compass,
+  ShieldCheck,
+  Orbit,
+  Gem,
+  Activity,
+  MapPin,
 } from "lucide-react";
+
+function renderSectionIcon(sectionId: string) {
+  switch (sectionId) {
+    case "personality":
+      return <User className="size-5 text-[#E5A93C]" />;
+    case "strengths-weaknesses":
+      return <Scale className="size-5 text-[#E5A93C]" />;
+    case "career-finance":
+      return <Briefcase className="size-5 text-[#E5A93C]" />;
+    case "love-marriage":
+      return <Heart className="size-5 text-[#E5A93C]" />;
+    case "travel-spirituality":
+      return <Compass className="size-5 text-[#E5A93C]" />;
+    case "current-dasha":
+      return <Clock className="size-5 text-[#E5A93C]" />;
+    case "remedies":
+      return <ShieldCheck className="size-5 text-[#E5A93C]" />;
+    default:
+      return <Sparkles className="size-5 text-[#E5A93C]" />;
+  }
+}
 import {
   toLocalizedDigit,
   getPlanetName,
@@ -376,7 +408,7 @@ export function ReadingDashboard() {
         <div className="mx-auto flex w-full max-w-[1600px] items-center justify-between px-6 lg:px-10 py-3">
           <div className="flex items-center gap-3">
             <Link href="/" className="grid size-8 place-items-center rounded-[8px] bg-[#E5A93C] text-[#090A10] font-bold">
-              ✳
+              <Sparkles className="size-4 text-[#090A10]" />
             </Link>
             <div>
               <h1 className="font-serif text-sm font-bold text-[#F8FAFC]">
@@ -669,7 +701,7 @@ export function ReadingDashboard() {
               return (
                 <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-3">
                   <h3 className="font-serif text-xs font-bold uppercase tracking-wider text-[#F8FAFC] flex items-center gap-1.5 border-b border-white/10 pb-2">
-                    <span>💎</span> {t.auspiciousTitle}
+                    <Gem className="size-3.5 text-[#E5A93C]" /> {t.auspiciousTitle}
                   </h3>
 
                   <div className="space-y-2.5 text-[11px]">
@@ -717,7 +749,7 @@ export function ReadingDashboard() {
             <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-3">
               <div className="flex items-center justify-between border-b border-white/10 pb-2">
                 <h3 className="font-serif text-xs font-bold uppercase tracking-wider text-[#F8FAFC] flex items-center gap-1.5">
-                  <span>🪐</span> {t.planetaryPositionsTitle}
+                  <Orbit className="size-3.5 text-[#E5A93C]" /> {t.planetaryPositionsTitle}
                 </h3>
                 <button
                   onClick={() => setShowFullPlanets(!showFullPlanets)}
@@ -944,9 +976,10 @@ export function ReadingDashboard() {
                   <button
                     onClick={() => seekAudioBy(-10)}
                     title="Rewind 10 seconds"
-                    className="text-xs text-[#94A3B8] hover:text-[#F8FAFC] font-mono transition active:scale-95 cursor-pointer"
+                    className="flex items-center gap-1 text-xs text-[#94A3B8] hover:text-[#F8FAFC] font-mono transition active:scale-95 cursor-pointer"
                   >
-                    ⏮ 10s
+                    <RotateCcw className="size-3 text-[#E5A93C]" />
+                    <span>10s</span>
                   </button>
 
                   <div className="flex items-center gap-2 flex-1 max-w-xs">
@@ -976,9 +1009,10 @@ export function ReadingDashboard() {
                   <button
                     onClick={() => seekAudioBy(10)}
                     title="Forward 10 seconds"
-                    className="text-xs text-[#94A3B8] hover:text-[#F8FAFC] font-mono transition active:scale-95 cursor-pointer"
+                    className="flex items-center gap-1 text-xs text-[#94A3B8] hover:text-[#F8FAFC] font-mono transition active:scale-95 cursor-pointer"
                   >
-                    10s ⏭
+                    <span>10s</span>
+                    <RotateCw className="size-3 text-[#E5A93C]" />
                   </button>
                 </div>
 
@@ -1005,8 +1039,8 @@ export function ReadingDashboard() {
                 <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
                   <div className="flex items-center gap-2">
                     <span className="inline-block size-2 rounded-full bg-[#E5A93C] animate-pulse" />
-                    <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#F3C766]">
-                      🛠️ {t.telemetryTitle}
+                    <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#F3C766] flex items-center gap-1.5">
+                      <Activity className="size-3.5 text-[#E5A93C]" /> {t.telemetryTitle}
                     </span>
                   </div>
 
@@ -1015,7 +1049,7 @@ export function ReadingDashboard() {
                       Engine: {audioSource || "hd_mp3_audio_engine"}
                     </span>
                     <span className="rounded bg-[#E5A93C] px-2 py-0.5 font-bold text-[#090A10]">
-                      {isPlaying ? "🟢 PLAYING" : "⏸ PAUSED"}
+                      {isPlaying ? "PLAYING" : "PAUSED"}
                     </span>
                   </div>
                 </div>
@@ -1071,8 +1105,8 @@ export function ReadingDashboard() {
                 >
                   {/* Title & Icon */}
                   <div className="flex items-center gap-3">
-                    <span className="grid size-9 place-items-center rounded-[8px] bg-[#090A10] border border-white/10 text-lg">
-                      {section.icon}
+                    <span className="grid size-9 place-items-center rounded-[8px] bg-[#090A10] border border-white/10">
+                      {renderSectionIcon(section.id)}
                     </span>
                     <div>
                       <h3 className="font-serif text-base font-bold text-[#F8FAFC]">{section.title}</h3>
@@ -1104,7 +1138,7 @@ export function ReadingDashboard() {
                           onClick={() => setSelectedHouse(10)}
                           className="inline-flex items-center gap-1.5 rounded-[8px] border border-white/10 bg-[#090A10] px-2.5 py-1 text-xs text-[#F8FAFC] hover:border-[#E5A93C] transition"
                         >
-                          <span className="text-[#6366F1]">📍</span>
+                          <MapPin className="size-3.5 text-[#6366F1]" />
                           <span>{r.placement}</span>
                         </button>
                       ))}
@@ -1175,7 +1209,9 @@ export function ReadingDashboard() {
         {activeChart && (
           <div className="grid grid-cols-2 gap-6 text-xs">
             <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-3">
-              <h3 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">🔮 {t.avakhadaTitle}</h3>
+              <h3 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider flex items-center gap-1.5">
+                <Sparkles className="size-3.5 text-[#E5A93C]" /> {t.avakhadaTitle}
+              </h3>
               <div className="grid grid-cols-2 gap-2">
                 <div><span className="text-[#94A3B8]">{t.moonSignLabel}</span> <strong>{getSignName(activeChart.avakhada?.sign || "Sagittarius", language)}</strong></div>
                 <div><span className="text-[#94A3B8]">{t.nakshatraLabel}</span> <strong>{getNakshatraName(activeChart.avakhada?.nakshatra || "Moola", language)}</strong></div>
@@ -1190,7 +1226,9 @@ export function ReadingDashboard() {
               const aus = getLocalizedAuspiciousElements(activeChart.lagna_sign, language);
               return (
                 <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-3">
-                  <h3 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">💎 {t.auspiciousTitle}</h3>
+                  <h3 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider flex items-center gap-1.5">
+                    <Gem className="size-3.5 text-[#E5A93C]" /> {t.auspiciousTitle}
+                  </h3>
                   <div className="space-y-1.5 text-xs">
                     <p><strong className="text-[#10B981]">{t.luckyColors}</strong> {aus.luckyColors}</p>
                     <p><strong className="text-[#EF4444]">{t.unluckyColors}</strong> {aus.unluckyColors}</p>
@@ -1206,7 +1244,9 @@ export function ReadingDashboard() {
         {/* Planetary Table */}
         {activeChart && (
           <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-3">
-            <h3 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">🪐 {t.planetaryPositionsTitle}</h3>
+            <h3 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider flex items-center gap-1.5">
+              <Orbit className="size-3.5 text-[#E5A93C]" /> {t.planetaryPositionsTitle}
+            </h3>
             <table className="w-full text-left text-xs">
               <thead>
                 <tr className="border-b border-white/10 text-[#94A3B8]">
@@ -1244,7 +1284,9 @@ export function ReadingDashboard() {
           {reportSections.map((section) => (
             <div key={section.id} className="rounded-[8px] border border-white/10 bg-[#161B2B] p-5 space-y-3">
               <div className="flex items-center gap-2">
-                <span className="text-xl">{section.icon}</span>
+                <span className="grid size-7 place-items-center rounded-[6px] bg-[#090A10] border border-white/10">
+                  {renderSectionIcon(section.id)}
+                </span>
                 <h3 className="font-serif text-base font-bold text-[#F8FAFC]">{section.title}</h3>
               </div>
               <p className="text-xs text-[#F3C766] font-semibold">{section.summary}</p>
@@ -1261,7 +1303,7 @@ export function ReadingDashboard() {
       {/* Floating Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 rounded-[8px] border border-[#E5A93C] bg-[#161B2B] px-5 py-2.5 text-xs font-bold text-[#F3C766] shadow-2xl animate-fade-in flex items-center gap-2">
-          <span>✨</span>
+          <Sparkles className="size-4 text-[#E5A93C]" />
           <span>{toastMessage}</span>
         </div>
       )}

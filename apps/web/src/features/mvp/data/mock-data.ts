@@ -10,7 +10,7 @@ export const SAMPLE_BIRTH_DETAILS: MvpBirthDetails = {
 export const MOCK_REPORT_SECTIONS: ReportSection[] = [
   {
     id: "personality",
-    icon: "🌟",
+    icon: "user",
     title: "Personality & Intellect",
     subtitle: "Core identity, mindset, and behavioral tendencies",
     summary: "Deeply analytical, strategic, and morally grounded with natural leadership capabilities.",
@@ -36,13 +36,13 @@ export const MOCK_REPORT_SECTIONS: ReportSection[] = [
   },
   {
     id: "strengths-weaknesses",
-    icon: "⚖️",
+    icon: "scale",
     title: "Strengths & Growth Areas",
     subtitle: "Innate talents and potential pitfalls to guard against",
     summary: "High executive focus and financial acumen balanced against a tendency to over-analyze.",
     content: [
-      "💪 Key Strengths: Extraordinary capacity for sustained effort, financial prudence, ability to negotiate wins in diplomatic settings, and high ethical integrity.",
-      "⚠️ Growth Areas: You may occasionally experience mental paralysis by analysis due to mercury's intense scrutiny. Learning when to delegate and trust intuition over raw data will unlock your next growth phase.",
+      "Key Strengths: Extraordinary capacity for sustained effort, financial prudence, ability to negotiate wins in diplomatic settings, and high ethical integrity.",
+      "Growth Areas: You may occasionally experience mental paralysis by analysis due to mercury's intense scrutiny. Learning when to delegate and trust intuition over raw data will unlock your next growth phase.",
       "Be cautious of sudden impatience during Rahu transit windows, as it can strain working relationships."
     ],
     reasoning: [
@@ -62,7 +62,7 @@ export const MOCK_REPORT_SECTIONS: ReportSection[] = [
   },
   {
     id: "career-finance",
-    icon: "💼",
+    icon: "briefcase",
     title: "Career & Financial Outlook",
     subtitle: "Wealth potential, domain alignment, and career milestones",
     summary: "Strong potential for independent consulting, tech executive leadership, or high-yield ventures.",
@@ -88,7 +88,7 @@ export const MOCK_REPORT_SECTIONS: ReportSection[] = [
   },
   {
     id: "love-marriage",
-    icon: "❤️",
+    icon: "heart",
     title: "Love & Marriage",
     subtitle: "Relationship dynamics, partner traits, and timing",
     summary: "Supportive, intelligent partner met through professional or educational circles.",
@@ -114,7 +114,7 @@ export const MOCK_REPORT_SECTIONS: ReportSection[] = [
   },
   {
     id: "travel-spirituality",
-    icon: "✈️",
+    icon: "compass",
     title: "Foreign Travel & Spirituality",
     subtitle: "Overseas opportunities and inner awakening",
     summary: "High probability of long-term foreign residence and deep spiritual evolution.",
@@ -135,14 +135,14 @@ export const MOCK_REPORT_SECTIONS: ReportSection[] = [
   },
   {
     id: "current-dasha",
-    icon: "🕐",
+    icon: "clock",
     title: "Current Dasha & Important Periods",
     subtitle: "Vimshottari time lords shaping your current chapter",
     summary: "Currently in Rahu Mahadasha / Jupiter Antardasha (Sept 2024 – Feb 2027).",
     content: [
       "You are currently navigating **Rahu-Jupiter Dasha**, a pivotal 2.5-year window that bridges ambition with wisdom.",
       "Rahu in the 10th house pushes for outward achievement, while Jupiter in the 12th ensures you build on solid moral foundations.",
-      "🔮 Next Key Period: **Jupiter-Saturn Antardasha** starting mid-2027 brings permanent career elevation and property investments."
+      "Next Key Period: **Jupiter-Saturn Antardasha** starting mid-2027 brings permanent career elevation and property investments."
     ],
     reasoning: [
       {
@@ -157,15 +157,15 @@ export const MOCK_REPORT_SECTIONS: ReportSection[] = [
   },
   {
     id: "remedies",
-    icon: "🪔",
+    icon: "shield",
     title: "Vedic Remedies & Life Guidance",
     subtitle: "Harmonizing planetary frequencies for optimal wellbeing",
     summary: "Simple, potent daily practices to enhance benefics and calm malefic transits.",
     content: [
-      "📿 Recite **Vishnu Sahasranama** or Vishnu Gayatri mantra on Wednesday mornings to maximize Mercury's exalted blessings.",
-      "🌊 Offer water to the rising Sun (Surya Arghya) with copper vessel on Sundays.",
-      "💎 Recommended Gemstone: **Yellow Sapphire (Pukhraj)** set in gold on index finger (after consulting exact birth chart transit dates).",
-      "🤝 Donate yellow grains or books to students on Thursdays."
+      "Recite **Vishnu Sahasranama** or Vishnu Gayatri mantra on Wednesday mornings to maximize Mercury's exalted blessings.",
+      "Offer water to the rising Sun (Surya Arghya) with copper vessel on Sundays.",
+      "Recommended Gemstone: **Yellow Sapphire (Pukhraj)** set in gold on index finger (after consulting exact birth chart transit dates).",
+      "Donate yellow grains or books to students on Thursdays."
     ],
     reasoning: [
       {
