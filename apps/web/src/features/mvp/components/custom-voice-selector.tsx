@@ -108,14 +108,9 @@ export function CustomVoiceSelector({
       >
         <div className="flex items-center gap-2">
           <Mic className="size-3.5 text-[#E5A93C] shrink-0" />
-          <div className="flex flex-col text-left">
-            <span className="text-[11px] font-bold text-[#F8FAFC] leading-tight">
-              {currentVoiceObj.name}
-            </span>
-            <span className="text-[9px] text-[#94A3B8] leading-tight">
-              {currentVoiceObj.title}
-            </span>
-          </div>
+          <span className="text-xs font-bold text-[#F8FAFC]">
+            {currentVoiceObj.name}
+          </span>
         </div>
 
         <ChevronDown
@@ -180,9 +175,6 @@ export function CustomVoiceSelector({
                           {voice.gender}
                         </span>
                       </div>
-                      <span className="text-[10px] font-medium text-[#F3C766]">
-                        {voice.title}
-                      </span>
                       <p className="text-[10px] text-[#94A3B8] line-clamp-1 mt-0.5">
                         {voice.description[language] || voice.description.en}
                       </p>
