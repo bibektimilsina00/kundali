@@ -427,25 +427,6 @@ export function ReadingDashboard() {
             </select>
 
             <button
-              onClick={handleDownloadPdf}
-              disabled={isExportingPdf}
-              className="flex items-center gap-1.5 rounded-[8px] border border-[#E5A93C]/40 bg-[#161B2B] px-3 py-1.5 text-xs font-semibold text-[#F3C766] hover:bg-[#E5A93C] hover:text-[#090A10] transition disabled:opacity-50 cursor-pointer"
-              title={t.downloadPdf}
-            >
-              <Download className="size-3.5" />
-              <span className="hidden sm:inline">{isExportingPdf ? t.pdfGenerating : t.downloadPdf}</span>
-            </button>
-
-            <button
-              onClick={handleSharePage}
-              className="flex items-center gap-1.5 rounded-[8px] border border-white/10 bg-[#161B2B] px-3 py-1.5 text-xs font-semibold text-[#F8FAFC] hover:border-white/30 transition cursor-pointer"
-              title={t.shareReading}
-            >
-              <Share2 className="size-3.5" />
-              <span className="hidden sm:inline">{t.shareReading}</span>
-            </button>
-
-            <button
               onClick={() => router.push("/reading/live")}
               className="flex items-center gap-2 rounded-[8px] bg-[#E5A93C] hover:bg-[#F3C766] px-4 py-2 text-xs font-bold text-[#090A10] transition cursor-pointer"
             >
@@ -471,24 +452,46 @@ export function ReadingDashboard() {
                   <p className="text-[11px] text-[#94A3B8]">{t.kundaliChartsSub}</p>
                 </div>
                 
-                {/* North / South Toggle */}
-                <div className="flex rounded-[8px] border border-white/10 bg-[#090A10] p-0.5 text-[10px]">
-                  <button
-                    onClick={() => setChartStyle("north")}
-                    className={`rounded-[6px] px-2.5 py-1 font-bold transition ${
-                      chartStyle === "north" ? "bg-[#E5A93C] text-[#090A10]" : "text-[#94A3B8]"
-                    }`}
-                  >
-                    North
-                  </button>
-                  <button
-                    onClick={() => setChartStyle("south")}
-                    className={`rounded-[6px] px-2.5 py-1 font-bold transition ${
-                      chartStyle === "south" ? "bg-[#E5A93C] text-[#090A10]" : "text-[#94A3B8]"
-                    }`}
-                  >
-                    South
-                  </button>
+                {/* North / South Toggle & Header Quick Action Icons */}
+                <div className="flex items-center gap-2">
+                  <div className="flex rounded-[8px] border border-white/10 bg-[#090A10] p-0.5 text-[10px]">
+                    <button
+                      onClick={() => setChartStyle("north")}
+                      className={`rounded-[6px] px-2.5 py-1 font-bold transition ${
+                        chartStyle === "north" ? "bg-[#E5A93C] text-[#090A10]" : "text-[#94A3B8]"
+                      }`}
+                    >
+                      North
+                    </button>
+                    <button
+                      onClick={() => setChartStyle("south")}
+                      className={`rounded-[6px] px-2.5 py-1 font-bold transition ${
+                        chartStyle === "south" ? "bg-[#E5A93C] text-[#090A10]" : "text-[#94A3B8]"
+                      }`}
+                    >
+                      South
+                    </button>
+                  </div>
+
+                  <div className="flex items-center gap-1 border-l border-white/10 pl-2">
+                    <button
+                      onClick={handleDownloadPdf}
+                      disabled={isExportingPdf}
+                      title={isExportingPdf ? t.pdfGenerating : t.downloadPdf}
+                      aria-label={t.downloadPdf}
+                      className="group flex size-7 items-center justify-center rounded-[6px] border border-[#E5A93C]/40 bg-[#090A10] text-[#E5A93C] transition-all duration-200 hover:bg-[#E5A93C] hover:text-[#090A10] disabled:opacity-50 cursor-pointer"
+                    >
+                      <Download className="size-3.5 transition-transform duration-200 group-hover:scale-110" />
+                    </button>
+                    <button
+                      onClick={handleSharePage}
+                      title={t.shareReading}
+                      aria-label={t.shareReading}
+                      className="group flex size-7 items-center justify-center rounded-[6px] border border-white/10 bg-[#090A10] text-[#94A3B8] transition-all duration-200 hover:border-[#E5A93C] hover:text-[#F3C766] cursor-pointer"
+                    >
+                      <Share2 className="size-3.5 transition-transform duration-200 group-hover:scale-110" />
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -581,26 +584,32 @@ export function ReadingDashboard() {
                 </p>
               )}
 
-              {/* Chart Action Footer (Download PDF & Share) */}
-              <div className="flex items-center gap-2 border-t border-white/10 pt-3.5 mt-3">
-                <button
-                  onClick={handleDownloadPdf}
-                  disabled={isExportingPdf}
-                  className="flex-1 flex items-center justify-center gap-2 rounded-[8px] bg-[#E5A93C] hover:bg-[#F3C766] px-4 py-2 text-xs font-bold text-[#090A10] transition disabled:opacity-50 cursor-pointer shadow"
-                  title={t.downloadPdf}
-                >
-                  <Download className="size-4" />
-                  <span>{isExportingPdf ? t.pdfGenerating : t.downloadPdf}</span>
-                </button>
+              {/* Chart Action Footer (Modern Icon Bar for Download & Share) */}
+              <div className="flex items-center justify-between border-t border-white/10 pt-3.5 mt-3">
+                <span className="text-[11px] font-bold text-[#94A3B8] uppercase tracking-wider">
+                  Kundali Actions
+                </span>
 
-                <button
-                  onClick={handleSharePage}
-                  className="flex items-center justify-center gap-2 rounded-[8px] border border-white/10 bg-[#090A10] px-4 py-2 text-xs font-bold text-[#F8FAFC] hover:border-[#E5A93C] hover:text-[#F3C766] transition cursor-pointer"
-                  title={t.shareReading}
-                >
-                  <Share2 className="size-4 text-[#E5A93C]" />
-                  <span>{t.shareReading}</span>
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleDownloadPdf}
+                    disabled={isExportingPdf}
+                    title={isExportingPdf ? t.pdfGenerating : t.downloadPdf}
+                    aria-label={t.downloadPdf}
+                    className="group relative flex size-9 items-center justify-center rounded-[8px] border border-[#E5A93C]/40 bg-[#090A10] text-[#E5A93C] transition-all duration-200 hover:border-[#E5A93C] hover:bg-[#E5A93C] hover:text-[#090A10] hover:shadow-md hover:shadow-[#E5A93C]/20 active:scale-95 disabled:opacity-50 cursor-pointer"
+                  >
+                    <Download className="size-4 transition-transform duration-200 group-hover:scale-110" />
+                  </button>
+
+                  <button
+                    onClick={handleSharePage}
+                    title={t.shareReading}
+                    aria-label={t.shareReading}
+                    className="group relative flex size-9 items-center justify-center rounded-[8px] border border-white/10 bg-[#090A10] text-[#CBD5E1] transition-all duration-200 hover:border-[#E5A93C] hover:bg-[#161B2B] hover:text-[#F3C766] hover:shadow-md active:scale-95 cursor-pointer"
+                  >
+                    <Share2 className="size-4 transition-transform duration-200 group-hover:scale-110" />
+                  </button>
+                </div>
               </div>
             </div>
 
