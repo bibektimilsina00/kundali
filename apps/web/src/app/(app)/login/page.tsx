@@ -13,7 +13,6 @@ import {
   EyeOff,
   ArrowRight,
   ShieldCheck,
-  CheckCircle2,
 } from "lucide-react";
 
 function LoginFormContent() {
@@ -57,15 +56,14 @@ function LoginFormContent() {
   };
 
   const handleGoogleSignIn = () => {
-    // Quick demo login or Google OAuth link
     setEmail("demo.user@kundali.ai");
     setPassword("demopass123");
   };
 
   return (
-    <div className="relative w-full max-w-[440px] z-20 mx-auto">
+    <div className="relative w-full max-w-[420px] z-20 mx-auto">
       {/* Central Login Card */}
-      <div className="overflow-hidden rounded-[20px] border border-white/10 bg-[#12141D]/95 backdrop-blur-2xl shadow-2xl shadow-black/80 transition-all">
+      <div className="overflow-hidden rounded-[22px] border border-white/10 bg-[#12141D]/95 backdrop-blur-2xl shadow-2xl shadow-black/80 transition-all">
         
         {/* Main Card Content */}
         <div className="p-7 sm:p-8">
@@ -273,7 +271,7 @@ function LoginFormContent() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-[#090A10] text-[#F8FAFC] flex flex-col justify-between relative overflow-hidden font-body">
+    <div className="min-h-screen bg-[#0A0B10] text-[#F8FAFC] flex flex-col justify-between relative overflow-hidden font-body">
       
       {/* Top Header Bar */}
       <header className="relative z-30 flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
@@ -294,61 +292,36 @@ export default function LoginPage() {
         </Link>
       </header>
 
-      {/* BACKGROUND GRAPHICS: Left & Right Polygonal Zodiac Panels */}
+      {/* BACKGROUND GRAPHICS: Ultra Clean Polygonal Graphic Panels & Celestial Orbs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         {/* Central Golden Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[600px] rounded-full bg-[#E5A93C]/10 blur-[140px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[650px] rounded-full bg-[#E5A93C]/[0.06] blur-[150px]" />
         
-        {/* Left Side Polygonal Graphic Panel */}
-        <div className="hidden lg:block absolute left-[-8%] top-1/2 -translate-y-1/2 w-[38%] h-[75%] border border-[#E5A93C]/20 bg-gradient-to-r from-[#161B2B]/40 to-transparent backdrop-blur-sm [clip-path:polygon(0_0,85%_0,100%_50%,85%_100%,0_100%)]">
-          <div className="p-12 space-y-6 opacity-40">
-            <div className="font-serif text-xs uppercase tracking-[0.3em] text-[#E5A93C]">
-              Vedic Sidereal Astronomy
-            </div>
-            <div className="text-3xl font-serif font-extrabold text-white leading-tight">
-              Precision Planetary Ephemeris & Dasha
-            </div>
-            <div className="space-y-2 text-xs text-slate-300">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-3.5 text-[#E5A93C]" />
-                <span>36-Guna Ashtakoota Marriage Matching</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-3.5 text-[#E5A93C]" />
-                <span>Conversational Real-time AI Astrologer</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-3.5 text-[#E5A93C]" />
-                <span>Complete Vimshottari Dasha Timeline</span>
-              </div>
-            </div>
-          </div>
+        {/* Left Side Polygonal Graphic Outline Panel */}
+        <div className="hidden lg:block absolute left-[-6%] top-1/2 -translate-y-1/2 w-[34%] h-[72vh] rounded-r-[32px] border-r border-y border-white/[0.07] bg-[#12141D]/30 backdrop-blur-[2px] [clip-path:polygon(0_0,82%_0,100%_50%,82%_100%,0_100%)] transition-all">
+          {/* Subtle Inner Line Grid */}
+          <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#E5A93C_1px,transparent_1px)] [background-size:24px_24px]" />
+          <svg className="absolute inset-0 size-full opacity-15" viewBox="0 0 400 700" fill="none">
+            <path d="M50 100 L300 100 L350 350 L300 600 L50 600" stroke="#E5A93C" strokeWidth="1" strokeDasharray="4 4" />
+            <circle cx="350" cy="350" r="6" fill="#E5A93C" />
+            <circle cx="150" cy="200" r="3" fill="#FFF" />
+            <circle cx="220" cy="480" r="3" fill="#FFF" />
+          </svg>
         </div>
 
-        {/* Right Side Polygonal Graphic Panel */}
-        <div className="hidden lg:block absolute right-[-8%] top-1/2 -translate-y-1/2 w-[38%] h-[75%] border border-[#E5A93C]/20 bg-gradient-to-l from-[#161B2B]/40 to-transparent backdrop-blur-sm [clip-path:polygon(15%_0,100%_0,100%_100%,15%_100%,0_50%)]">
-          <div className="p-12 space-y-6 opacity-40 text-right">
-            <div className="font-serif text-xs uppercase tracking-[0.3em] text-[#E5A93C]">
-              Vedic Cloud Vault
-            </div>
-            <div className="text-3xl font-serif font-extrabold text-white leading-tight">
-              Encrypted Multi-Chart Storage
-            </div>
-            <div className="space-y-2 text-xs text-slate-300 flex flex-col items-end">
-              <div className="flex items-center gap-2">
-                <span>Save Unlimited Family Kundalis</span>
-                <CheckCircle2 className="size-3.5 text-[#E5A93C]" />
-              </div>
-              <div className="flex items-center gap-2">
-                <span>Synchronized Across Web & Mobile</span>
-                <CheckCircle2 className="size-3.5 text-[#E5A93C]" />
-              </div>
-              <div className="flex items-center gap-2">
-                <span>Instant Kuja (Manglik) Dosha Audit</span>
-                <CheckCircle2 className="size-3.5 text-[#E5A93C]" />
-              </div>
-            </div>
-          </div>
+        {/* Right Side Polygonal Graphic Outline Panel */}
+        <div className="hidden lg:block absolute right-[-6%] top-1/2 -translate-y-1/2 w-[34%] h-[72vh] rounded-l-[32px] border-l border-y border-white/[0.07] bg-[#12141D]/30 backdrop-blur-[2px] [clip-path:polygon(18%_0,100%_0,100%_100%,18%_100%,0_50%)] transition-all">
+          {/* Subtle Inner Line Grid */}
+          <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#E5A93C_1px,transparent_1px)] [background-size:24px_24px]" />
+          <svg className="absolute inset-0 size-full opacity-15" viewBox="0 0 400 700" fill="none">
+            <path d="M350 100 L100 100 L50 350 L100 600 L350 600" stroke="#E5A93C" strokeWidth="1" strokeDasharray="4 4" />
+            <circle cx="50" cy="350" r="6" fill="#E5A93C" />
+            <circle cx="250" cy="220" r="3" fill="#FFF" />
+            <circle cx="180" cy="520" r="3" fill="#FFF" />
+          </svg>
+          
+          {/* Glowing Accent Line (Matching the reference photo accent line at bottom right!) */}
+          <div className="absolute bottom-12 left-10 w-24 h-[3px] rounded-full bg-gradient-to-r from-[#E5A93C] to-[#F3C766] shadow-[0_0_12px_#E5A93C]" />
         </div>
       </div>
 
