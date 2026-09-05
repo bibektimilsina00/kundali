@@ -23,6 +23,19 @@ import { ASTROLOGER_VOICES } from "@/lib/constants/voices";
 import { generateDynamicAstrologyReport } from "@/features/kundali/api/report-generator";
 import { useTranslation, type Language } from "@/lib/i18n/language-context";
 import {
+  Download,
+  Share2,
+  Sparkles,
+  Clock,
+  Radio,
+  FileText,
+  Play,
+  Pause,
+  RotateCcw,
+  Volume2,
+  Globe,
+} from "lucide-react";
+import {
   toLocalizedDigit,
   getPlanetName,
   getPlanetAbbrev,
@@ -377,7 +390,8 @@ export function ReadingDashboard() {
 
           {/* Current Dasha Pill */}
           <div className="hidden sm:flex items-center gap-2 rounded-[8px] border border-white/10 bg-[#161B2B] px-3.5 py-1.5 text-xs font-semibold text-[#F3C766]">
-            <span>🕐 {t.currentDasha}:</span>
+            <Clock className="size-3.5 text-[#E5A93C]" />
+            <span>{t.currentDasha}:</span>
             <span className="text-[#F8FAFC]">{currentDashaText}</span>
           </div>
 
@@ -397,7 +411,7 @@ export function ReadingDashboard() {
             >
               {ASTROLOGER_VOICES.map((v) => (
                 <option key={v.id} value={v.id}>
-                  🎙️ {v.name} ({v.title})
+                  {v.name} ({v.title})
                 </option>
               ))}
             </select>
@@ -407,9 +421,9 @@ export function ReadingDashboard() {
               onChange={(e) => setLanguage(e.target.value as any)}
               className="rounded-[8px] border border-[#E5A93C]/40 bg-[#161B2B] px-2.5 py-1.5 text-xs font-semibold text-[#F3C766] outline-none cursor-pointer hover:border-[#E5A93C]"
             >
-              <option value="en">🌐 English</option>
-              <option value="ne">🇳🇵 नेपाली</option>
-              <option value="hi">🇮🇳 हिन्दी</option>
+              <option value="en">English</option>
+              <option value="ne">नेपाली</option>
+              <option value="hi">हिन्दी</option>
             </select>
 
             <button
@@ -418,7 +432,7 @@ export function ReadingDashboard() {
               className="flex items-center gap-1.5 rounded-[8px] border border-[#E5A93C]/40 bg-[#161B2B] px-3 py-1.5 text-xs font-semibold text-[#F3C766] hover:bg-[#E5A93C] hover:text-[#090A10] transition disabled:opacity-50 cursor-pointer"
               title={t.downloadPdf}
             >
-              <span>📄</span>
+              <Download className="size-3.5" />
               <span className="hidden sm:inline">{isExportingPdf ? t.pdfGenerating : t.downloadPdf}</span>
             </button>
 
@@ -427,7 +441,7 @@ export function ReadingDashboard() {
               className="flex items-center gap-1.5 rounded-[8px] border border-white/10 bg-[#161B2B] px-3 py-1.5 text-xs font-semibold text-[#F8FAFC] hover:border-white/30 transition cursor-pointer"
               title={t.shareReading}
             >
-              <span>🔗</span>
+              <Share2 className="size-3.5" />
               <span className="hidden sm:inline">{t.shareReading}</span>
             </button>
 
@@ -435,7 +449,8 @@ export function ReadingDashboard() {
               onClick={() => router.push("/reading/live")}
               className="flex items-center gap-2 rounded-[8px] bg-[#E5A93C] hover:bg-[#F3C766] px-4 py-2 text-xs font-bold text-[#090A10] transition cursor-pointer"
             >
-              <span>🔴 {t.talkToAstrologer}</span>
+              <Radio className="size-3.5 animate-pulse" />
+              <span>{t.talkToAstrologer}</span>
             </button>
           </div>
         </div>
@@ -565,13 +580,35 @@ export function ReadingDashboard() {
                   {t.tapHouseHelper}
                 </p>
               )}
+
+              {/* Chart Action Footer (Download PDF & Share) */}
+              <div className="flex items-center gap-2 border-t border-white/10 pt-3.5 mt-3">
+                <button
+                  onClick={handleDownloadPdf}
+                  disabled={isExportingPdf}
+                  className="flex-1 flex items-center justify-center gap-2 rounded-[8px] bg-[#E5A93C] hover:bg-[#F3C766] px-4 py-2 text-xs font-bold text-[#090A10] transition disabled:opacity-50 cursor-pointer shadow"
+                  title={t.downloadPdf}
+                >
+                  <Download className="size-4" />
+                  <span>{isExportingPdf ? t.pdfGenerating : t.downloadPdf}</span>
+                </button>
+
+                <button
+                  onClick={handleSharePage}
+                  className="flex items-center justify-center gap-2 rounded-[8px] border border-white/10 bg-[#090A10] px-4 py-2 text-xs font-bold text-[#F8FAFC] hover:border-[#E5A93C] hover:text-[#F3C766] transition cursor-pointer"
+                  title={t.shareReading}
+                >
+                  <Share2 className="size-4 text-[#E5A93C]" />
+                  <span>{t.shareReading}</span>
+                </button>
+              </div>
             </div>
 
             {/* 2. Avakhada Chakra Panel */}
             <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-3">
               <div className="flex items-center justify-between border-b border-white/10 pb-2">
                 <h3 className="font-serif text-xs font-bold uppercase tracking-wider text-[#F8FAFC] flex items-center gap-1.5">
-                  <span>🔮</span> {t.avakhadaTitle}
+                  <Sparkles className="size-3.5 text-[#E5A93C]" /> {t.avakhadaTitle}
                 </h3>
               </div>
 
