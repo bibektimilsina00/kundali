@@ -10,6 +10,7 @@ import { speakText, stopSpeech } from "@/lib/utils/audio-speaker";
 import { OpenAIRealtimeWebRTCClient } from "@/lib/utils/openai-realtime-webrtc";
 import { ASTROLOGER_VOICES } from "@/lib/constants/voices";
 import { CustomVoiceSelector } from "./custom-voice-selector";
+import { CustomLanguageSelector } from "@/components/ui/custom-language-selector";
 
 import { useTranslation } from "@/lib/i18n/language-context";
 import { trackLiveVoiceStarted } from "@/lib/utils/analytics";
@@ -724,10 +725,9 @@ export function LiveModeWorkspace() {
             language={selectedLanguage}
           />
 
-          <select
+          <CustomLanguageSelector
             value={selectedLanguage}
-            onChange={(e) => {
-              const lang = e.target.value as "en" | "ne" | "hi";
+            onChange={(lang) => {
               setSelectedLanguage(lang);
               selectedLanguageRef.current = lang;
               setGlobalLang(lang);
@@ -737,12 +737,7 @@ export function LiveModeWorkspace() {
                 startOpenAIRealtimeWebRTC();
               }
             }}
-            className="rounded-[8px] border border-[#E5A93C]/40 bg-[#161B2B] px-2.5 py-1.5 text-xs font-semibold text-[#F3C766] outline-none cursor-pointer hover:border-[#E5A93C]"
-          >
-            <option value="en">🌐 English</option>
-            <option value="ne">🇳🇵 नेपाली</option>
-            <option value="hi">🇮🇳 हिन्दी</option>
-          </select>
+          />
 
           <button
             onClick={handleToggleDebugPanel}
@@ -1147,28 +1142,21 @@ export function LiveModeWorkspace() {
                   />
 
                   {/* Language Selector */}
-                  <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-[8px] bg-[#090A10]/90 border border-[#E5A93C]/40 text-xs font-semibold text-[#F8FAFC]">
-                    <span className="text-xs">🌐</span>
-                    <select
-                      value={selectedLanguage}
-                      onChange={(e) => {
-                        const lang = e.target.value as "en" | "ne" | "hi";
-                        setSelectedLanguage(lang);
-                        selectedLanguageRef.current = lang;
-                        setGlobalLang(lang);
-                        addDebugLog("LANGUAGE_CHANGED", `Astrologer language switched to ${lang.toUpperCase()}`);
-                        if (isWebRTCActiveRef.current && webrtcClientRef.current) {
-                          webrtcClientRef.current.disconnect();
-                          startOpenAIRealtimeWebRTC();
-                        }
-                      }}
-                      className="bg-transparent text-[#F3C766] text-[11px] font-bold focus:outline-none cursor-pointer"
-                    >
-                      <option value="en" className="bg-[#161B2B] text-white">English 🇬🇧</option>
-                      <option value="ne" className="bg-[#161B2B] text-white">नेपाली 🇳🇵</option>
-                      <option value="hi" className="bg-[#161B2B] text-white">हिन्दी 🇮🇳</option>
-                    </select>
-                  </div>
+                  <CustomLanguageSelector
+                    value={selectedLanguage}
+                    onChange={(lang) => {
+                      setSelectedLanguage(lang);
+                      selectedLanguageRef.current = lang;
+                      setGlobalLang(lang);
+                      addDebugLog("LANGUAGE_CHANGED", `Astrologer language switched to ${lang.toUpperCase()}`);
+                      if (isWebRTCActiveRef.current && webrtcClientRef.current) {
+                        webrtcClientRef.current.disconnect();
+                        startOpenAIRealtimeWebRTC();
+                      }
+                    }}
+                    dropUp={true}
+                    size="sm"
+                  />
 
                   <button
                     onClick={() => setIsMicMuted(!isMicMuted)}

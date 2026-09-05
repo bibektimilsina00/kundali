@@ -23,6 +23,7 @@ import { ASTROLOGER_VOICES } from "@/lib/constants/voices";
 import { generateDynamicAstrologyReport } from "@/features/kundali/api/report-generator";
 import { useTranslation, type Language } from "@/lib/i18n/language-context";
 import { CustomVoiceSelector } from "./custom-voice-selector";
+import { CustomLanguageSelector } from "@/components/ui/custom-language-selector";
 import {
   Download,
   Share2,
@@ -422,15 +423,7 @@ export function ReadingDashboard() {
           </div>
 
           <div className="flex items-center gap-3">
-            <select
-              value={language}
-              onChange={(e) => setLanguage(e.target.value as any)}
-              className="rounded-[8px] border border-[#E5A93C]/40 bg-[#161B2B] px-2.5 py-1.5 text-xs font-semibold text-[#F3C766] outline-none cursor-pointer hover:border-[#E5A93C]"
-            >
-              <option value="en">English</option>
-              <option value="ne">नेपाली</option>
-              <option value="hi">हिन्दी</option>
-            </select>
+            <CustomLanguageSelector />
 
             <button
               onClick={() => router.push("/reading/live")}

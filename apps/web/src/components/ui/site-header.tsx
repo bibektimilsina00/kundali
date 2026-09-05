@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ZODIAC } from "./zodiac";
 import { useTranslation } from "@/lib/i18n/language-context";
 import { Language } from "@/lib/i18n/translations";
+import { CustomLanguageSelector } from "./custom-language-selector";
 
 const CATEGORIES = [
   "Horoscope", "Kundali", "Matching", "Panchang", "Dasha",
@@ -37,18 +38,7 @@ export function SiteHeader() {
           </nav>
           <div className="flex items-center gap-2.5">
             {/* Global Language Switcher */}
-            <div className="flex items-center gap-1 rounded-sm bg-[#090A10]/90 border border-white/20 px-2 py-0.5 text-2xs font-bold text-white shadow-sm">
-              <span>🌐</span>
-              <select
-                value={language}
-                onChange={(e) => setLanguage(e.target.value as Language)}
-                className="bg-transparent text-[#F3C766] text-2xs font-bold focus:outline-none cursor-pointer"
-              >
-                <option value="en" className="bg-[#161B2B] text-white">English 🇬🇧</option>
-                <option value="ne" className="bg-[#161B2B] text-white">नेपाली 🇳🇵</option>
-                <option value="hi" className="bg-[#161B2B] text-white">हिन्दी 🇮🇳</option>
-              </select>
-            </div>
+            <CustomLanguageSelector size="sm" />
 
             <Link
               href="/reading"

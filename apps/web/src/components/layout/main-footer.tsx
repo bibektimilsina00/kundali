@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useTranslation, type Language } from "@/lib/i18n/language-context";
+import { CustomLanguageSelector } from "@/components/ui/custom-language-selector";
 import { Sparkles, Globe, ShieldCheck, Compass, Radio, Layers } from "lucide-react";
 
 export function MainFooter() {
@@ -68,18 +69,7 @@ export function MainFooter() {
             <h4 className="font-serif text-xs font-bold text-[#F8FAFC] uppercase tracking-wider flex items-center gap-1.5">
               <Globe className="size-3.5 text-[#E5A93C]" /> Language
             </h4>
-            <div className="inline-flex items-center gap-1.5 rounded-[8px] bg-[#161B2B] border border-white/10 px-3 py-1.5 text-xs text-[#F8FAFC]">
-              <Globe className="size-3.5 text-[#E5A93C]" />
-              <select
-                value={language}
-                onChange={(e) => setLanguage(e.target.value as Language)}
-                className="bg-transparent text-[#F3C766] text-xs font-bold focus:outline-none cursor-pointer"
-              >
-                <option value="en" className="bg-[#161B2B] text-white">English 🇬🇧</option>
-                <option value="ne" className="bg-[#161B2B] text-white">नेपाली 🇳🇵</option>
-                <option value="hi" className="bg-[#161B2B] text-white">हिन्दी 🇮🇳</option>
-              </select>
-            </div>
+            <CustomLanguageSelector dropUp={true} size="sm" />
           </div>
         </div>
 
