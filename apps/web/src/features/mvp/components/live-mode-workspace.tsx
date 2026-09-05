@@ -11,6 +11,8 @@ import { OpenAIRealtimeWebRTCClient } from "@/lib/utils/openai-realtime-webrtc";
 import { ASTROLOGER_VOICES } from "@/lib/constants/voices";
 import { CustomVoiceSelector } from "./custom-voice-selector";
 import { CustomLanguageSelector } from "@/components/ui/custom-language-selector";
+import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
+import { ChatMessageBubble } from "./chat-message-bubble";
 
 import { useTranslation } from "@/lib/i18n/language-context";
 import { trackLiveVoiceStarted } from "@/lib/utils/analytics";
@@ -36,6 +38,18 @@ export function LiveModeWorkspace() {
   const [inputQuery, setInputQuery] = useState("");
   const [isThinking, setIsThinking] = useState(false);
   const [highlightedHouse, setHighlightedHouse] = useState<number | null>(null);
+
+  const chatScrollRef = useRef<HTMLDivElement | null>(null);
+
+  // Auto-scroll to bottom of chat feed on new messages
+  useEffect(() => {
+    if (chatScrollRef.current) {
+      chatScrollRef.current.scrollTo({
+        top: chatScrollRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages, isThinking]);
 
   // Live Voice Mode State Machine
   const [voiceState, setVoiceState] = useState<"listening" | "thinking" | "speaking" | "paused">("paused");
@@ -983,9 +997,7 @@ export function LiveModeWorkspace() {
                 {/* Response Text Content Body - STRETCHES FULL HEIGHT */}
                 <div className="flex-1 overflow-y-auto pr-1 space-y-3 min-h-[260px] max-h-[calc(100vh-280px)]">
                   {teleprompterText ? (
-                    <p className="text-xs leading-relaxed font-medium text-[#F8FAFC]">
-                      {teleprompterText}
-                    </p>
+                    <MarkdownRenderer content={teleprompterText} />
                   ) : (
                     <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-2 text-[#94A3B8]/60">
                       <span className="text-3xl">🪔</span>
@@ -1294,13 +1306,13 @@ export function LiveModeWorkspace() {
                 {messages.map((m) => (
                   <div
                     key={m.id}
-                    className={`p-3.5 rounded-[8px] text-xs ${
+                    className={`p-3.5 rounded-[12px] text-xs ${
                       m.sender === "user"
                         ? "bg-gradient-to-r from-[#E5A93C] to-[#F3C766] text-[#090A10] font-semibold ml-auto max-w-[80%]"
                         : "bg-[#090A10] text-[#F8FAFC] border border-white/10 max-w-[85%]"
                     }`}
                   >
-                    <p>{m.text}</p>
+                    <MarkdownRenderer content={m.text} isUser={m.sender === "user"} />
                     <span className="block mt-1 text-[9px] opacity-70">{m.timestamp}</span>
                   </div>
                 ))}
@@ -1419,48 +1431,35 @@ export function LiveModeWorkspace() {
           <main className="flex flex-col flex-1 min-h-0 h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#131728] via-[#090A10] to-[#090A10] overflow-hidden">
             
             {/* Streamed Chat Feed */}
-            <div className="flex-1 min-h-0 overflow-y-auto p-6 space-y-5">
+            <div ref={chatScrollRef} className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 space-y-5 scroll-smooth">
               {messages.map((msg) => (
-                <div
+                <ChatMessageBubble
                   key={msg.id}
-                  className={`flex flex-col ${msg.sender === "user" ? "items-end" : "items-start"}`}
-                >
-                  {msg.sender === "astrologer" ? (
-                    <div className="flex flex-col items-start space-y-1 max-w-[88%] animate-fade-in">
-                      <div className="flex items-center gap-2 px-1">
-                        <span className="size-5 rounded-full bg-gradient-to-br from-[#E5A93C] to-[#F3C766] text-[#090A10] flex items-center justify-center font-serif text-[10px] font-bold shadow-sm">🕉️</span>
-                        <span className="text-[11px] font-serif font-bold text-[#E5A93C]">{t.masterAstrologer}</span>
-                        <span className="text-[10px] text-[#94A3B8]/60">• {msg.timestamp}</span>
-                      </div>
-                      <div className="rounded-[8px] border border-white/10 bg-gradient-to-br from-[#161B2B] via-[#121625] to-[#0D0F19] p-4 text-xs leading-relaxed text-[#F8FAFC] shadow-xl space-y-3">
-                        <p className="text-xs text-[#F8FAFC] leading-relaxed">{msg.text}</p>
-
-                        {/* Grounded Message Bubbles */}
-                        {msg.astrologicalBasis && (
-                          <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-white/10 pt-2.5 text-[11px]">
-                            <span className="text-[#E5A93C] font-semibold flex items-center gap-1">
-                              <span>📍</span> {t.groundedInChart}:
-                            </span>
-                            <button
-                              onClick={() => setHighlightedHouse(msg.text.includes("7th") ? 7 : 10)}
-                              className="rounded-[8px] bg-[#090A10] border border-[#E5A93C]/40 px-2.5 py-1 text-[#F3C766] hover:bg-[#E5A93C]/10 transition shadow-sm font-medium flex items-center gap-1"
-                            >
-                              <span>✨</span> {msg.astrologicalBasis}
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-end space-y-1 ml-auto max-w-[82%] animate-fade-in">
-                      <div className="rounded-[8px] bg-gradient-to-r from-[#E5A93C] via-[#F3C766] to-[#E5A93C] px-4 py-3 text-xs font-semibold text-[#090A10] shadow-[0_4px_20px_rgba(229,169,60,0.25)] border border-[#F3C766]/50 leading-relaxed">
-                        <p>{msg.text}</p>
-                      </div>
-                      <span className="text-[10px] text-[#94A3B8]/70 px-1">{msg.timestamp}</span>
-                    </div>
-                  )}
-                </div>
+                  message={msg}
+                  masterAstrologerLabel={t.masterAstrologer}
+                  groundedInChartLabel={t.groundedInChart}
+                  language={selectedLanguage}
+                  onHighlightHouse={(h) => {
+                    setHighlightedHouse(h);
+                    setShowChartDrawer(true);
+                  }}
+                />
               ))}
+
+              {/* Thinking / Analyzing Indicator */}
+              {isThinking && (
+                <div className="flex items-center gap-3 p-4 rounded-[14px] border border-white/10 bg-[#161B2B]/90 backdrop-blur-md max-w-xs animate-pulse">
+                  <div className="size-6 rounded-full bg-gradient-to-br from-[#E5A93C] to-[#F3C766] text-[#090A10] flex items-center justify-center font-bold text-xs">
+                    <span>🕉️</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs text-[#F3C766] font-medium">
+                    <span className="size-2 rounded-full bg-[#E5A93C] animate-bounce" />
+                    <span className="size-2 rounded-full bg-[#F3C766] animate-bounce delay-150" />
+                    <span className="size-2 rounded-full bg-[#E5A93C] animate-bounce delay-300" />
+                    <span className="ml-2">{t.analyzingSpeech}</span>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Contextual Smart Follow-Up Chips */}
