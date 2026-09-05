@@ -37,3 +37,6 @@ apps/api/data/
 .DS_Store
 coverage/
 htmlcov/
+apps/web/public/audio-cache/
+image.png
+
