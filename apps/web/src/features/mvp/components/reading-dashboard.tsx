@@ -30,6 +30,7 @@ import {
   Sparkles,
   Clock,
   Radio,
+  PhoneCall,
   FileText,
   Play,
   Pause,
@@ -856,23 +857,23 @@ export function ReadingDashboard() {
             <div className="rounded-[8px] border border-[#E5A93C]/40 bg-gradient-to-r from-[#161B2B] via-[#1A2035] to-[#090A10] p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
               <div className="flex items-center gap-3.5">
                 <div className="grid size-11 shrink-0 place-items-center rounded-[8px] bg-[#E5A93C]/15 border border-[#E5A93C]/40 text-[#E5A93C]">
-                  <Radio className="size-5 text-[#E5A93C] animate-pulse" />
+                  <PhoneCall className="size-5 text-[#E5A93C] animate-pulse" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 className="font-serif text-sm font-bold text-[#F8FAFC]">
-                      {language === "ne" ? "लाइभ ज्योतिषी परामर्श" : language === "hi" ? "लाइव ज्योतिषी परामर्श" : "Live AI Voice Consultation"}
+                      {language === "ne" ? "AI ज्योतिषीसँग बोल्नुहोस्" : language === "hi" ? "AI ज्योतिषी से बात करें" : "Talk to AI Astrologer (Voice Call)"}
                     </h3>
-                    <span className="rounded-[4px] bg-[#10B981]/20 border border-[#10B981]/40 px-1.5 py-0.5 text-[9px] font-bold uppercase text-[#10B981] animate-pulse">
-                      Online
+                    <span className="rounded-[4px] bg-[#10B981]/20 border border-[#10B981]/40 px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wide text-[#10B981]">
+                      100% FREE
                     </span>
                   </div>
                   <p className="text-xs text-[#CBD5E1] mt-0.5 leading-snug">
                     {language === "ne"
-                      ? "तपाईंको कुण्डली, दशा र उपायहरूका बारेमा सोध्न प्रत्यक्ष स्वर कुराकानी गर्नुहोस्।"
+                      ? "हाम्रो AI ज्योतिषीसँग नि:शुल्क बोल्नुहोस्। आफ्नो भविष्य, करियर, विवाह वा ग्रहदशा बारे जुनसुकै प्रश्न सोध्नुहोस्।"
                       : language === "hi"
-                      ? "अपनी कुंडली, दशा और उपायों के बारे में सवाल पूछने के लिए सीधी आवाज़ में बात करें।"
-                      : "Have a real-time voice conversation to ask questions about your Kundali, Dasha & remedies."}
+                      ? "हमारे AI ज्योतिषी से निःशुल्क बात करें। अपने भविष्य, करियर, विवाह या ग्रहदशा के बारे में कोई भी सवाल पूछें।"
+                      : "Speak live with your AI Astrologer for FREE. Ask any question about your future, career, marriage, or remedies!"}
                   </p>
                 </div>
               </div>
@@ -881,8 +882,8 @@ export function ReadingDashboard() {
                 onClick={() => router.push("/reading/live")}
                 className="group flex shrink-0 items-center gap-2 rounded-[8px] bg-[#E5A93C] hover:bg-[#F3C766] px-4 py-2.5 text-xs font-bold text-[#090A10] shadow-lg shadow-[#E5A93C]/20 transition-all duration-200 active:scale-95 cursor-pointer"
               >
-                <Radio className="size-4 animate-pulse" />
-                <span>{t.talkToAstrologer}</span>
+                <PhoneCall className="size-4" />
+                <span>{language === "ne" ? "निःशुल्क कल सुरु गर्नुहोस्" : language === "hi" ? "निःशुल्क कॉल शुरू करें" : "Start Free Voice Call"}</span>
               </button>
             </div>
 
@@ -1317,10 +1318,10 @@ export function ReadingDashboard() {
         <button
           onClick={() => router.push("/reading/live")}
           className="group flex items-center gap-2.5 rounded-[8px] bg-[#E5A93C] hover:bg-[#F3C766] px-4 py-3 text-xs font-bold text-[#090A10] shadow-2xl shadow-[#E5A93C]/40 border border-[#F3C766]/50 transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
-          title={t.talkToAstrologer}
+          title="Start Free Voice Call with AI Astrologer"
         >
-          <Radio className="size-4 text-[#090A10] animate-pulse" />
-          <span>{t.talkToAstrologer}</span>
+          <PhoneCall className="size-4 text-[#090A10] animate-bounce" />
+          <span>{language === "ne" ? "AI ज्योतिषीसँग बोल्नुहोस् (निःशुल्क)" : language === "hi" ? "AI ज्योतिषी से बात करें (निःशुल्क)" : "Talk to AI Astrologer (FREE)"}</span>
         </button>
       </div>
 
