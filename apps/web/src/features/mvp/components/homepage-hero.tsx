@@ -221,8 +221,8 @@ export function HomepageHero() {
 
                 {/* Gender 3-way toggle */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5 flex items-center gap-1.5">
-                    <Sparkles className="size-3.5 text-[#E5A93C]" /> Gender
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5">
+                    Gender
                   </label>
                   <div className="grid grid-cols-3 gap-2 rounded-[8px] border border-white/10 bg-[#090A10] p-1">
                     {(["male", "female", "other"] as const).map((g) => (
