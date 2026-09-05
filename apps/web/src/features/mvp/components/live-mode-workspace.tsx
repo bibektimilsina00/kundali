@@ -1547,51 +1547,41 @@ export function LiveModeWorkspace() {
               )}
             </div>
 
-            {/* Contextual Smart Follow-Up Chips */}
-            <div className="border-t border-[#E5A93C]/20 bg-gradient-to-r from-[#161B2B]/90 via-[#121625]/90 to-[#161B2B]/90 backdrop-blur-xl px-6 py-3 shadow-md relative">
-              <div className="flex gap-2.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden items-center">
-                <div className="flex items-center gap-2 shrink-0 pr-1">
-                  <span className="inline-flex items-center gap-1.5 rounded-[8px] bg-[#E5A93C]/15 border border-[#E5A93C]/40 px-3 py-1 text-[10px] font-bold text-[#F3C766] shadow-sm uppercase tracking-wider">
-                    <span className="size-1.5 rounded-full bg-[#E5A93C] animate-pulse" />
-                    {t.suggestedFollowups}
-                  </span>
-                </div>
-
-                {(selectedLanguage === "ne"
-                  ? [
-                      { icon: "✨", title: "विदेश यात्रा योग?", query: `के मेरो ${mahaLord} महादशामा विदेश यात्रा वा बसाइँसराइको योग छ?` },
-                      { icon: "💎", title: `${activeChart.lagna_sign} को लागि भाग्यशाली रत्न`, query: `मेरो ${activeChart.lagna_sign} लग्नको लागि कुन रत्न उत्तम हुन्छ?` },
-                      { icon: "🪔", title: `${mahaLord} दशा शान्ति उपाय`, query: `मेरो ${mahaLord} महादशा सन्तुलन गर्न के उपाय गर्नुपर्छ?` },
-                      { icon: "❤️", title: "विवाह र सम्बन्ध योग", query: "मेरो विवाह र दाम्पत्य जीवनको ७औं भाव विश्लेषण गर्नुहोस्।" },
-                      { icon: "📈", title: "करियर र धन वृद्धि", query: "मेरो करियरमा कहिले राम्रो सफलता प्राप्त हुन्छ?" },
-                    ]
-                  : selectedLanguage === "hi"
-                  ? [
-                      { icon: "✨", title: "विदेश यात्रा का योग?", query: `क्या मेरी ${mahaLord} महादशा में विदेश यात्रा या बसने का योग है?` },
-                      { icon: "💎", title: `${activeChart.lagna_sign} के लिए रत्न`, query: `मेरे ${activeChart.lagna_sign} लग्न के लिए कौन सा रत्न शुभ है?` },
-                      { icon: "🪔", title: `${mahaLord} दशा के उपाय`, query: `मेरी ${mahaLord} महादशा को संतुलित करने के उपाय बताएं।` },
-                      { icon: "❤️", title: "विवाह और वैवाहिक जीवन", query: "मेरे विवाह और 7वें भाव का विस्तृत विश्लेषण करें।" },
-                      { icon: "📈", title: "करियर में वृद्धि", query: "मेरे करियर में सबसे अच्छा समय कब आएगा?" },
-                    ]
-                  : [
-                      { icon: "✨", title: "Foreign relocation timing?", query: `Will I travel or relocate abroad during my ${mahaLord} dasha?` },
-                      { icon: "💎", title: `Gemstone for ${activeChart.lagna_sign}`, query: `What gemstone is recommended for my ${activeChart.lagna_sign} Ascendant?` },
-                      { icon: "🪔", title: `${mahaLord} Dasha remedies`, query: `What remedies help balance my ${mahaLord} period?` },
-                      { icon: "❤️", title: "Marriage & compatibility", query: "Analyze my 7th house for marriage & relationship timing." },
-                      { icon: "📈", title: "Peak career growth window", query: "When is the strongest period for my career growth?" },
-                    ]
-                ).map((chip) => (
-                  <button
-                    key={chip.title}
-                    onClick={() => handleSend(chip.query)}
-                    className="group shrink-0 flex items-center gap-2 rounded-[8px] border border-white/10 bg-gradient-to-r from-[#090A10]/90 via-[#161B2B]/90 to-[#090A10]/90 px-4 py-1.5 text-xs text-[#F8FAFC] hover:border-[#E5A93C]/80 hover:text-[#F3C766] hover:shadow-[0_0_20px_rgba(229,169,60,0.25)] hover:scale-[1.02] transition-all shadow-md active:scale-95"
-                  >
-                    <span>{chip.icon}</span>
-                    <span className="font-medium">{chip.title}</span>
-                    <span className="text-[#94A3B8] group-hover:text-[#E5A93C] group-hover:translate-x-1 transition-transform text-xs ml-0.5">→</span>
-                  </button>
-                ))}
-              </div>
+            {/* Modern Floating Quick Suggestion Chips */}
+            <div className="px-4 py-2 flex items-center justify-center gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden shrink-0 z-10">
+              {(selectedLanguage === "ne"
+                ? [
+                    { icon: "✨", title: "करियर र धन योग?", query: "मेरो करियर र नोकरीमा कहिले राम्रो समय आउँछ?" },
+                    { icon: "❤️", title: "विवाह र ७औं भाव?", query: "मेरो विवाह र दाम्पत्य जीवनको विश्लेषण गर्नुहोस्।" },
+                    { icon: "🪔", title: `${mahaLord} दशा शान्ति उपाय`, query: `मेरो ${mahaLord} महादशा सन्तुलन गर्न के उपाय गर्नुपर्छ?` },
+                    { icon: "💎", title: `${activeChart.lagna_sign} रत्न`, query: `मेरो ${activeChart.lagna_sign} लग्नको लागि कुन रत्न उत्तम हुन्छ?` },
+                    { icon: "✈️", title: "विदेश यात्रा योग?", query: `के मेरो ${mahaLord} महादशामा विदेश यात्राको योग छ?` },
+                  ]
+                : selectedLanguage === "hi"
+                ? [
+                    { icon: "✨", title: "करियर एवं धन समय?", query: "मेरे करियर और पदोन्नति का सबसे अच्छा समय कब है?" },
+                    { icon: "❤️", title: "विवाह और 7वां भाव?", query: "मेरे विवाह और 7वें भाव का विस्तृत विश्लेषण करें।" },
+                    { icon: "🪔", title: `${mahaLord} दशा उपाय`, query: `मेरी ${mahaLord} महादशा के लिए कौन से उपाय करने चाहिए?` },
+                    { icon: "💎", title: `${activeChart.lagna_sign} रत्न`, query: `मेरे ${activeChart.lagna_sign} लग्न के लिए कौन सा रत्न शुभ है?` },
+                    { icon: "✈️", title: "विदेश यात्रा योग?", query: `क्या मेरी ${mahaLord} महादशा में विदेश यात्रा का योग है?` },
+                  ]
+                : [
+                    { icon: "✨", title: "Career growth timing?", query: "When is the strongest period for my career growth?" },
+                    { icon: "❤️", title: "Marriage & 7th house?", query: "Analyze my 7th house for marriage & relationship." },
+                    { icon: "🪔", title: `${mahaLord} Dasha remedies`, query: `What remedies help balance my ${mahaLord} period?` },
+                    { icon: "💎", title: `Gemstone for ${activeChart.lagna_sign}`, query: `What gemstone is recommended for my ${activeChart.lagna_sign} Ascendant?` },
+                    { icon: "✈️", title: "Foreign relocation?", query: `Will I travel or relocate abroad during my ${mahaLord} dasha?` },
+                  ]
+              ).map((chip) => (
+                <button
+                  key={chip.title}
+                  onClick={() => handleSend(chip.query)}
+                  className="group shrink-0 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-[#161B2B]/70 hover:bg-[#1E2538] px-3.5 py-1.5 text-xs text-[#CBD5E1] hover:border-[#E5A93C]/60 hover:text-[#F3C766] hover:shadow-[0_0_12px_rgba(229,169,60,0.15)] transition-all cursor-pointer active:scale-95"
+                >
+                  <span className="text-xs">{chip.icon}</span>
+                  <span className="font-medium text-[11px] sm:text-xs">{chip.title}</span>
+                </button>
+              ))}
             </div>
 
             {/* Bottom Mic & Message Input Dock */}
