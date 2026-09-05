@@ -388,13 +388,6 @@ export function ReadingDashboard() {
             </div>
           </div>
 
-          {/* Current Dasha Pill */}
-          <div className="hidden sm:flex items-center gap-2 rounded-[8px] border border-white/10 bg-[#161B2B] px-3.5 py-1.5 text-xs font-semibold text-[#F3C766]">
-            <Clock className="size-3.5 text-[#E5A93C]" />
-            <span>{t.currentDasha}:</span>
-            <span className="text-[#F8FAFC]">{currentDashaText}</span>
-          </div>
-
           <div className="flex items-center gap-3">
             <select
               value={selectedVoice}
@@ -621,6 +614,15 @@ export function ReadingDashboard() {
                 </h3>
               </div>
 
+              {/* Highlighted Current Dasha Banner in Left Panel */}
+              <div className="flex items-center justify-between rounded-[8px] border border-[#E5A93C]/30 bg-[#090A10] px-3 py-2 text-xs font-semibold text-[#F3C766]">
+                <div className="flex items-center gap-1.5">
+                  <Clock className="size-3.5 text-[#E5A93C]" />
+                  <span>{t.currentDasha}:</span>
+                </div>
+                <span className="font-bold text-[#F8FAFC]">{currentDashaText}</span>
+              </div>
+
               <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-[11px]">
                 <div className="flex justify-between border-b border-white/5 pb-1">
                   <span className="text-[#94A3B8]">{t.moonSignLabel}</span>
@@ -761,10 +763,13 @@ export function ReadingDashboard() {
 
             {/* 5. Active Dasha Systems & Predictions */}
             <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-4 space-y-3">
-              <div className="border-b border-white/10 pb-2">
+              <div className="flex items-center justify-between border-b border-white/10 pb-2">
                 <h3 className="font-serif text-xs font-bold uppercase tracking-wider text-[#F8FAFC] flex items-center gap-1.5">
-                  <span>🕐</span> {t.activeDashaTitle}
+                  <Clock className="size-3.5 text-[#E5A93C]" /> {t.activeDashaTitle}
                 </h3>
+                <span className="text-[10px] font-bold text-[#F3C766] bg-[#090A10] px-2.5 py-1 rounded-[6px] border border-[#E5A93C]/30">
+                  {t.currentDasha}: <span className="text-[#F8FAFC] ml-1">{currentDashaText}</span>
+                </span>
               </div>
 
               {/* Dasha Type Switcher */}
