@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { Chart, BirthDetailsIn } from "@/features/kundali/types";
-import { formatCompleteChartForAI } from "@/features/kundali/api/chart-ai-context";
+import { buildAstrologerSystemPrompt } from "@/features/kundali/api/astrologer-prompt";
 
 export async function POST(req: Request) {
   try {
@@ -28,47 +28,15 @@ export async function POST(req: Request) {
       : process.env.AGENT_ROUTER_BASE_URL || "https://agentrouter.org/v1";
     const model = process.env.OPENAI_API_KEY ? "gpt-4o-mini" : process.env.AGENT_ROUTER_MODEL || "gpt-4o-mini";
 
-    // Complete Sidereal Astronomical Chart Context Payload
-    const fullChartContext = formatCompleteChartForAI(chart, birth);
     const lagnaSign = chart?.lagna_sign || "Cancer";
     const lagnaDegree = chart?.lagna_degree?.toFixed(2) || "0.00";
 
-    const langInstructions: Record<string, string> = {
-      en: "Respond ENTIRELY in English.",
-      ne: "Respond ENTIRELY in fluent, authentic Nepali (नेपाली भाषा) using standard Devanagari script (देवनागरी लिपि). Use polite, respectful Nepali terms appropriate for a Master Astrologer (e.g., tapai/tapaiko).",
-      hi: "Respond ENTIRELY in fluent, authentic Hindi (हिन्दी भाषा) using standard Devanagari script (देवनागरी लिपि). Use respectful Hindi terms appropriate for a Master Astrologer (e.g., aap/aapki kundali).",
-    };
-
-    const targetLangInstruction = langInstructions[language] || langInstructions.en;
-
-    const systemPrompt = `You are KUNDALI.AI's Master Astrologer (Jyotish Acharya), conducting a live 1-on-1 consultation with ${birth?.name || "the seeker"}.
-
-You have complete access to the seeker's entire verified sidereal astronomical birth chart and divisional calculations below:
-
-${fullChartContext}
-
-Guidelines:
-1. Speak naturally as a wise, grounded, authentic Vedic Astrologer (Jyotish Acharya).
-2. NEVER say you are an "AI text assistant" or "large language model".
-3. LANGUAGE INSTRUCTION (CRITICAL): ${targetLangInstruction}
-4. ADAPT YOUR RESPONSE LENGTH DYNAMICALLY BASED ON USER INTENT:
-   - If the user asks for "detail", "in detail", "thorough analysis", "explain deeply", "comprehensive", or asks a multi-faceted question, provide a detailed, multi-paragraph astrological reading analyzing house placements, planetary lords, dasha timelines, and Vedic remedies.
-   - For short or simple questions, provide a clear, warm 2-4 sentence explanation.
-5. Ground your insights directly in their real chart placements, planets, houses, and dashas.
-6. Include an "astrologicalBasis" tag string (e.g., "10th House Virgo · Exalted Mercury in D1 & D9").
-7. Specify a "highlightHouse" number (1-12) if your answer references a specific house in their chart.
-
-Respond ONLY in valid JSON format:
-{
-  "text": "Your answer string here...",
-  "astrologicalBasis": "10th House Virgo · Exalted Mercury",
-  "highlightHouse": 10
-}`;
+    const systemPrompt = buildAstrologerSystemPrompt(chart, birth, language);
 
     if (apiKey) {
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 15000);
+        const timeoutId = setTimeout(() => controller.abort(), 20000);
 
         const formattedMessages = [
           { role: "system", content: systemPrompt },
@@ -90,7 +58,7 @@ Respond ONLY in valid JSON format:
             model: model,
             messages: formattedMessages,
             temperature: 0.7,
-            max_tokens: 1000,
+            max_tokens: 1800,
           }),
           signal: controller.signal,
         });
@@ -100,13 +68,31 @@ Respond ONLY in valid JSON format:
         if (response.ok) {
           const resData = await response.json();
           const rawContent = resData.choices?.[0]?.message?.content || "";
-          const jsonMatch = rawContent.match(/\{[\s\S]*\}/);
-          if (jsonMatch) {
-            const parsed = JSON.parse(jsonMatch[0]);
+          
+          try {
+            const jsonMatch = rawContent.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+              const parsed = JSON.parse(jsonMatch[0]);
+              return NextResponse.json({
+                text: parsed.text,
+                astrologicalBasis: parsed.astrologicalBasis || `${lagnaSign} Ascendant · Active Transits`,
+                highlightHouse: parsed.highlightHouse || null,
+              });
+            }
+          } catch (pErr) {
+            // Fallback if JSON parse fails due to markdown quotes
             return NextResponse.json({
-              text: parsed.text,
-              astrologicalBasis: parsed.astrologicalBasis || `${lagnaSign} Ascendant · Active Transits`,
-              highlightHouse: parsed.highlightHouse || null,
+              text: rawContent,
+              astrologicalBasis: `${lagnaSign} Ascendant · Vedic Reading`,
+              highlightHouse: 10,
+            });
+          }
+
+          if (rawContent.trim()) {
+            return NextResponse.json({
+              text: rawContent,
+              astrologicalBasis: `${lagnaSign} Ascendant · Vedic Reading`,
+              highlightHouse: 10,
             });
           }
         }
