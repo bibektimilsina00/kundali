@@ -17,8 +17,17 @@ lint:  ## ruff + the astrology_core boundary contracts
 chart:  ## print a fixture's chart for eyeball verification (FIXTURE=name)
 	uv run python scripts/verify_chart.py --fixture $(FIXTURE)
 
+migrate:  ## apply pending migrations to the configured database
+	uv run alembic upgrade head
+
+migration:  ## new hand-written migration (M="what it does") — autogenerate does not work here
+	@test -n "$(M)" || (echo 'usage: make migration M="add x to y"'; exit 1)
+	uv run alembic revision -m "$(M)"
+
 contract:  ## regenerate the committed OpenAPI spec (both clients build from it)
-	uv run python scripts/export_openapi.py > ../../contracts/openapi.json
+	@uv run python scripts/export_openapi.py > ../../contracts/.openapi.json.tmp \
+	  && mv ../../contracts/.openapi.json.tmp ../../contracts/openapi.json \
+	  || (rm -f ../../contracts/.openapi.json.tmp; echo 'export failed — spec left unchanged'; exit 1)
 
 contract-check:  ## CI: fail if the spec drifted from the code
 	@$(MAKE) --no-print-directory contract

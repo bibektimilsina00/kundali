@@ -1,0 +1,6026 @@
+[
+  {
+    "birth": {
+      "date": "1975-06-14",
+      "latitude": 27.7172,
+      "longitude": 85.324,
+      "name": "Kathmandu Native",
+      "place_label": "Kathmandu, Nepal",
+      "time": "08:30",
+      "time_accuracy": "exact",
+      "tz_name": "Asia/Kathmandu"
+    },
+    "chart": {
+      "avakhada": {
+        "charan": 3,
+        "gana": "Rakshasa",
+        "nadi": "Antya",
+        "nakshatra": "Ashlesha",
+        "name_syllable": "De",
+        "sign": "Cancer",
+        "sign_lord": "Moon",
+        "tatva": "Water",
+        "varna": "Brahmin",
+        "vashya": "Jalachar",
+        "yoni": "Cat",
+        "yunja": "Adya"
+      },
+      "ayanamsa_name": "Lahiri (Chitrapaksha)",
+      "ayanamsa_value": 23.514156223755606,
+      "computed_at": "2026-09-05T19:32:18.729121Z",
+      "dasha": {
+        "balance_years": 5.553576760274197,
+        "birth_lord": "Mercury",
+        "periods": [
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "1966-05-31",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "1964-01-02"
+              },
+              {
+                "children": [],
+                "end": "1967-05-28",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "1966-05-31"
+              },
+              {
+                "children": [],
+                "end": "1970-03-28",
+                "level": 2,
+                "lord": "Venus",
+                "start": "1967-05-28"
+              },
+              {
+                "children": [],
+                "end": "1971-02-01",
+                "level": 2,
+                "lord": "Sun",
+                "start": "1970-03-28"
+              },
+              {
+                "children": [],
+                "end": "1972-07-03",
+                "level": 2,
+                "lord": "Moon",
+                "start": "1971-02-01"
+              },
+              {
+                "children": [],
+                "end": "1973-06-30",
+                "level": 2,
+                "lord": "Mars",
+                "start": "1972-07-03"
+              },
+              {
+                "children": [],
+                "end": "1976-01-17",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "1973-06-30"
+              },
+              {
+                "children": [],
+                "end": "1978-04-24",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "1976-01-17"
+              },
+              {
+                "children": [],
+                "end": "1981-01-01",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "1978-04-24"
+              }
+            ],
+            "end": "1981-01-01",
+            "level": 1,
+            "lord": "Mercury",
+            "start": "1964-01-02"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "1981-05-30",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "1981-01-01"
+              },
+              {
+                "children": [],
+                "end": "1982-07-31",
+                "level": 2,
+                "lord": "Venus",
+                "start": "1981-05-30"
+              },
+              {
+                "children": [],
+                "end": "1982-12-05",
+                "level": 2,
+                "lord": "Sun",
+                "start": "1982-07-31"
+              },
+              {
+                "children": [],
+                "end": "1983-07-06",
+                "level": 2,
+                "lord": "Moon",
+                "start": "1982-12-05"
+              },
+              {
+                "children": [],
+                "end": "1983-12-03",
+                "level": 2,
+                "lord": "Mars",
+                "start": "1983-07-06"
+              },
+              {
+                "children": [],
+                "end": "1984-12-20",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "1983-12-03"
+              },
+              {
+                "children": [],
+                "end": "1985-11-26",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "1984-12-20"
+              },
+              {
+                "children": [],
+                "end": "1987-01-05",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "1985-11-26"
+              },
+              {
+                "children": [],
+                "end": "1988-01-02",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "1987-01-05"
+              }
+            ],
+            "end": "1988-01-02",
+            "level": 1,
+            "lord": "Ketu",
+            "start": "1981-01-01"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "1991-05-04",
+                "level": 2,
+                "lord": "Venus",
+                "start": "1988-01-02"
+              },
+              {
+                "children": [],
+                "end": "1992-05-03",
+                "level": 2,
+                "lord": "Sun",
+                "start": "1991-05-04"
+              },
+              {
+                "children": [],
+                "end": "1994-01-02",
+                "level": 2,
+                "lord": "Moon",
+                "start": "1992-05-03"
+              },
+              {
+                "children": [],
+                "end": "1995-03-04",
+                "level": 2,
+                "lord": "Mars",
+                "start": "1994-01-02"
+              },
+              {
+                "children": [],
+                "end": "1998-03-03",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "1995-03-04"
+              },
+              {
+                "children": [],
+                "end": "2000-11-01",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "1998-03-03"
+              },
+              {
+                "children": [],
+                "end": "2004-01-02",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2000-11-01"
+              },
+              {
+                "children": [],
+                "end": "2006-11-02",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2004-01-02"
+              },
+              {
+                "children": [],
+                "end": "2008-01-02",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2006-11-02"
+              }
+            ],
+            "end": "2008-01-02",
+            "level": 1,
+            "lord": "Venus",
+            "start": "1988-01-02"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2008-04-21",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2008-01-02"
+              },
+              {
+                "children": [],
+                "end": "2008-10-20",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2008-04-21"
+              },
+              {
+                "children": [],
+                "end": "2009-02-25",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2008-10-20"
+              },
+              {
+                "children": [],
+                "end": "2010-01-20",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2009-02-25"
+              },
+              {
+                "children": [],
+                "end": "2010-11-08",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2010-01-20"
+              },
+              {
+                "children": [],
+                "end": "2011-10-21",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2010-11-08"
+              },
+              {
+                "children": [],
+                "end": "2012-08-26",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2011-10-21"
+              },
+              {
+                "children": [],
+                "end": "2013-01-01",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2012-08-26"
+              },
+              {
+                "children": [],
+                "end": "2014-01-02",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2013-01-01"
+              }
+            ],
+            "end": "2014-01-02",
+            "level": 1,
+            "lord": "Sun",
+            "start": "2008-01-02"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2014-11-02",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2014-01-02"
+              },
+              {
+                "children": [],
+                "end": "2015-06-03",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2014-11-02"
+              },
+              {
+                "children": [],
+                "end": "2016-12-02",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2015-06-03"
+              },
+              {
+                "children": [],
+                "end": "2018-04-03",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2016-12-02"
+              },
+              {
+                "children": [],
+                "end": "2019-11-02",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2018-04-03"
+              },
+              {
+                "children": [],
+                "end": "2021-04-03",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2019-11-02"
+              },
+              {
+                "children": [],
+                "end": "2021-11-02",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2021-04-03"
+              },
+              {
+                "children": [],
+                "end": "2023-07-03",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2021-11-02"
+              },
+              {
+                "children": [],
+                "end": "2024-01-02",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2023-07-03"
+              }
+            ],
+            "end": "2024-01-02",
+            "level": 1,
+            "lord": "Moon",
+            "start": "2014-01-02"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2024-05-30",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2024-01-02"
+              },
+              {
+                "children": [],
+                "end": "2025-06-18",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2024-05-30"
+              },
+              {
+                "children": [],
+                "end": "2026-05-25",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2025-06-18"
+              },
+              {
+                "children": [],
+                "end": "2027-07-03",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2026-05-25"
+              },
+              {
+                "children": [],
+                "end": "2028-06-30",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2027-07-03"
+              },
+              {
+                "children": [],
+                "end": "2028-11-26",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2028-06-30"
+              },
+              {
+                "children": [],
+                "end": "2030-01-26",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2028-11-26"
+              },
+              {
+                "children": [],
+                "end": "2030-06-03",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2030-01-26"
+              },
+              {
+                "children": [],
+                "end": "2031-01-02",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2030-06-03"
+              }
+            ],
+            "end": "2031-01-02",
+            "level": 1,
+            "lord": "Mars",
+            "start": "2024-01-02"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2033-09-14",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2031-01-02"
+              },
+              {
+                "children": [],
+                "end": "2036-02-08",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2033-09-14"
+              },
+              {
+                "children": [],
+                "end": "2038-12-15",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2036-02-08"
+              },
+              {
+                "children": [],
+                "end": "2041-07-03",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2038-12-15"
+              },
+              {
+                "children": [],
+                "end": "2042-07-21",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2041-07-03"
+              },
+              {
+                "children": [],
+                "end": "2045-07-21",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2042-07-21"
+              },
+              {
+                "children": [],
+                "end": "2046-06-15",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2045-07-21"
+              },
+              {
+                "children": [],
+                "end": "2047-12-15",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2046-06-15"
+              },
+              {
+                "children": [],
+                "end": "2049-01-01",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2047-12-15"
+              }
+            ],
+            "end": "2049-01-01",
+            "level": 1,
+            "lord": "Rahu",
+            "start": "2031-01-02"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2051-02-19",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2049-01-01"
+              },
+              {
+                "children": [],
+                "end": "2053-09-02",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2051-02-19"
+              },
+              {
+                "children": [],
+                "end": "2055-12-09",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2053-09-02"
+              },
+              {
+                "children": [],
+                "end": "2056-11-14",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2055-12-09"
+              },
+              {
+                "children": [],
+                "end": "2059-07-16",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2056-11-14"
+              },
+              {
+                "children": [],
+                "end": "2060-05-03",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2059-07-16"
+              },
+              {
+                "children": [],
+                "end": "2061-09-02",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2060-05-03"
+              },
+              {
+                "children": [],
+                "end": "2062-08-09",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2061-09-02"
+              },
+              {
+                "children": [],
+                "end": "2065-01-01",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2062-08-09"
+              }
+            ],
+            "end": "2065-01-01",
+            "level": 1,
+            "lord": "Jupiter",
+            "start": "2049-01-01"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2068-01-05",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2065-01-01"
+              },
+              {
+                "children": [],
+                "end": "2070-09-14",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2068-01-05"
+              },
+              {
+                "children": [],
+                "end": "2071-10-24",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2070-09-14"
+              },
+              {
+                "children": [],
+                "end": "2074-12-24",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2071-10-24"
+              },
+              {
+                "children": [],
+                "end": "2075-12-06",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2074-12-24"
+              },
+              {
+                "children": [],
+                "end": "2077-07-06",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2075-12-06"
+              },
+              {
+                "children": [],
+                "end": "2078-08-15",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2077-07-06"
+              },
+              {
+                "children": [],
+                "end": "2081-06-21",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2078-08-15"
+              },
+              {
+                "children": [],
+                "end": "2084-01-02",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2081-06-21"
+              }
+            ],
+            "end": "2084-01-02",
+            "level": 1,
+            "lord": "Saturn",
+            "start": "2065-01-01"
+          }
+        ]
+      },
+      "engine_version": "0.3.0",
+      "houses": [
+        {
+          "lord": "Moon",
+          "number": 1,
+          "occupants": [
+            "Moon",
+            "Venus"
+          ],
+          "sign": "Cancer",
+          "sign_index": 3
+        },
+        {
+          "lord": "Sun",
+          "number": 2,
+          "occupants": [],
+          "sign": "Leo",
+          "sign_index": 4
+        },
+        {
+          "lord": "Mercury",
+          "number": 3,
+          "occupants": [],
+          "sign": "Virgo",
+          "sign_index": 5
+        },
+        {
+          "lord": "Venus",
+          "number": 4,
+          "occupants": [],
+          "sign": "Libra",
+          "sign_index": 6
+        },
+        {
+          "lord": "Mars",
+          "number": 5,
+          "occupants": [
+            "Rahu"
+          ],
+          "sign": "Scorpio",
+          "sign_index": 7
+        },
+        {
+          "lord": "Jupiter",
+          "number": 6,
+          "occupants": [],
+          "sign": "Sagittarius",
+          "sign_index": 8
+        },
+        {
+          "lord": "Saturn",
+          "number": 7,
+          "occupants": [],
+          "sign": "Capricorn",
+          "sign_index": 9
+        },
+        {
+          "lord": "Saturn",
+          "number": 8,
+          "occupants": [],
+          "sign": "Aquarius",
+          "sign_index": 10
+        },
+        {
+          "lord": "Jupiter",
+          "number": 9,
+          "occupants": [
+            "Mars",
+            "Jupiter"
+          ],
+          "sign": "Pisces",
+          "sign_index": 11
+        },
+        {
+          "lord": "Mars",
+          "number": 10,
+          "occupants": [],
+          "sign": "Aries",
+          "sign_index": 0
+        },
+        {
+          "lord": "Venus",
+          "number": 11,
+          "occupants": [
+            "Sun",
+            "Mercury",
+            "Ketu"
+          ],
+          "sign": "Taurus",
+          "sign_index": 1
+        },
+        {
+          "lord": "Mercury",
+          "number": 12,
+          "occupants": [
+            "Saturn"
+          ],
+          "sign": "Gemini",
+          "sign_index": 2
+        }
+      ],
+      "julian_day": 2442577.625,
+      "lagna_degree": 15.93082109575522,
+      "lagna_sign": "Cancer",
+      "lagna_sign_index": 3,
+      "panchang": {
+        "ascendant_lord": "Moon",
+        "ascendant_sign": "Cancer",
+        "karana": "Balava",
+        "moon_sign": "Cancer",
+        "moon_sign_lord": "Moon",
+        "nakshatra": "Ashlesha",
+        "nakshatra_lord": "Mercury",
+        "nakshatra_pada": 3,
+        "paksha": "Shukla",
+        "sunrise": "1975-06-14T04:52:09.743958+05:30",
+        "sunset": "1975-06-14T18:45:23.547703+05:30",
+        "tithi_index": 4,
+        "tithi_name": "Panchami",
+        "vara": "Saturday",
+        "vara_lord": "Saturn",
+        "yoga": "Harshana"
+      },
+      "planets": [
+        {
+          "aspects_houses": [
+            5
+          ],
+          "avastha": "Bala",
+          "combust": false,
+          "degree_in_sign": 28.946626125714857,
+          "dignity": "enemy",
+          "house": 11,
+          "nakshatra": {
+            "lord": "Mars",
+            "name": "Mrigashira",
+            "pada": 2
+          },
+          "name": "Sun",
+          "retrograde": false,
+          "sign": "Taurus",
+          "sign_index": 1
+        },
+        {
+          "aspects_houses": [
+            7
+          ],
+          "avastha": "Bala",
+          "combust": false,
+          "degree_in_sign": 25.644253521353576,
+          "dignity": "own",
+          "house": 1,
+          "nakshatra": {
+            "lord": "Mercury",
+            "name": "Ashlesha",
+            "pada": 3
+          },
+          "name": "Moon",
+          "retrograde": false,
+          "sign": "Cancer",
+          "sign_index": 3
+        },
+        {
+          "aspects_houses": [
+            3,
+            4,
+            12
+          ],
+          "avastha": "Bala",
+          "combust": false,
+          "degree_in_sign": 24.161802661620584,
+          "dignity": "friend",
+          "house": 9,
+          "nakshatra": {
+            "lord": "Mercury",
+            "name": "Revati",
+            "pada": 3
+          },
+          "name": "Mars",
+          "retrograde": false,
+          "sign": "Pisces",
+          "sign_index": 11
+        },
+        {
+          "aspects_houses": [
+            5
+          ],
+          "avastha": "Kumara",
+          "combust": true,
+          "degree_in_sign": 23.908585132702953,
+          "dignity": "friend",
+          "house": 11,
+          "nakshatra": {
+            "lord": "Mars",
+            "name": "Mrigashira",
+            "pada": 1
+          },
+          "name": "Mercury",
+          "retrograde": true,
+          "sign": "Taurus",
+          "sign_index": 1
+        },
+        {
+          "aspects_houses": [
+            1,
+            3,
+            5
+          ],
+          "avastha": "Bala",
+          "combust": false,
+          "degree_in_sign": 25.56100635965754,
+          "dignity": "own",
+          "house": 9,
+          "nakshatra": {
+            "lord": "Mercury",
+            "name": "Revati",
+            "pada": 3
+          },
+          "name": "Jupiter",
+          "retrograde": false,
+          "sign": "Pisces",
+          "sign_index": 11
+        },
+        {
+          "aspects_houses": [
+            7
+          ],
+          "avastha": "Yuva",
+          "combust": false,
+          "degree_in_sign": 14.232533811255138,
+          "dignity": "enemy",
+          "house": 1,
+          "nakshatra": {
+            "lord": "Saturn",
+            "name": "Pushya",
+            "pada": 4
+          },
+          "name": "Venus",
+          "retrograde": false,
+          "sign": "Cancer",
+          "sign_index": 3
+        },
+        {
+          "aspects_houses": [
+            2,
+            6,
+            9
+          ],
+          "avastha": "Mrita",
+          "combust": false,
+          "degree_in_sign": 24.987693201904435,
+          "dignity": "friend",
+          "house": 12,
+          "nakshatra": {
+            "lord": "Jupiter",
+            "name": "Punarvasu",
+            "pada": 2
+          },
+          "name": "Saturn",
+          "retrograde": false,
+          "sign": "Gemini",
+          "sign_index": 2
+        },
+        {
+          "aspects_houses": [
+            1,
+            9,
+            11
+          ],
+          "avastha": "Vriddha",
+          "combust": false,
+          "degree_in_sign": 6.38677596027469,
+          "dignity": null,
+          "house": 5,
+          "nakshatra": {
+            "lord": "Saturn",
+            "name": "Anuradha",
+            "pada": 1
+          },
+          "name": "Rahu",
+          "retrograde": true,
+          "sign": "Scorpio",
+          "sign_index": 7
+        },
+        {
+          "aspects_houses": [
+            3,
+            5,
+            7
+          ],
+          "avastha": "Vriddha",
+          "combust": false,
+          "degree_in_sign": 6.38677596027469,
+          "dignity": null,
+          "house": 11,
+          "nakshatra": {
+            "lord": "Sun",
+            "name": "Krittika",
+            "pada": 3
+          },
+          "name": "Ketu",
+          "retrograde": true,
+          "sign": "Taurus",
+          "sign_index": 1
+        }
+      ],
+      "vargas": [
+        {
+          "code": "D1",
+          "divisions": 1,
+          "lagna_sign": "Cancer",
+          "lagna_sign_index": 3,
+          "meaning": "Birth chart \u2014 the whole life",
+          "name": "Lagna",
+          "placements": [
+            {
+              "house": 11,
+              "planet": "Sun",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 1,
+              "planet": "Moon",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 9,
+              "planet": "Mars",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 11,
+              "planet": "Mercury",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 9,
+              "planet": "Jupiter",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 1,
+              "planet": "Venus",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 12,
+              "planet": "Saturn",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 5,
+              "planet": "Rahu",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 11,
+              "planet": "Ketu",
+              "sign": "Taurus",
+              "sign_index": 1
+            }
+          ]
+        },
+        {
+          "code": "D2",
+          "divisions": 2,
+          "lagna_sign": "Leo",
+          "lagna_sign_index": 4,
+          "meaning": "Wealth and income",
+          "name": "Hora",
+          "placements": [
+            {
+              "house": 1,
+              "planet": "Sun",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 1,
+              "planet": "Moon",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 1,
+              "planet": "Mars",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 1,
+              "planet": "Mercury",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 1,
+              "planet": "Jupiter",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 12,
+              "planet": "Venus",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 12,
+              "planet": "Saturn",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 12,
+              "planet": "Rahu",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 12,
+              "planet": "Ketu",
+              "sign": "Cancer",
+              "sign_index": 3
+            }
+          ]
+        },
+        {
+          "code": "D3",
+          "divisions": 3,
+          "lagna_sign": "Scorpio",
+          "lagna_sign_index": 7,
+          "meaning": "Siblings and courage",
+          "name": "Drekkana",
+          "placements": [
+            {
+              "house": 3,
+              "planet": "Sun",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 5,
+              "planet": "Moon",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 1,
+              "planet": "Mars",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 3,
+              "planet": "Mercury",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 1,
+              "planet": "Jupiter",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 1,
+              "planet": "Venus",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 4,
+              "planet": "Saturn",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 1,
+              "planet": "Rahu",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 7,
+              "planet": "Ketu",
+              "sign": "Taurus",
+              "sign_index": 1
+            }
+          ]
+        },
+        {
+          "code": "D4",
+          "divisions": 4,
+          "lagna_sign": "Capricorn",
+          "lagna_sign_index": 9,
+          "meaning": "Property and fortune",
+          "name": "Chaturthamsa",
+          "placements": [
+            {
+              "house": 2,
+              "planet": "Sun",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 4,
+              "planet": "Moon",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 12,
+              "planet": "Mars",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 2,
+              "planet": "Mercury",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 12,
+              "planet": "Jupiter",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 10,
+              "planet": "Venus",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 3,
+              "planet": "Saturn",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 11,
+              "planet": "Rahu",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 5,
+              "planet": "Ketu",
+              "sign": "Taurus",
+              "sign_index": 1
+            }
+          ]
+        },
+        {
+          "code": "D7",
+          "divisions": 7,
+          "lagna_sign": "Aries",
+          "lagna_sign_index": 0,
+          "meaning": "Children and progeny",
+          "name": "Saptamsa",
+          "placements": [
+            {
+              "house": 2,
+              "planet": "Sun",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 3,
+              "planet": "Moon",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 11,
+              "planet": "Mars",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 1,
+              "planet": "Mercury",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 11,
+              "planet": "Jupiter",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 1,
+              "planet": "Venus",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 8,
+              "planet": "Saturn",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 3,
+              "planet": "Rahu",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 9,
+              "planet": "Ketu",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            }
+          ]
+        },
+        {
+          "code": "D9",
+          "divisions": 9,
+          "lagna_sign": "Scorpio",
+          "lagna_sign_index": 7,
+          "meaning": "Marriage and inner strength",
+          "name": "Navamsa",
+          "placements": [
+            {
+              "house": 11,
+              "planet": "Sun",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 4,
+              "planet": "Moon",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 4,
+              "planet": "Mars",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 10,
+              "planet": "Mercury",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 4,
+              "planet": "Jupiter",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 1,
+              "planet": "Venus",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 7,
+              "planet": "Saturn",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 10,
+              "planet": "Rahu",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 4,
+              "planet": "Ketu",
+              "sign": "Aquarius",
+              "sign_index": 10
+            }
+          ]
+        },
+        {
+          "code": "D10",
+          "divisions": 10,
+          "lagna_sign": "Leo",
+          "lagna_sign_index": 4,
+          "meaning": "Career and status",
+          "name": "Dasamsa",
+          "placements": [
+            {
+              "house": 3,
+              "planet": "Sun",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 4,
+              "planet": "Moon",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 12,
+              "planet": "Mars",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 1,
+              "planet": "Mercury",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 12,
+              "planet": "Jupiter",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 12,
+              "planet": "Venus",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 7,
+              "planet": "Saturn",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 2,
+              "planet": "Rahu",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 8,
+              "planet": "Ketu",
+              "sign": "Pisces",
+              "sign_index": 11
+            }
+          ]
+        },
+        {
+          "code": "D12",
+          "divisions": 12,
+          "lagna_sign": "Capricorn",
+          "lagna_sign_index": 9,
+          "meaning": "Parents and ancestry",
+          "name": "Dwadasamsa",
+          "placements": [
+            {
+              "house": 4,
+              "planet": "Sun",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 5,
+              "planet": "Moon",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 12,
+              "planet": "Mars",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 2,
+              "planet": "Mercury",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 1,
+              "planet": "Jupiter",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 12,
+              "planet": "Venus",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 3,
+              "planet": "Saturn",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 1,
+              "planet": "Rahu",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 7,
+              "planet": "Ketu",
+              "sign": "Cancer",
+              "sign_index": 3
+            }
+          ]
+        },
+        {
+          "code": "D16",
+          "divisions": 16,
+          "lagna_sign": "Sagittarius",
+          "lagna_sign_index": 8,
+          "meaning": "Vehicles and comforts",
+          "name": "Shodasamsa",
+          "placements": [
+            {
+              "house": 12,
+              "planet": "Sun",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 6,
+              "planet": "Moon",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 1,
+              "planet": "Mars",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 9,
+              "planet": "Mercury",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 2,
+              "planet": "Jupiter",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 12,
+              "planet": "Venus",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 2,
+              "planet": "Saturn",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 12,
+              "planet": "Rahu",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 12,
+              "planet": "Ketu",
+              "sign": "Scorpio",
+              "sign_index": 7
+            }
+          ]
+        },
+        {
+          "code": "D20",
+          "divisions": 20,
+          "lagna_sign": "Aquarius",
+          "lagna_sign_index": 10,
+          "meaning": "Spiritual practice",
+          "name": "Vimsamsa",
+          "placements": [
+            {
+              "house": 6,
+              "planet": "Sun",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 8,
+              "planet": "Moon",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 11,
+              "planet": "Mars",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 2,
+              "planet": "Mercury",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 12,
+              "planet": "Jupiter",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 12,
+              "planet": "Venus",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 11,
+              "planet": "Saturn",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 3,
+              "planet": "Rahu",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 3,
+              "planet": "Ketu",
+              "sign": "Aries",
+              "sign_index": 0
+            }
+          ]
+        },
+        {
+          "code": "D24",
+          "divisions": 24,
+          "lagna_sign": "Cancer",
+          "lagna_sign_index": 3,
+          "meaning": "Learning and education",
+          "name": "Siddhamsa",
+          "placements": [
+            {
+              "house": 12,
+              "planet": "Sun",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 9,
+              "planet": "Moon",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 8,
+              "planet": "Mars",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 8,
+              "planet": "Mercury",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 9,
+              "planet": "Jupiter",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 12,
+              "planet": "Venus",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 9,
+              "planet": "Saturn",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 6,
+              "planet": "Rahu",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 6,
+              "planet": "Ketu",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            }
+          ]
+        },
+        {
+          "code": "D27",
+          "divisions": 27,
+          "lagna_sign": "Pisces",
+          "lagna_sign_index": 11,
+          "meaning": "Strengths and weaknesses",
+          "name": "Bhamsa",
+          "placements": [
+            {
+              "house": 7,
+              "planet": "Sun",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 10,
+              "planet": "Moon",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 8,
+              "planet": "Mars",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 2,
+              "planet": "Mercury",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 10,
+              "planet": "Jupiter",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 11,
+              "planet": "Venus",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 6,
+              "planet": "Saturn",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 4,
+              "planet": "Rahu",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 10,
+              "planet": "Ketu",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            }
+          ]
+        },
+        {
+          "code": "D30",
+          "divisions": 30,
+          "lagna_sign": "Pisces",
+          "lagna_sign_index": 11,
+          "meaning": "Misfortune and difficulty",
+          "name": "Trimsamsa",
+          "placements": [
+            {
+              "house": 9,
+              "planet": "Sun",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 9,
+              "planet": "Moon",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 11,
+              "planet": "Mars",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 11,
+              "planet": "Mercury",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 9,
+              "planet": "Jupiter",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 1,
+              "planet": "Venus",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 4,
+              "planet": "Saturn",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 7,
+              "planet": "Rahu",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 7,
+              "planet": "Ketu",
+              "sign": "Virgo",
+              "sign_index": 5
+            }
+          ]
+        },
+        {
+          "code": "D40",
+          "divisions": 40,
+          "lagna_sign": "Cancer",
+          "lagna_sign_index": 3,
+          "meaning": "Maternal legacy",
+          "name": "Khavedamsa",
+          "placements": [
+            {
+              "house": 6,
+              "planet": "Sun",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 2,
+              "planet": "Moon",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 12,
+              "planet": "Mars",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 11,
+              "planet": "Mercury",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 2,
+              "planet": "Jupiter",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 10,
+              "planet": "Venus",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 7,
+              "planet": "Saturn",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 12,
+              "planet": "Rahu",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 12,
+              "planet": "Ketu",
+              "sign": "Gemini",
+              "sign_index": 2
+            }
+          ]
+        },
+        {
+          "code": "D45",
+          "divisions": 45,
+          "lagna_sign": "Pisces",
+          "lagna_sign_index": 11,
+          "meaning": "Paternal legacy and character",
+          "name": "Akshavedamsa",
+          "placements": [
+            {
+              "house": 1,
+              "planet": "Sun",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 4,
+              "planet": "Moon",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 10,
+              "planet": "Mars",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 5,
+              "planet": "Mercury",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 12,
+              "planet": "Jupiter",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 11,
+              "planet": "Venus",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 11,
+              "planet": "Saturn",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 3,
+              "planet": "Rahu",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 3,
+              "planet": "Ketu",
+              "sign": "Taurus",
+              "sign_index": 1
+            }
+          ]
+        },
+        {
+          "code": "D60",
+          "divisions": 60,
+          "lagna_sign": "Aquarius",
+          "lagna_sign_index": 10,
+          "meaning": "Past-life karma \u2014 the finest division",
+          "name": "Shashtiamsa",
+          "placements": [
+            {
+              "house": 1,
+              "planet": "Sun",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 9,
+              "planet": "Moon",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 2,
+              "planet": "Mars",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 3,
+              "planet": "Mercury",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 5,
+              "planet": "Jupiter",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 10,
+              "planet": "Venus",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 6,
+              "planet": "Saturn",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 10,
+              "planet": "Rahu",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 4,
+              "planet": "Ketu",
+              "sign": "Taurus",
+              "sign_index": 1
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "birth": {
+      "date": "1990-12-25",
+      "latitude": 51.5074,
+      "longitude": -0.1278,
+      "name": "London Native",
+      "place_label": "London, UK",
+      "time": "23:45",
+      "time_accuracy": "approximate",
+      "tz_name": "Europe/London"
+    },
+    "chart": {
+      "avakhada": {
+        "charan": 2,
+        "gana": "Deva",
+        "nadi": "Antya",
+        "nakshatra": "Revati",
+        "name_syllable": "Do",
+        "sign": "Pisces",
+        "sign_lord": "Jupiter",
+        "tatva": "Water",
+        "varna": "Brahmin",
+        "vashya": "Jalachar",
+        "yoni": "Elephant",
+        "yunja": "Antya"
+      },
+      "ayanamsa_name": "Lahiri (Chitrapaksha)",
+      "ayanamsa_value": 23.73113550572009,
+      "computed_at": "2026-09-05T19:32:18.732330Z",
+      "dasha": {
+        "balance_years": 11.607907116446766,
+        "birth_lord": "Mercury",
+        "periods": [
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "1988-01-01",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "1985-08-04"
+              },
+              {
+                "children": [],
+                "end": "1988-12-28",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "1988-01-01"
+              },
+              {
+                "children": [],
+                "end": "1991-10-29",
+                "level": 2,
+                "lord": "Venus",
+                "start": "1988-12-28"
+              },
+              {
+                "children": [],
+                "end": "1992-09-03",
+                "level": 2,
+                "lord": "Sun",
+                "start": "1991-10-29"
+              },
+              {
+                "children": [],
+                "end": "1994-02-03",
+                "level": 2,
+                "lord": "Moon",
+                "start": "1992-09-03"
+              },
+              {
+                "children": [],
+                "end": "1995-01-31",
+                "level": 2,
+                "lord": "Mars",
+                "start": "1994-02-03"
+              },
+              {
+                "children": [],
+                "end": "1997-08-19",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "1995-01-31"
+              },
+              {
+                "children": [],
+                "end": "1999-11-25",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "1997-08-19"
+              },
+              {
+                "children": [],
+                "end": "2002-08-04",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "1999-11-25"
+              }
+            ],
+            "end": "2002-08-04",
+            "level": 1,
+            "lord": "Mercury",
+            "start": "1985-08-04"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2002-12-31",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2002-08-04"
+              },
+              {
+                "children": [],
+                "end": "2004-03-02",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2002-12-31"
+              },
+              {
+                "children": [],
+                "end": "2004-07-07",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2004-03-02"
+              },
+              {
+                "children": [],
+                "end": "2005-02-05",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2004-07-07"
+              },
+              {
+                "children": [],
+                "end": "2005-07-05",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2005-02-05"
+              },
+              {
+                "children": [],
+                "end": "2006-07-23",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2005-07-05"
+              },
+              {
+                "children": [],
+                "end": "2007-06-29",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2006-07-23"
+              },
+              {
+                "children": [],
+                "end": "2008-08-07",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2007-06-29"
+              },
+              {
+                "children": [],
+                "end": "2009-08-04",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2008-08-07"
+              }
+            ],
+            "end": "2009-08-04",
+            "level": 1,
+            "lord": "Ketu",
+            "start": "2002-08-04"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2012-12-04",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2009-08-04"
+              },
+              {
+                "children": [],
+                "end": "2013-12-04",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2012-12-04"
+              },
+              {
+                "children": [],
+                "end": "2015-08-05",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2013-12-04"
+              },
+              {
+                "children": [],
+                "end": "2016-10-04",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2015-08-05"
+              },
+              {
+                "children": [],
+                "end": "2019-10-04",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2016-10-04"
+              },
+              {
+                "children": [],
+                "end": "2022-06-04",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2019-10-04"
+              },
+              {
+                "children": [],
+                "end": "2025-08-04",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2022-06-04"
+              },
+              {
+                "children": [],
+                "end": "2028-06-04",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2025-08-04"
+              },
+              {
+                "children": [],
+                "end": "2029-08-04",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2028-06-04"
+              }
+            ],
+            "end": "2029-08-04",
+            "level": 1,
+            "lord": "Venus",
+            "start": "2009-08-04"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2029-11-22",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2029-08-04"
+              },
+              {
+                "children": [],
+                "end": "2030-05-23",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2029-11-22"
+              },
+              {
+                "children": [],
+                "end": "2030-09-28",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2030-05-23"
+              },
+              {
+                "children": [],
+                "end": "2031-08-23",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2030-09-28"
+              },
+              {
+                "children": [],
+                "end": "2032-06-10",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2031-08-23"
+              },
+              {
+                "children": [],
+                "end": "2033-05-23",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2032-06-10"
+              },
+              {
+                "children": [],
+                "end": "2034-03-29",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2033-05-23"
+              },
+              {
+                "children": [],
+                "end": "2034-08-04",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2034-03-29"
+              },
+              {
+                "children": [],
+                "end": "2035-08-05",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2034-08-04"
+              }
+            ],
+            "end": "2035-08-05",
+            "level": 1,
+            "lord": "Sun",
+            "start": "2029-08-04"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2036-06-04",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2035-08-05"
+              },
+              {
+                "children": [],
+                "end": "2037-01-03",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2036-06-04"
+              },
+              {
+                "children": [],
+                "end": "2038-07-05",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2037-01-03"
+              },
+              {
+                "children": [],
+                "end": "2039-11-04",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2038-07-05"
+              },
+              {
+                "children": [],
+                "end": "2041-06-04",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2039-11-04"
+              },
+              {
+                "children": [],
+                "end": "2042-11-04",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2041-06-04"
+              },
+              {
+                "children": [],
+                "end": "2043-06-05",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2042-11-04"
+              },
+              {
+                "children": [],
+                "end": "2045-02-02",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2043-06-05"
+              },
+              {
+                "children": [],
+                "end": "2045-08-04",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2045-02-02"
+              }
+            ],
+            "end": "2045-08-04",
+            "level": 1,
+            "lord": "Moon",
+            "start": "2035-08-05"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2045-12-31",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2045-08-04"
+              },
+              {
+                "children": [],
+                "end": "2047-01-19",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2045-12-31"
+              },
+              {
+                "children": [],
+                "end": "2047-12-26",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2047-01-19"
+              },
+              {
+                "children": [],
+                "end": "2049-02-02",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2047-12-26"
+              },
+              {
+                "children": [],
+                "end": "2050-01-31",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2049-02-02"
+              },
+              {
+                "children": [],
+                "end": "2050-06-29",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2050-01-31"
+              },
+              {
+                "children": [],
+                "end": "2051-08-29",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2050-06-29"
+              },
+              {
+                "children": [],
+                "end": "2052-01-04",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2051-08-29"
+              },
+              {
+                "children": [],
+                "end": "2052-08-04",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2052-01-04"
+              }
+            ],
+            "end": "2052-08-04",
+            "level": 1,
+            "lord": "Mars",
+            "start": "2045-08-04"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2055-04-17",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2052-08-04"
+              },
+              {
+                "children": [],
+                "end": "2057-09-10",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2055-04-17"
+              },
+              {
+                "children": [],
+                "end": "2060-07-17",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2057-09-10"
+              },
+              {
+                "children": [],
+                "end": "2063-02-03",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2060-07-17"
+              },
+              {
+                "children": [],
+                "end": "2064-02-21",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2063-02-03"
+              },
+              {
+                "children": [],
+                "end": "2067-02-21",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2064-02-21"
+              },
+              {
+                "children": [],
+                "end": "2068-01-16",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2067-02-21"
+              },
+              {
+                "children": [],
+                "end": "2069-07-17",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2068-01-16"
+              },
+              {
+                "children": [],
+                "end": "2070-08-04",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2069-07-17"
+              }
+            ],
+            "end": "2070-08-04",
+            "level": 1,
+            "lord": "Rahu",
+            "start": "2052-08-04"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2072-09-21",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2070-08-04"
+              },
+              {
+                "children": [],
+                "end": "2075-04-05",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2072-09-21"
+              },
+              {
+                "children": [],
+                "end": "2077-07-11",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2075-04-05"
+              },
+              {
+                "children": [],
+                "end": "2078-06-17",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2077-07-11"
+              },
+              {
+                "children": [],
+                "end": "2081-02-15",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2078-06-17"
+              },
+              {
+                "children": [],
+                "end": "2081-12-04",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2081-02-15"
+              },
+              {
+                "children": [],
+                "end": "2083-04-05",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2081-12-04"
+              },
+              {
+                "children": [],
+                "end": "2084-03-11",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2083-04-05"
+              },
+              {
+                "children": [],
+                "end": "2086-08-04",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2084-03-11"
+              }
+            ],
+            "end": "2086-08-04",
+            "level": 1,
+            "lord": "Jupiter",
+            "start": "2070-08-04"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2089-08-07",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2086-08-04"
+              },
+              {
+                "children": [],
+                "end": "2092-04-16",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2089-08-07"
+              },
+              {
+                "children": [],
+                "end": "2093-05-26",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2092-04-16"
+              },
+              {
+                "children": [],
+                "end": "2096-07-26",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2093-05-26"
+              },
+              {
+                "children": [],
+                "end": "2097-07-08",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2096-07-26"
+              },
+              {
+                "children": [],
+                "end": "2099-02-06",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2097-07-08"
+              },
+              {
+                "children": [],
+                "end": "2100-03-18",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2099-02-06"
+              },
+              {
+                "children": [],
+                "end": "2103-01-23",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2100-03-18"
+              },
+              {
+                "children": [],
+                "end": "2105-08-05",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2103-01-23"
+              }
+            ],
+            "end": "2105-08-05",
+            "level": 1,
+            "lord": "Saturn",
+            "start": "2086-08-04"
+          }
+        ]
+      },
+      "engine_version": "0.3.0",
+      "houses": [
+        {
+          "lord": "Mercury",
+          "number": 1,
+          "occupants": [],
+          "sign": "Virgo",
+          "sign_index": 5
+        },
+        {
+          "lord": "Venus",
+          "number": 2,
+          "occupants": [],
+          "sign": "Libra",
+          "sign_index": 6
+        },
+        {
+          "lord": "Mars",
+          "number": 3,
+          "occupants": [],
+          "sign": "Scorpio",
+          "sign_index": 7
+        },
+        {
+          "lord": "Jupiter",
+          "number": 4,
+          "occupants": [
+            "Sun",
+            "Mercury",
+            "Venus"
+          ],
+          "sign": "Sagittarius",
+          "sign_index": 8
+        },
+        {
+          "lord": "Saturn",
+          "number": 5,
+          "occupants": [
+            "Saturn",
+            "Rahu"
+          ],
+          "sign": "Capricorn",
+          "sign_index": 9
+        },
+        {
+          "lord": "Saturn",
+          "number": 6,
+          "occupants": [],
+          "sign": "Aquarius",
+          "sign_index": 10
+        },
+        {
+          "lord": "Jupiter",
+          "number": 7,
+          "occupants": [
+            "Moon"
+          ],
+          "sign": "Pisces",
+          "sign_index": 11
+        },
+        {
+          "lord": "Mars",
+          "number": 8,
+          "occupants": [],
+          "sign": "Aries",
+          "sign_index": 0
+        },
+        {
+          "lord": "Venus",
+          "number": 9,
+          "occupants": [
+            "Mars"
+          ],
+          "sign": "Taurus",
+          "sign_index": 1
+        },
+        {
+          "lord": "Mercury",
+          "number": 10,
+          "occupants": [],
+          "sign": "Gemini",
+          "sign_index": 2
+        },
+        {
+          "lord": "Moon",
+          "number": 11,
+          "occupants": [
+            "Jupiter",
+            "Ketu"
+          ],
+          "sign": "Cancer",
+          "sign_index": 3
+        },
+        {
+          "lord": "Sun",
+          "number": 12,
+          "occupants": [],
+          "sign": "Leo",
+          "sign_index": 4
+        }
+      ],
+      "julian_day": 2448251.4895833335,
+      "lagna_degree": 6.513421872659393,
+      "lagna_sign": "Virgo",
+      "lagna_sign_index": 5,
+      "panchang": {
+        "ascendant_lord": "Mercury",
+        "ascendant_sign": "Virgo",
+        "karana": "Balava",
+        "moon_sign": "Pisces",
+        "moon_sign_lord": "Jupiter",
+        "nakshatra": "Revati",
+        "nakshatra_lord": "Mercury",
+        "nakshatra_pada": 2,
+        "paksha": "Shukla",
+        "sunrise": "1990-12-25T08:05:01.717950Z",
+        "sunset": "1990-12-25T15:56:02.837322Z",
+        "tithi_index": 8,
+        "tithi_name": "Navami",
+        "vara": "Tuesday",
+        "vara_lord": "Mars",
+        "yoga": "Parigha"
+      },
+      "planets": [
+        {
+          "aspects_houses": [
+            10
+          ],
+          "avastha": "Kumara",
+          "combust": false,
+          "degree_in_sign": 10.196637517806181,
+          "dignity": "friend",
+          "house": 4,
+          "nakshatra": {
+            "lord": "Ketu",
+            "name": "Mula",
+            "pada": 4
+          },
+          "name": "Sun",
+          "retrograde": false,
+          "sign": "Sagittarius",
+          "sign_index": 8
+        },
+        {
+          "aspects_houses": [
+            1
+          ],
+          "avastha": "Kumara",
+          "combust": false,
+          "degree_in_sign": 20.895759124355493,
+          "dignity": "neutral",
+          "house": 7,
+          "nakshatra": {
+            "lord": "Mercury",
+            "name": "Revati",
+            "pada": 2
+          },
+          "name": "Moon",
+          "retrograde": false,
+          "sign": "Pisces",
+          "sign_index": 11
+        },
+        {
+          "aspects_houses": [
+            3,
+            4,
+            12
+          ],
+          "avastha": "Mrita",
+          "combust": false,
+          "degree_in_sign": 4.302760997042299,
+          "dignity": "neutral",
+          "house": 9,
+          "nakshatra": {
+            "lord": "Sun",
+            "name": "Krittika",
+            "pada": 3
+          },
+          "name": "Mars",
+          "retrograde": true,
+          "sign": "Taurus",
+          "sign_index": 1
+        },
+        {
+          "aspects_houses": [
+            10
+          ],
+          "avastha": "Kumara",
+          "combust": true,
+          "degree_in_sign": 6.220822280982929,
+          "dignity": "neutral",
+          "house": 4,
+          "nakshatra": {
+            "lord": "Ketu",
+            "name": "Mula",
+            "pada": 2
+          },
+          "name": "Mercury",
+          "retrograde": true,
+          "sign": "Sagittarius",
+          "sign_index": 8
+        },
+        {
+          "aspects_houses": [
+            3,
+            5,
+            7
+          ],
+          "avastha": "Kumara",
+          "combust": false,
+          "degree_in_sign": 18.78408396157876,
+          "dignity": "exalted",
+          "house": 11,
+          "nakshatra": {
+            "lord": "Mercury",
+            "name": "Ashlesha",
+            "pada": 1
+          },
+          "name": "Jupiter",
+          "retrograde": true,
+          "sign": "Cancer",
+          "sign_index": 3
+        },
+        {
+          "aspects_houses": [
+            10
+          ],
+          "avastha": "Vriddha",
+          "combust": false,
+          "degree_in_sign": 23.447112340182855,
+          "dignity": "neutral",
+          "house": 4,
+          "nakshatra": {
+            "lord": "Venus",
+            "name": "Purva Ashadha",
+            "pada": 4
+          },
+          "name": "Venus",
+          "retrograde": false,
+          "sign": "Sagittarius",
+          "sign_index": 8
+        },
+        {
+          "aspects_houses": [
+            2,
+            7,
+            11
+          ],
+          "avastha": "Mrita",
+          "combust": false,
+          "degree_in_sign": 1.236875926695859,
+          "dignity": "own",
+          "house": 5,
+          "nakshatra": {
+            "lord": "Sun",
+            "name": "Uttara Ashadha",
+            "pada": 2
+          },
+          "name": "Saturn",
+          "retrograde": false,
+          "sign": "Capricorn",
+          "sign_index": 9
+        },
+        {
+          "aspects_houses": [
+            1,
+            9,
+            11
+          ],
+          "avastha": "Mrita",
+          "combust": false,
+          "degree_in_sign": 5.717182152761211,
+          "dignity": null,
+          "house": 5,
+          "nakshatra": {
+            "lord": "Sun",
+            "name": "Uttara Ashadha",
+            "pada": 3
+          },
+          "name": "Rahu",
+          "retrograde": true,
+          "sign": "Capricorn",
+          "sign_index": 9
+        },
+        {
+          "aspects_houses": [
+            3,
+            5,
+            7
+          ],
+          "avastha": "Mrita",
+          "combust": false,
+          "degree_in_sign": 5.717182152761211,
+          "dignity": null,
+          "house": 11,
+          "nakshatra": {
+            "lord": "Saturn",
+            "name": "Pushya",
+            "pada": 1
+          },
+          "name": "Ketu",
+          "retrograde": true,
+          "sign": "Cancer",
+          "sign_index": 3
+        }
+      ],
+      "vargas": [
+        {
+          "code": "D1",
+          "divisions": 1,
+          "lagna_sign": "Virgo",
+          "lagna_sign_index": 5,
+          "meaning": "Birth chart \u2014 the whole life",
+          "name": "Lagna",
+          "placements": [
+            {
+              "house": 4,
+              "planet": "Sun",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 7,
+              "planet": "Moon",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 9,
+              "planet": "Mars",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 4,
+              "planet": "Mercury",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 11,
+              "planet": "Jupiter",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 4,
+              "planet": "Venus",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 5,
+              "planet": "Saturn",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 5,
+              "planet": "Rahu",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 11,
+              "planet": "Ketu",
+              "sign": "Cancer",
+              "sign_index": 3
+            }
+          ]
+        },
+        {
+          "code": "D2",
+          "divisions": 2,
+          "lagna_sign": "Cancer",
+          "lagna_sign_index": 3,
+          "meaning": "Wealth and income",
+          "name": "Hora",
+          "placements": [
+            {
+              "house": 2,
+              "planet": "Sun",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 2,
+              "planet": "Moon",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 1,
+              "planet": "Mars",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 2,
+              "planet": "Mercury",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 2,
+              "planet": "Jupiter",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 1,
+              "planet": "Venus",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 1,
+              "planet": "Saturn",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 1,
+              "planet": "Rahu",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 1,
+              "planet": "Ketu",
+              "sign": "Cancer",
+              "sign_index": 3
+            }
+          ]
+        },
+        {
+          "code": "D3",
+          "divisions": 3,
+          "lagna_sign": "Virgo",
+          "lagna_sign_index": 5,
+          "meaning": "Siblings and courage",
+          "name": "Drekkana",
+          "placements": [
+            {
+              "house": 8,
+              "planet": "Sun",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 3,
+              "planet": "Moon",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 9,
+              "planet": "Mars",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 4,
+              "planet": "Mercury",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 3,
+              "planet": "Jupiter",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 12,
+              "planet": "Venus",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 5,
+              "planet": "Saturn",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 5,
+              "planet": "Rahu",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 11,
+              "planet": "Ketu",
+              "sign": "Cancer",
+              "sign_index": 3
+            }
+          ]
+        },
+        {
+          "code": "D4",
+          "divisions": 4,
+          "lagna_sign": "Virgo",
+          "lagna_sign_index": 5,
+          "meaning": "Property and fortune",
+          "name": "Chaturthamsa",
+          "placements": [
+            {
+              "house": 7,
+              "planet": "Sun",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 1,
+              "planet": "Moon",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 9,
+              "planet": "Mars",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 4,
+              "planet": "Mercury",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 5,
+              "planet": "Jupiter",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 1,
+              "planet": "Venus",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 5,
+              "planet": "Saturn",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 5,
+              "planet": "Rahu",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 11,
+              "planet": "Ketu",
+              "sign": "Cancer",
+              "sign_index": 3
+            }
+          ]
+        },
+        {
+          "code": "D7",
+          "divisions": 7,
+          "lagna_sign": "Aries",
+          "lagna_sign_index": 0,
+          "meaning": "Children and progeny",
+          "name": "Saptamsa",
+          "placements": [
+            {
+              "house": 11,
+              "planet": "Sun",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 10,
+              "planet": "Moon",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 9,
+              "planet": "Mars",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 10,
+              "planet": "Mercury",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 2,
+              "planet": "Jupiter",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 2,
+              "planet": "Venus",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 4,
+              "planet": "Saturn",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 5,
+              "planet": "Rahu",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 11,
+              "planet": "Ketu",
+              "sign": "Aquarius",
+              "sign_index": 10
+            }
+          ]
+        },
+        {
+          "code": "D9",
+          "divisions": 9,
+          "lagna_sign": "Aquarius",
+          "lagna_sign_index": 10,
+          "meaning": "Marriage and inner strength",
+          "name": "Navamsa",
+          "placements": [
+            {
+              "house": 6,
+              "planet": "Sun",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 12,
+              "planet": "Moon",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 1,
+              "planet": "Mars",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 4,
+              "planet": "Mercury",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 11,
+              "planet": "Jupiter",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 10,
+              "planet": "Venus",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 12,
+              "planet": "Saturn",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 1,
+              "planet": "Rahu",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 7,
+              "planet": "Ketu",
+              "sign": "Leo",
+              "sign_index": 4
+            }
+          ]
+        },
+        {
+          "code": "D10",
+          "divisions": 10,
+          "lagna_sign": "Cancer",
+          "lagna_sign_index": 3,
+          "meaning": "Career and status",
+          "name": "Dasamsa",
+          "placements": [
+            {
+              "house": 9,
+              "planet": "Sun",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 11,
+              "planet": "Moon",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 8,
+              "planet": "Mars",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 8,
+              "planet": "Mercury",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 3,
+              "planet": "Jupiter",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 1,
+              "planet": "Venus",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 3,
+              "planet": "Saturn",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 4,
+              "planet": "Rahu",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 10,
+              "planet": "Ketu",
+              "sign": "Aries",
+              "sign_index": 0
+            }
+          ]
+        },
+        {
+          "code": "D12",
+          "divisions": 12,
+          "lagna_sign": "Scorpio",
+          "lagna_sign_index": 7,
+          "meaning": "Parents and ancestry",
+          "name": "Dwadasamsa",
+          "placements": [
+            {
+              "house": 6,
+              "planet": "Sun",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 1,
+              "planet": "Moon",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 8,
+              "planet": "Mars",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 4,
+              "planet": "Mercury",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 4,
+              "planet": "Jupiter",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 11,
+              "planet": "Venus",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 3,
+              "planet": "Saturn",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 5,
+              "planet": "Rahu",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 11,
+              "planet": "Ketu",
+              "sign": "Virgo",
+              "sign_index": 5
+            }
+          ]
+        },
+        {
+          "code": "D16",
+          "divisions": 16,
+          "lagna_sign": "Pisces",
+          "lagna_sign_index": 11,
+          "meaning": "Vehicles and comforts",
+          "name": "Shodasamsa",
+          "placements": [
+            {
+              "house": 3,
+              "planet": "Sun",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 9,
+              "planet": "Moon",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 8,
+              "planet": "Mars",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 1,
+              "planet": "Mercury",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 12,
+              "planet": "Jupiter",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 10,
+              "planet": "Venus",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 2,
+              "planet": "Saturn",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 5,
+              "planet": "Rahu",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 5,
+              "planet": "Ketu",
+              "sign": "Cancer",
+              "sign_index": 3
+            }
+          ]
+        },
+        {
+          "code": "D20",
+          "divisions": 20,
+          "lagna_sign": "Sagittarius",
+          "lagna_sign_index": 8,
+          "meaning": "Spiritual practice",
+          "name": "Vimsamsa",
+          "placements": [
+            {
+              "house": 3,
+              "planet": "Sun",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 10,
+              "planet": "Moon",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 3,
+              "planet": "Mars",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 1,
+              "planet": "Mercury",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 5,
+              "planet": "Jupiter",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 12,
+              "planet": "Venus",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 5,
+              "planet": "Saturn",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 8,
+              "planet": "Rahu",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 8,
+              "planet": "Ketu",
+              "sign": "Cancer",
+              "sign_index": 3
+            }
+          ]
+        },
+        {
+          "code": "D24",
+          "divisions": 24,
+          "lagna_sign": "Sagittarius",
+          "lagna_sign_index": 8,
+          "meaning": "Learning and education",
+          "name": "Siddhamsa",
+          "placements": [
+            {
+              "house": 5,
+              "planet": "Sun",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 12,
+              "planet": "Moon",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 11,
+              "planet": "Mars",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 1,
+              "planet": "Mercury",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 11,
+              "planet": "Jupiter",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 3,
+              "planet": "Venus",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 8,
+              "planet": "Saturn",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 12,
+              "planet": "Rahu",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 12,
+              "planet": "Ketu",
+              "sign": "Scorpio",
+              "sign_index": 7
+            }
+          ]
+        },
+        {
+          "code": "D27",
+          "divisions": 27,
+          "lagna_sign": "Sagittarius",
+          "lagna_sign_index": 8,
+          "meaning": "Strengths and weaknesses",
+          "name": "Bhamsa",
+          "placements": [
+            {
+              "house": 2,
+              "planet": "Sun",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 8,
+              "planet": "Moon",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 11,
+              "planet": "Mars",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 10,
+              "planet": "Mercury",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 6,
+              "planet": "Jupiter",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 2,
+              "planet": "Venus",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 9,
+              "planet": "Saturn",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 1,
+              "planet": "Rahu",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 7,
+              "planet": "Ketu",
+              "sign": "Gemini",
+              "sign_index": 2
+            }
+          ]
+        },
+        {
+          "code": "D30",
+          "divisions": 30,
+          "lagna_sign": "Virgo",
+          "lagna_sign_index": 5,
+          "meaning": "Misfortune and difficulty",
+          "name": "Trimsamsa",
+          "placements": [
+            {
+              "house": 4,
+              "planet": "Sun",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 5,
+              "planet": "Moon",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 9,
+              "planet": "Mars",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 6,
+              "planet": "Mercury",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 7,
+              "planet": "Jupiter",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 10,
+              "planet": "Venus",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 9,
+              "planet": "Saturn",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 1,
+              "planet": "Rahu",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 1,
+              "planet": "Ketu",
+              "sign": "Virgo",
+              "sign_index": 5
+            }
+          ]
+        },
+        {
+          "code": "D40",
+          "divisions": 40,
+          "lagna_sign": "Gemini",
+          "lagna_sign_index": 2,
+          "meaning": "Maternal legacy",
+          "name": "Khavedamsa",
+          "placements": [
+            {
+              "house": 12,
+              "planet": "Sun",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 8,
+              "planet": "Moon",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 10,
+              "planet": "Mars",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 7,
+              "planet": "Mercury",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 6,
+              "planet": "Jupiter",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 6,
+              "planet": "Venus",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 6,
+              "planet": "Saturn",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 12,
+              "planet": "Rahu",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 12,
+              "planet": "Ketu",
+              "sign": "Taurus",
+              "sign_index": 1
+            }
+          ]
+        },
+        {
+          "code": "D45",
+          "divisions": 45,
+          "lagna_sign": "Virgo",
+          "lagna_sign_index": 5,
+          "meaning": "Paternal legacy and character",
+          "name": "Akshavedamsa",
+          "placements": [
+            {
+              "house": 7,
+              "planet": "Sun",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 11,
+              "planet": "Moon",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 6,
+              "planet": "Mars",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 1,
+              "planet": "Mercury",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 12,
+              "planet": "Jupiter",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 3,
+              "planet": "Venus",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 9,
+              "planet": "Saturn",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 4,
+              "planet": "Rahu",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 4,
+              "planet": "Ketu",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            }
+          ]
+        },
+        {
+          "code": "D60",
+          "divisions": 60,
+          "lagna_sign": "Libra",
+          "lagna_sign_index": 6,
+          "meaning": "Past-life karma \u2014 the finest division",
+          "name": "Shashtiamsa",
+          "placements": [
+            {
+              "house": 11,
+              "planet": "Sun",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 11,
+              "planet": "Moon",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 4,
+              "planet": "Mars",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 3,
+              "planet": "Mercury",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 11,
+              "planet": "Jupiter",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 1,
+              "planet": "Venus",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 6,
+              "planet": "Saturn",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 3,
+              "planet": "Rahu",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 9,
+              "planet": "Ketu",
+              "sign": "Gemini",
+              "sign_index": 2
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "birth": {
+      "date": "2001-01-01",
+      "latitude": 64.1466,
+      "longitude": -21.9426,
+      "name": "Reykjavik Native",
+      "place_label": "Reykjavik, Iceland",
+      "time": "00:05",
+      "time_accuracy": "exact",
+      "tz_name": "Atlantic/Reykjavik"
+    },
+    "chart": {
+      "avakhada": {
+        "charan": 2,
+        "gana": "Manushya",
+        "nadi": "Adi",
+        "nakshatra": "Purva Bhadrapada",
+        "name_syllable": "So",
+        "sign": "Aquarius",
+        "sign_lord": "Saturn",
+        "tatva": "Air",
+        "varna": "Shudra",
+        "vashya": "Nara",
+        "yoni": "Lion",
+        "yunja": "Antya"
+      },
+      "ayanamsa_name": "Lahiri (Chitrapaksha)",
+      "ayanamsa_value": 23.87107095792777,
+      "computed_at": "2026-09-05T19:32:18.734544Z",
+      "dasha": {
+        "balance_years": 10.142599326066687,
+        "birth_lord": "Jupiter",
+        "periods": [
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "1997-04-11",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "1995-02-22"
+              },
+              {
+                "children": [],
+                "end": "1999-10-24",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "1997-04-11"
+              },
+              {
+                "children": [],
+                "end": "2002-01-28",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "1999-10-24"
+              },
+              {
+                "children": [],
+                "end": "2003-01-04",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2002-01-28"
+              },
+              {
+                "children": [],
+                "end": "2005-09-04",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2003-01-04"
+              },
+              {
+                "children": [],
+                "end": "2006-06-24",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2005-09-04"
+              },
+              {
+                "children": [],
+                "end": "2007-10-24",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2006-06-24"
+              },
+              {
+                "children": [],
+                "end": "2008-09-28",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2007-10-24"
+              },
+              {
+                "children": [],
+                "end": "2011-02-22",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2008-09-28"
+              }
+            ],
+            "end": "2011-02-22",
+            "level": 1,
+            "lord": "Jupiter",
+            "start": "1995-02-22"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2014-02-25",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2011-02-22"
+              },
+              {
+                "children": [],
+                "end": "2016-11-04",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2014-02-25"
+              },
+              {
+                "children": [],
+                "end": "2017-12-14",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2016-11-04"
+              },
+              {
+                "children": [],
+                "end": "2021-02-12",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2017-12-14"
+              },
+              {
+                "children": [],
+                "end": "2022-01-25",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2021-02-12"
+              },
+              {
+                "children": [],
+                "end": "2023-08-27",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2022-01-25"
+              },
+              {
+                "children": [],
+                "end": "2024-10-05",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2023-08-27"
+              },
+              {
+                "children": [],
+                "end": "2027-08-12",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2024-10-05"
+              },
+              {
+                "children": [],
+                "end": "2030-02-22",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2027-08-12"
+              }
+            ],
+            "end": "2030-02-22",
+            "level": 1,
+            "lord": "Saturn",
+            "start": "2011-02-22"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2032-07-20",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2030-02-22"
+              },
+              {
+                "children": [],
+                "end": "2033-07-18",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2032-07-20"
+              },
+              {
+                "children": [],
+                "end": "2036-05-18",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2033-07-18"
+              },
+              {
+                "children": [],
+                "end": "2037-03-24",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2036-05-18"
+              },
+              {
+                "children": [],
+                "end": "2038-08-23",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2037-03-24"
+              },
+              {
+                "children": [],
+                "end": "2039-08-21",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2038-08-23"
+              },
+              {
+                "children": [],
+                "end": "2042-03-09",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2039-08-21"
+              },
+              {
+                "children": [],
+                "end": "2044-06-14",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2042-03-09"
+              },
+              {
+                "children": [],
+                "end": "2047-02-22",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2044-06-14"
+              }
+            ],
+            "end": "2047-02-22",
+            "level": 1,
+            "lord": "Mercury",
+            "start": "2030-02-22"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2047-07-21",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2047-02-22"
+              },
+              {
+                "children": [],
+                "end": "2048-09-19",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2047-07-21"
+              },
+              {
+                "children": [],
+                "end": "2049-01-25",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2048-09-19"
+              },
+              {
+                "children": [],
+                "end": "2049-08-26",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2049-01-25"
+              },
+              {
+                "children": [],
+                "end": "2050-01-22",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2049-08-26"
+              },
+              {
+                "children": [],
+                "end": "2051-02-10",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2050-01-22"
+              },
+              {
+                "children": [],
+                "end": "2052-01-17",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2051-02-10"
+              },
+              {
+                "children": [],
+                "end": "2053-02-25",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2052-01-17"
+              },
+              {
+                "children": [],
+                "end": "2054-02-22",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2053-02-25"
+              }
+            ],
+            "end": "2054-02-22",
+            "level": 1,
+            "lord": "Ketu",
+            "start": "2047-02-22"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2057-06-23",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2054-02-22"
+              },
+              {
+                "children": [],
+                "end": "2058-06-24",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2057-06-23"
+              },
+              {
+                "children": [],
+                "end": "2060-02-22",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2058-06-24"
+              },
+              {
+                "children": [],
+                "end": "2061-04-23",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2060-02-22"
+              },
+              {
+                "children": [],
+                "end": "2064-04-23",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2061-04-23"
+              },
+              {
+                "children": [],
+                "end": "2066-12-23",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2064-04-23"
+              },
+              {
+                "children": [],
+                "end": "2070-02-22",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2066-12-23"
+              },
+              {
+                "children": [],
+                "end": "2072-12-23",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2070-02-22"
+              },
+              {
+                "children": [],
+                "end": "2074-02-22",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2072-12-23"
+              }
+            ],
+            "end": "2074-02-22",
+            "level": 1,
+            "lord": "Venus",
+            "start": "2054-02-22"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2074-06-11",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2074-02-22"
+              },
+              {
+                "children": [],
+                "end": "2074-12-11",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2074-06-11"
+              },
+              {
+                "children": [],
+                "end": "2075-04-18",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2074-12-11"
+              },
+              {
+                "children": [],
+                "end": "2076-03-12",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2075-04-18"
+              },
+              {
+                "children": [],
+                "end": "2076-12-29",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2076-03-12"
+              },
+              {
+                "children": [],
+                "end": "2077-12-11",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2076-12-29"
+              },
+              {
+                "children": [],
+                "end": "2078-10-17",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2077-12-11"
+              },
+              {
+                "children": [],
+                "end": "2079-02-22",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2078-10-17"
+              },
+              {
+                "children": [],
+                "end": "2080-02-22",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2079-02-22"
+              }
+            ],
+            "end": "2080-02-22",
+            "level": 1,
+            "lord": "Sun",
+            "start": "2074-02-22"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2080-12-23",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2080-02-22"
+              },
+              {
+                "children": [],
+                "end": "2081-07-24",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2080-12-23"
+              },
+              {
+                "children": [],
+                "end": "2083-01-23",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2081-07-24"
+              },
+              {
+                "children": [],
+                "end": "2084-05-24",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2083-01-23"
+              },
+              {
+                "children": [],
+                "end": "2085-12-23",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2084-05-24"
+              },
+              {
+                "children": [],
+                "end": "2087-05-24",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2085-12-23"
+              },
+              {
+                "children": [],
+                "end": "2087-12-23",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2087-05-24"
+              },
+              {
+                "children": [],
+                "end": "2089-08-23",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2087-12-23"
+              },
+              {
+                "children": [],
+                "end": "2090-02-22",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2089-08-23"
+              }
+            ],
+            "end": "2090-02-22",
+            "level": 1,
+            "lord": "Moon",
+            "start": "2080-02-22"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2090-07-21",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2090-02-22"
+              },
+              {
+                "children": [],
+                "end": "2091-08-08",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2090-07-21"
+              },
+              {
+                "children": [],
+                "end": "2092-07-14",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2091-08-08"
+              },
+              {
+                "children": [],
+                "end": "2093-08-23",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2092-07-14"
+              },
+              {
+                "children": [],
+                "end": "2094-08-20",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2093-08-23"
+              },
+              {
+                "children": [],
+                "end": "2095-01-17",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2094-08-20"
+              },
+              {
+                "children": [],
+                "end": "2096-03-18",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2095-01-17"
+              },
+              {
+                "children": [],
+                "end": "2096-07-24",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2096-03-18"
+              },
+              {
+                "children": [],
+                "end": "2097-02-22",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2096-07-24"
+              }
+            ],
+            "end": "2097-02-22",
+            "level": 1,
+            "lord": "Mars",
+            "start": "2090-02-22"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "end": "2099-11-05",
+                "level": 2,
+                "lord": "Rahu",
+                "start": "2097-02-22"
+              },
+              {
+                "children": [],
+                "end": "2102-03-31",
+                "level": 2,
+                "lord": "Jupiter",
+                "start": "2099-11-05"
+              },
+              {
+                "children": [],
+                "end": "2105-02-04",
+                "level": 2,
+                "lord": "Saturn",
+                "start": "2102-03-31"
+              },
+              {
+                "children": [],
+                "end": "2107-08-25",
+                "level": 2,
+                "lord": "Mercury",
+                "start": "2105-02-04"
+              },
+              {
+                "children": [],
+                "end": "2108-09-11",
+                "level": 2,
+                "lord": "Ketu",
+                "start": "2107-08-25"
+              },
+              {
+                "children": [],
+                "end": "2111-09-12",
+                "level": 2,
+                "lord": "Venus",
+                "start": "2108-09-11"
+              },
+              {
+                "children": [],
+                "end": "2112-08-06",
+                "level": 2,
+                "lord": "Sun",
+                "start": "2111-09-12"
+              },
+              {
+                "children": [],
+                "end": "2114-02-05",
+                "level": 2,
+                "lord": "Moon",
+                "start": "2112-08-06"
+              },
+              {
+                "children": [],
+                "end": "2115-02-23",
+                "level": 2,
+                "lord": "Mars",
+                "start": "2114-02-05"
+              }
+            ],
+            "end": "2115-02-23",
+            "level": 1,
+            "lord": "Rahu",
+            "start": "2097-02-22"
+          }
+        ]
+      },
+      "engine_version": "0.3.0",
+      "houses": [
+        {
+          "lord": "Mercury",
+          "number": 1,
+          "occupants": [],
+          "sign": "Virgo",
+          "sign_index": 5
+        },
+        {
+          "lord": "Venus",
+          "number": 2,
+          "occupants": [
+            "Mars"
+          ],
+          "sign": "Libra",
+          "sign_index": 6
+        },
+        {
+          "lord": "Mars",
+          "number": 3,
+          "occupants": [],
+          "sign": "Scorpio",
+          "sign_index": 7
+        },
+        {
+          "lord": "Jupiter",
+          "number": 4,
+          "occupants": [
+            "Sun",
+            "Mercury",
+            "Ketu"
+          ],
+          "sign": "Sagittarius",
+          "sign_index": 8
+        },
+        {
+          "lord": "Saturn",
+          "number": 5,
+          "occupants": [],
+          "sign": "Capricorn",
+          "sign_index": 9
+        },
+        {
+          "lord": "Saturn",
+          "number": 6,
+          "occupants": [
+            "Moon",
+            "Venus"
+          ],
+          "sign": "Aquarius",
+          "sign_index": 10
+        },
+        {
+          "lord": "Jupiter",
+          "number": 7,
+          "occupants": [],
+          "sign": "Pisces",
+          "sign_index": 11
+        },
+        {
+          "lord": "Mars",
+          "number": 8,
+          "occupants": [],
+          "sign": "Aries",
+          "sign_index": 0
+        },
+        {
+          "lord": "Venus",
+          "number": 9,
+          "occupants": [
+            "Jupiter",
+            "Saturn"
+          ],
+          "sign": "Taurus",
+          "sign_index": 1
+        },
+        {
+          "lord": "Mercury",
+          "number": 10,
+          "occupants": [
+            "Rahu"
+          ],
+          "sign": "Gemini",
+          "sign_index": 2
+        },
+        {
+          "lord": "Moon",
+          "number": 11,
+          "occupants": [],
+          "sign": "Cancer",
+          "sign_index": 3
+        },
+        {
+          "lord": "Sun",
+          "number": 12,
+          "occupants": [],
+          "sign": "Leo",
+          "sign_index": 4
+        }
+      ],
+      "julian_day": 2451910.503472222,
+      "lagna_degree": 0.3909380627183623,
+      "lagna_sign": "Virgo",
+      "lagna_sign_index": 5,
+      "panchang": {
+        "ascendant_lord": "Mercury",
+        "ascendant_sign": "Virgo",
+        "karana": "Taitila",
+        "moon_sign": "Aquarius",
+        "moon_sign_lord": "Saturn",
+        "nakshatra": "Purva Bhadrapada",
+        "nakshatra_lord": "Jupiter",
+        "nakshatra_pada": 2,
+        "paksha": "Shukla",
+        "sunrise": "2001-01-01T11:18:31.434299Z",
+        "sunset": "2001-01-01T15:44:40.473894Z",
+        "tithi_index": 5,
+        "tithi_name": "Shashthi",
+        "vara": "Sunday",
+        "vara_lord": "Sun",
+        "yoga": "Vyatipata"
+      },
+      "planets": [
+        {
+          "aspects_houses": [
+            10
+          ],
+          "avastha": "Yuva",
+          "combust": false,
+          "degree_in_sign": 16.77034566758533,
+          "dignity": "friend",
+          "house": 4,
+          "nakshatra": {
+            "lord": "Venus",
+            "name": "Purva Ashadha",
+            "pada": 2
+          },
+          "name": "Sun",
+          "retrograde": false,
+          "sign": "Sagittarius",
+          "sign_index": 8
+        },
+        {
+          "aspects_houses": [
+            12
+          ],
+          "avastha": "Mrita",
+          "combust": false,
+          "degree_in_sign": 24.881167228277775,
+          "dignity": "neutral",
+          "house": 6,
+          "nakshatra": {
+            "lord": "Jupiter",
+            "name": "Purva Bhadrapada",
+            "pada": 2
+          },
+          "name": "Moon",
+          "retrograde": false,
+          "sign": "Aquarius",
+          "sign_index": 10
+        },
+        {
+          "aspects_houses": [
+            5,
+            8,
+            9
+          ],
+          "avastha": "Kumara",
+          "combust": false,
+          "degree_in_sign": 11.073242621695528,
+          "dignity": "neutral",
+          "house": 2,
+          "nakshatra": {
+            "lord": "Rahu",
+            "name": "Swati",
+            "pada": 2
+          },
+          "name": "Mars",
+          "retrograde": false,
+          "sign": "Libra",
+          "sign_index": 6
+        },
+        {
+          "aspects_houses": [
+            10
+          ],
+          "avastha": "Vriddha",
+          "combust": true,
+          "degree_in_sign": 20.4105435781903,
+          "dignity": "neutral",
+          "house": 4,
+          "nakshatra": {
+            "lord": "Venus",
+            "name": "Purva Ashadha",
+            "pada": 3
+          },
+          "name": "Mercury",
+          "retrograde": false,
+          "sign": "Sagittarius",
+          "sign_index": 8
+        },
+        {
+          "aspects_houses": [
+            1,
+            3,
+            5
+          ],
+          "avastha": "Vriddha",
+          "combust": false,
+          "degree_in_sign": 8.323170812053306,
+          "dignity": "enemy",
+          "house": 9,
+          "nakshatra": {
+            "lord": "Sun",
+            "name": "Krittika",
+            "pada": 4
+          },
+          "name": "Jupiter",
+          "retrograde": true,
+          "sign": "Taurus",
+          "sign_index": 1
+        },
+        {
+          "aspects_houses": [
+            12
+          ],
+          "avastha": "Bala",
+          "combust": false,
+          "degree_in_sign": 3.103987319046439,
+          "dignity": "friend",
+          "house": 6,
+          "nakshatra": {
+            "lord": "Mars",
+            "name": "Dhanishta",
+            "pada": 3
+          },
+          "name": "Venus",
+          "retrograde": false,
+          "sign": "Aquarius",
+          "sign_index": 10
+        },
+        {
+          "aspects_houses": [
+            3,
+            6,
+            11
+          ],
+          "avastha": "Mrita",
+          "combust": false,
+          "degree_in_sign": 0.7243075116365993,
+          "dignity": "friend",
+          "house": 9,
+          "nakshatra": {
+            "lord": "Sun",
+            "name": "Krittika",
+            "pada": 2
+          },
+          "name": "Saturn",
+          "retrograde": true,
+          "sign": "Taurus",
+          "sign_index": 1
+        },
+        {
+          "aspects_houses": [
+            2,
+            4,
+            6
+          ],
+          "avastha": "Vriddha",
+          "combust": false,
+          "degree_in_sign": 21.818659548052466,
+          "dignity": null,
+          "house": 10,
+          "nakshatra": {
+            "lord": "Jupiter",
+            "name": "Punarvasu",
+            "pada": 1
+          },
+          "name": "Rahu",
+          "retrograde": true,
+          "sign": "Gemini",
+          "sign_index": 2
+        },
+        {
+          "aspects_houses": [
+            8,
+            10,
+            12
+          ],
+          "avastha": "Vriddha",
+          "combust": false,
+          "degree_in_sign": 21.818659548052437,
+          "dignity": null,
+          "house": 4,
+          "nakshatra": {
+            "lord": "Venus",
+            "name": "Purva Ashadha",
+            "pada": 3
+          },
+          "name": "Ketu",
+          "retrograde": true,
+          "sign": "Sagittarius",
+          "sign_index": 8
+        }
+      ],
+      "vargas": [
+        {
+          "code": "D1",
+          "divisions": 1,
+          "lagna_sign": "Virgo",
+          "lagna_sign_index": 5,
+          "meaning": "Birth chart \u2014 the whole life",
+          "name": "Lagna",
+          "placements": [
+            {
+              "house": 4,
+              "planet": "Sun",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 6,
+              "planet": "Moon",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 2,
+              "planet": "Mars",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 4,
+              "planet": "Mercury",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 9,
+              "planet": "Jupiter",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 6,
+              "planet": "Venus",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 9,
+              "planet": "Saturn",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 10,
+              "planet": "Rahu",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 4,
+              "planet": "Ketu",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            }
+          ]
+        },
+        {
+          "code": "D2",
+          "divisions": 2,
+          "lagna_sign": "Cancer",
+          "lagna_sign_index": 3,
+          "meaning": "Wealth and income",
+          "name": "Hora",
+          "placements": [
+            {
+              "house": 1,
+              "planet": "Sun",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 1,
+              "planet": "Moon",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 2,
+              "planet": "Mars",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 1,
+              "planet": "Mercury",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 1,
+              "planet": "Jupiter",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 2,
+              "planet": "Venus",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 1,
+              "planet": "Saturn",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 1,
+              "planet": "Rahu",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 1,
+              "planet": "Ketu",
+              "sign": "Cancer",
+              "sign_index": 3
+            }
+          ]
+        },
+        {
+          "code": "D3",
+          "divisions": 3,
+          "lagna_sign": "Virgo",
+          "lagna_sign_index": 5,
+          "meaning": "Siblings and courage",
+          "name": "Drekkana",
+          "placements": [
+            {
+              "house": 8,
+              "planet": "Sun",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 2,
+              "planet": "Moon",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 6,
+              "planet": "Mars",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 12,
+              "planet": "Mercury",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 9,
+              "planet": "Jupiter",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 6,
+              "planet": "Venus",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 9,
+              "planet": "Saturn",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 6,
+              "planet": "Rahu",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 12,
+              "planet": "Ketu",
+              "sign": "Leo",
+              "sign_index": 4
+            }
+          ]
+        },
+        {
+          "code": "D4",
+          "divisions": 4,
+          "lagna_sign": "Virgo",
+          "lagna_sign_index": 5,
+          "meaning": "Property and fortune",
+          "name": "Chaturthamsa",
+          "placements": [
+            {
+              "house": 10,
+              "planet": "Sun",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 3,
+              "planet": "Moon",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 5,
+              "planet": "Mars",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 10,
+              "planet": "Mercury",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 12,
+              "planet": "Jupiter",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 6,
+              "planet": "Venus",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 9,
+              "planet": "Saturn",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 4,
+              "planet": "Rahu",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 10,
+              "planet": "Ketu",
+              "sign": "Gemini",
+              "sign_index": 2
+            }
+          ]
+        },
+        {
+          "code": "D7",
+          "divisions": 7,
+          "lagna_sign": "Pisces",
+          "lagna_sign_index": 11,
+          "meaning": "Children and progeny",
+          "name": "Saptamsa",
+          "placements": [
+            {
+              "house": 1,
+              "planet": "Sun",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 5,
+              "planet": "Moon",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 10,
+              "planet": "Mars",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 2,
+              "planet": "Mercury",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 10,
+              "planet": "Jupiter",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 12,
+              "planet": "Venus",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 9,
+              "planet": "Saturn",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 9,
+              "planet": "Rahu",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 3,
+              "planet": "Ketu",
+              "sign": "Taurus",
+              "sign_index": 1
+            }
+          ]
+        },
+        {
+          "code": "D9",
+          "divisions": 9,
+          "lagna_sign": "Capricorn",
+          "lagna_sign_index": 9,
+          "meaning": "Marriage and inner strength",
+          "name": "Navamsa",
+          "placements": [
+            {
+              "house": 9,
+              "planet": "Sun",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 5,
+              "planet": "Moon",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 1,
+              "planet": "Mars",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 10,
+              "planet": "Mercury",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 3,
+              "planet": "Jupiter",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 10,
+              "planet": "Venus",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 1,
+              "planet": "Saturn",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 4,
+              "planet": "Rahu",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 10,
+              "planet": "Ketu",
+              "sign": "Libra",
+              "sign_index": 6
+            }
+          ]
+        },
+        {
+          "code": "D10",
+          "divisions": 10,
+          "lagna_sign": "Taurus",
+          "lagna_sign_index": 1,
+          "meaning": "Career and status",
+          "name": "Dasamsa",
+          "placements": [
+            {
+              "house": 1,
+              "planet": "Sun",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 6,
+              "planet": "Moon",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 9,
+              "planet": "Mars",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 2,
+              "planet": "Mercury",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 11,
+              "planet": "Jupiter",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 11,
+              "planet": "Venus",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 9,
+              "planet": "Saturn",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 9,
+              "planet": "Rahu",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 3,
+              "planet": "Ketu",
+              "sign": "Cancer",
+              "sign_index": 3
+            }
+          ]
+        },
+        {
+          "code": "D12",
+          "divisions": 12,
+          "lagna_sign": "Virgo",
+          "lagna_sign_index": 5,
+          "meaning": "Parents and ancestry",
+          "name": "Dwadasamsa",
+          "placements": [
+            {
+              "house": 10,
+              "planet": "Sun",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 3,
+              "planet": "Moon",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 6,
+              "planet": "Mars",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 12,
+              "planet": "Mercury",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 12,
+              "planet": "Jupiter",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 7,
+              "planet": "Venus",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 9,
+              "planet": "Saturn",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 6,
+              "planet": "Rahu",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 12,
+              "planet": "Ketu",
+              "sign": "Leo",
+              "sign_index": 4
+            }
+          ]
+        },
+        {
+          "code": "D16",
+          "divisions": 16,
+          "lagna_sign": "Sagittarius",
+          "lagna_sign_index": 8,
+          "meaning": "Vehicles and comforts",
+          "name": "Shodasamsa",
+          "placements": [
+            {
+              "house": 9,
+              "planet": "Sun",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 10,
+              "planet": "Moon",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 10,
+              "planet": "Mars",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 11,
+              "planet": "Mercury",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 1,
+              "planet": "Jupiter",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 10,
+              "planet": "Venus",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 9,
+              "planet": "Saturn",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 12,
+              "planet": "Rahu",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 12,
+              "planet": "Ketu",
+              "sign": "Scorpio",
+              "sign_index": 7
+            }
+          ]
+        },
+        {
+          "code": "D20",
+          "divisions": 20,
+          "lagna_sign": "Leo",
+          "lagna_sign_index": 4,
+          "meaning": "Spiritual practice",
+          "name": "Vimsamsa",
+          "placements": [
+            {
+              "house": 12,
+              "planet": "Sun",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 9,
+              "planet": "Moon",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 4,
+              "planet": "Mars",
+              "sign": "Scorpio",
+              "sign_index": 7
+            },
+            {
+              "house": 2,
+              "planet": "Mercury",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 10,
+              "planet": "Jupiter",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 7,
+              "planet": "Venus",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 5,
+              "planet": "Saturn",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 3,
+              "planet": "Rahu",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 3,
+              "planet": "Ketu",
+              "sign": "Libra",
+              "sign_index": 6
+            }
+          ]
+        },
+        {
+          "code": "D24",
+          "divisions": 24,
+          "lagna_sign": "Cancer",
+          "lagna_sign_index": 3,
+          "meaning": "Learning and education",
+          "name": "Siddhamsa",
+          "placements": [
+            {
+              "house": 3,
+              "planet": "Sun",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 9,
+              "planet": "Moon",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 10,
+              "planet": "Mars",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 6,
+              "planet": "Mercury",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 7,
+              "planet": "Jupiter",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 4,
+              "planet": "Venus",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 1,
+              "planet": "Saturn",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 7,
+              "planet": "Rahu",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 7,
+              "planet": "Ketu",
+              "sign": "Capricorn",
+              "sign_index": 9
+            }
+          ]
+        },
+        {
+          "code": "D27",
+          "divisions": 27,
+          "lagna_sign": "Cancer",
+          "lagna_sign_index": 3,
+          "meaning": "Strengths and weaknesses",
+          "name": "Bhamsa",
+          "placements": [
+            {
+              "house": 1,
+              "planet": "Sun",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 2,
+              "planet": "Moon",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 1,
+              "planet": "Mars",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 4,
+              "planet": "Mercury",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 8,
+              "planet": "Jupiter",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 6,
+              "planet": "Venus",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 1,
+              "planet": "Saturn",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 11,
+              "planet": "Rahu",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 5,
+              "planet": "Ketu",
+              "sign": "Scorpio",
+              "sign_index": 7
+            }
+          ]
+        },
+        {
+          "code": "D30",
+          "divisions": 30,
+          "lagna_sign": "Taurus",
+          "lagna_sign_index": 1,
+          "meaning": "Misfortune and difficulty",
+          "name": "Trimsamsa",
+          "placements": [
+            {
+              "house": 8,
+              "planet": "Sun",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 2,
+              "planet": "Moon",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 8,
+              "planet": "Mars",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 2,
+              "planet": "Mercury",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 5,
+              "planet": "Jupiter",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 12,
+              "planet": "Venus",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 1,
+              "planet": "Saturn",
+              "sign": "Taurus",
+              "sign_index": 1
+            },
+            {
+              "house": 2,
+              "planet": "Rahu",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 2,
+              "planet": "Ketu",
+              "sign": "Gemini",
+              "sign_index": 2
+            }
+          ]
+        },
+        {
+          "code": "D40",
+          "divisions": 40,
+          "lagna_sign": "Libra",
+          "lagna_sign_index": 6,
+          "meaning": "Maternal legacy",
+          "name": "Khavedamsa",
+          "placements": [
+            {
+              "house": 5,
+              "planet": "Sun",
+              "sign": "Aquarius",
+              "sign_index": 10
+            },
+            {
+              "house": 4,
+              "planet": "Moon",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 9,
+              "planet": "Mars",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 10,
+              "planet": "Mercury",
+              "sign": "Cancer",
+              "sign_index": 3
+            },
+            {
+              "house": 12,
+              "planet": "Jupiter",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 11,
+              "planet": "Venus",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 1,
+              "planet": "Saturn",
+              "sign": "Libra",
+              "sign_index": 6
+            },
+            {
+              "house": 12,
+              "planet": "Rahu",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 12,
+              "planet": "Ketu",
+              "sign": "Virgo",
+              "sign_index": 5
+            }
+          ]
+        },
+        {
+          "code": "D45",
+          "divisions": 45,
+          "lagna_sign": "Sagittarius",
+          "lagna_sign_index": 8,
+          "meaning": "Paternal legacy and character",
+          "name": "Akshavedamsa",
+          "placements": [
+            {
+              "house": 2,
+              "planet": "Sun",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 10,
+              "planet": "Moon",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 9,
+              "planet": "Mars",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 7,
+              "planet": "Mercury",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 9,
+              "planet": "Jupiter",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 1,
+              "planet": "Venus",
+              "sign": "Sagittarius",
+              "sign_index": 8
+            },
+            {
+              "house": 10,
+              "planet": "Saturn",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 9,
+              "planet": "Rahu",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 9,
+              "planet": "Ketu",
+              "sign": "Leo",
+              "sign_index": 4
+            }
+          ]
+        },
+        {
+          "code": "D60",
+          "divisions": 60,
+          "lagna_sign": "Virgo",
+          "lagna_sign_index": 5,
+          "meaning": "Past-life karma \u2014 the finest division",
+          "name": "Shashtiamsa",
+          "placements": [
+            {
+              "house": 1,
+              "planet": "Sun",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 7,
+              "planet": "Moon",
+              "sign": "Pisces",
+              "sign_index": 11
+            },
+            {
+              "house": 12,
+              "planet": "Mars",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 8,
+              "planet": "Mercury",
+              "sign": "Aries",
+              "sign_index": 0
+            },
+            {
+              "house": 1,
+              "planet": "Jupiter",
+              "sign": "Virgo",
+              "sign_index": 5
+            },
+            {
+              "house": 12,
+              "planet": "Venus",
+              "sign": "Leo",
+              "sign_index": 4
+            },
+            {
+              "house": 10,
+              "planet": "Saturn",
+              "sign": "Gemini",
+              "sign_index": 2
+            },
+            {
+              "house": 5,
+              "planet": "Rahu",
+              "sign": "Capricorn",
+              "sign_index": 9
+            },
+            {
+              "house": 11,
+              "planet": "Ketu",
+              "sign": "Cancer",
+              "sign_index": 3
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
