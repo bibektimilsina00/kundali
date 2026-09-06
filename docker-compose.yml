@@ -1,3 +1,6 @@
+# Pinned so volume names never depend on the directory name.
+name: nakhatra
+
 services:
   nakhatra_postgres:
     image: postgres:16-alpine

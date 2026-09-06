@@ -17,7 +17,7 @@ import tempfile
 from pathlib import Path
 
 os.environ.setdefault("JWT_SECRET", "test-secret-not-used-anywhere-real-0123456789abcdef")
-_TEST_DB = Path(tempfile.mkdtemp(prefix="kundali-test-")) / "vault.sqlite3"
+_TEST_DB = Path(tempfile.mkdtemp(prefix="nakhatra-test-")) / "vault.sqlite3"
 os.environ["DATABASE_URL"] = f"sqlite:///{_TEST_DB}"
 
 from app.core.db import create_all  # noqa: E402

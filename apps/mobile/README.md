@@ -1,4 +1,4 @@
-# kundali
+# nakhatra
 
 A new Flutter project.
 

@@ -152,7 +152,7 @@ export interface TranslationCatalog {
 
 export const translations: Record<Language, TranslationCatalog> = {
   en: {
-    brandName: "Kundali AI",
+    brandName: "Nakhatra",
     vedicAstrology: "Vedic Astrology",
     home: "Home",
     freeKundali: "Free Kundali",
@@ -295,7 +295,7 @@ export const translations: Record<Language, TranslationCatalog> = {
   },
 
   ne: {
-    brandName: "कुण्डली AI",
+    brandName: "Nakhatra",
     vedicAstrology: "वैदिक ज्योतिष",
     home: "गृह पृष्ठ",
     freeKundali: "निःशुल्क कुण्डली",
@@ -438,7 +438,7 @@ export const translations: Record<Language, TranslationCatalog> = {
   },
 
   hi: {
-    brandName: "कुंडली AI",
+    brandName: "Nakhatra",
     vedicAstrology: "वैदिक ज्योतिष",
     home: "मुख्य पृष्ठ",
     freeKundali: "निःशुल्क कुंडली",

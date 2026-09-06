@@ -1141,7 +1141,7 @@ export function ReadingDashboard() {
             )}
           </div>
           <div className="text-right">
-            <span className="font-serif text-lg font-bold text-[#E5A93C]">Vedic Kundali AI</span>
+            <span className="font-serif text-lg font-bold text-[#E5A93C]">Nakhatra</span>
             <p className="text-xs text-[#94A3B8]">Sidereal Ephemeris Analysis</p>
           </div>
         </div>

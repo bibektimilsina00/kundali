@@ -69,7 +69,7 @@ export function AuthModal() {
             <Sparkles className="size-6 stroke-[2.2]" />
           </div>
           <h2 className="font-serif text-2xl font-bold tracking-tight text-[#F8FAFC]">
-            {isLogin ? "Sign In to Kundali Vault" : "Create Your Vault Account"}
+            {isLogin ? "Sign in to your Nakhatra Vault" : "Create Your Vault Account"}
           </h2>
           <p className="mt-1 text-xs text-slate-400">
             {isLogin

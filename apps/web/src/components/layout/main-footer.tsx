@@ -82,7 +82,7 @@ export function MainFooter() {
         </div>
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-[#94A3B8]/70">
-          <p>© {new Date().getFullYear()} Kundali AI. Calculated via Swiss Ephemeris Lahiri Sidereal Ayanamsa.</p>
+          <p>© {new Date().getFullYear()} Nakhatra. Calculated via Swiss Ephemeris Lahiri Sidereal Ayanamsa.</p>
           <p>All Rights Reserved.</p>
         </div>
       </div>
