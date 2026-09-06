@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { ChatMessage } from "../types";
+import type { ChatMessage } from "@/features/chat/types";
 import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 import { speakText, stopSpeech } from "@/lib/utils/audio-speaker";
 import type { Language } from "@/lib/i18n/translations";

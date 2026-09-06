@@ -1,5 +1,5 @@
 import type { Chart, BirthDetailsIn } from "@/features/kundali/types";
-import type { ReportSection } from "@/features/mvp/types";
+import type { ReportSection } from "@/features/report/types";
 
 export function generateDynamicAstrologyReport(
   chart: Chart,

@@ -5,17 +5,19 @@ import { useRouter } from "next/navigation";
 import { NorthIndianChart } from "@/features/kundali/components/north-indian-chart";
 import { loadKundaliFromStorage } from "@/features/kundali/store/kundali-store";
 import type { Chart, BirthDetailsIn } from "@/features/kundali/types";
-import type { ChatMessage } from "../types";
+import type { ChatMessage } from "@/features/chat/types";
 import { speakText, stopSpeech } from "@/lib/utils/audio-speaker";
 import { OpenAIRealtimeWebRTCClient } from "@/lib/utils/openai-realtime-webrtc";
 import { ASTROLOGER_VOICES } from "@/lib/constants/voices";
-import { CustomVoiceSelector } from "./custom-voice-selector";
+import { CustomVoiceSelector } from "@/features/voice/components/voice-selector";
 import { CustomLanguageSelector } from "@/components/ui/custom-language-selector";
+import { authHeaders } from "@/features/auth/store/auth-store";
+import { useAskAstrologer } from "@/features/chat/hooks/use-ask-astrologer";
 import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
-import { ChatMessageBubble } from "./chat-message-bubble";
+import { ChatMessageBubble } from "@/features/chat/components/chat-message-bubble";
 
 import { useTranslation } from "@/lib/i18n/language-context";
-import { trackLiveVoiceStarted } from "@/lib/utils/analytics";
+import { trackAiChatMessageSent, trackLiveVoiceStarted } from "@/lib/utils/analytics";
 import {
   ArrowLeft,
   Sparkles,
@@ -33,6 +35,7 @@ import {
 
 export function LiveModeWorkspace() {
   const router = useRouter();
+  const askAstrologer = useAskAstrologer();
   const { language: globalLang, setLanguage: setGlobalLang, t } = useTranslation();
   const [viewMode, setViewMode] = useState<"desk" | "live_voice">("desk");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -253,6 +256,9 @@ export function LiveModeWorkspace() {
 
       const res = await fetch("/api/v1/transcribe", {
         method: "POST",
+        // Whisper is billed per minute; the endpoint is authenticated. The
+        // Content-Type is left to the browser so the multipart boundary is set.
+        headers: authHeaders(),
         body: formData,
       });
 
@@ -495,6 +501,10 @@ export function LiveModeWorkspace() {
     accumulatedTranscriptRef.current = "";
     setInterimTranscript("");
     setLastSubmittedQuery(query);
+    trackAiChatMessageSent(
+      selectedLanguageRef.current,
+      isWebRTCActiveRef.current ? "live_voice" : "text",
+    );
 
     // If WebRTC is active, send text via WebRTC DataChannel
     if (isWebRTCActiveRef.current && webrtcClientRef.current) {
@@ -528,20 +538,25 @@ export function LiveModeWorkspace() {
       updateVoiceState("thinking");
     }
 
-    try {
-      const res = await fetch("/api/v1/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          query,
-          messages,
-          chart: activeChart,
-          birth: activeBirth,
-          language: selectedLanguageRef.current,
-        }),
-      });
+    if (!activeChart) {
+      // Previously this sent `chart: null`, the backend rejected it, and the
+      // failure disappeared into the catch below as a generic error. Say what
+      // is actually wrong instead.
+      setIsThinking(false);
+      addDebugLog("CHAT_BLOCKED", "No chart loaded yet — cannot ask about a chart.");
+      return;
+    }
 
-      const data = await res.json();
+    try {
+      const data = await askAstrologer.mutateAsync({
+        query,
+        // The API keeps only the recent turns; sending the whole transcript
+        // every time is bandwidth the backend immediately discards.
+        messages: messages.map((m) => ({ sender: m.sender, text: m.text })),
+        chart: activeChart,
+        birth: activeBirth,
+        language: selectedLanguageRef.current,
+      });
       setIsThinking(false);
 
       if (data.text) {
@@ -552,15 +567,15 @@ export function LiveModeWorkspace() {
           sender: "astrologer",
           text: data.text,
           timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-          astrologicalBasis: data.astrologicalBasis,
+          astrologicalBasis: data.astrological_basis,
         };
 
         setMessages((prev) => [...prev, aiMsg]);
         setTeleprompterText(data.text);
-        setTeleprompterBasis(data.astrologicalBasis || "");
+        setTeleprompterBasis(data.astrological_basis || "");
 
-        if (data.highlightHouse) {
-          setHighlightedHouse(data.highlightHouse);
+        if (data.highlight_house) {
+          setHighlightedHouse(data.highlight_house);
         }
 
         // Voice playback handling in Live Voice Mode

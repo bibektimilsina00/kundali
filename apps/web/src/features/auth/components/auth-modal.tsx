@@ -1,11 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import { useAuth } from "./auth-context";
+import { useLogin, useSignup } from "@/features/auth/hooks/use-auth";
+import { loginSchema, signupSchema } from "@/features/auth/schema/auth-forms";
+import { useAuthStore } from "@/features/auth/store/auth-store";
 import { X, Lock, Mail, User, Sparkles, LogIn, UserPlus } from "lucide-react";
 
 export function AuthModal() {
-  const { isAuthModalOpen, authModalMode, closeAuthModal, login, signup, openAuthModal } = useAuth();
+  const isAuthModalOpen = useAuthStore((s) => s.isAuthModalOpen);
+  const authModalMode = useAuthStore((s) => s.authModalMode);
+  const closeAuthModal = useAuthStore((s) => s.closeAuthModal);
+  const openAuthModal = useAuthStore((s) => s.openAuthModal);
+  const login = useLogin();
+  const signup = useSignup();
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,13 +30,23 @@ export function AuthModal() {
     setSubmitting(true);
 
     try {
+      // Validate before the round trip so a short password is caught here
+      // rather than as a 422 the user has to interpret.
       if (isLogin) {
-        await login(email, password);
+        const parsed = loginSchema.safeParse({ email, password });
+        if (!parsed.success) throw new Error(parsed.error.issues[0].message);
+        await login.mutateAsync(parsed.data);
       } else {
-        await signup(email, password, fullName);
+        const parsed = signupSchema.safeParse({
+          email,
+          password,
+          full_name: fullName,
+        });
+        if (!parsed.success) throw new Error(parsed.error.issues[0].message);
+        await signup.mutateAsync(parsed.data);
       }
-    } catch (err: any) {
-      setError(err.message || "An error occurred");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
       setSubmitting(false);
     }

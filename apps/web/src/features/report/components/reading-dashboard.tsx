@@ -1,6 +1,11 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+
+import { authHeaders } from "@/features/auth/store/auth-store";
+import { useReport } from "@/features/report/hooks/use-report";
+import { ReportSectionCard } from "@/features/report/components/report-section-card";
+import { SectionIcon } from "@/features/report/components/section-icon";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { exportElementToPdf } from "@/lib/utils/pdf-exporter";
@@ -8,68 +13,39 @@ import { NorthIndianChart } from "@/features/kundali/components/north-indian-cha
 import { SouthIndianChart } from "@/features/kundali/components/south-indian-chart";
 import { loadKundaliFromStorage } from "@/features/kundali/store/kundali-store";
 import type { Chart, BirthDetailsIn } from "@/features/kundali/types";
-import type { ReportSection } from "../types";
-import { SAMPLE_BIRTH_DETAILS, MOCK_REPORT_SECTIONS } from "../data/mock-data";
+import type { ReportSection } from "@/features/report/types";
 import {
   speakText,
+  isPaused,
+  pauseSpeech,
+  resumeSpeech,
   stopSpeech,
   seekAudioBy,
   seekAudioToPercent,
   setPlaybackRate,
 } from "@/lib/utils/audio-speaker";
-import { GeneratingScreen } from "@/features/mvp/components/generating-screen";
+import { GeneratingScreen } from "@/features/kundali/components/generating-screen";
 import { ASTROLOGER_VOICES } from "@/lib/constants/voices";
 
 import { generateDynamicAstrologyReport } from "@/features/kundali/api/report-generator";
 import { useTranslation, type Language } from "@/lib/i18n/language-context";
-import { CustomVoiceSelector } from "./custom-voice-selector";
+import { CustomVoiceSelector } from "@/features/voice/components/voice-selector";
 import { CustomLanguageSelector } from "@/components/ui/custom-language-selector";
 import {
   Download,
   Share2,
   Sparkles,
   Clock,
-  Radio,
   MessageSquareText,
-  FileText,
   Play,
   Pause,
   RotateCcw,
   RotateCw,
-  Volume2,
-  Globe,
-  User,
-  Scale,
-  Briefcase,
-  Heart,
-  Compass,
-  ShieldCheck,
   Orbit,
   Gem,
   Activity,
-  MapPin,
 } from "lucide-react";
 
-function renderSectionIcon(sectionId: string) {
-  switch (sectionId) {
-    case "personality":
-      return <User className="size-5 text-[#E5A93C]" />;
-    case "strengths-weaknesses":
-      return <Scale className="size-5 text-[#E5A93C]" />;
-    case "career-finance":
-      return <Briefcase className="size-5 text-[#E5A93C]" />;
-    case "love-marriage":
-      return <Heart className="size-5 text-[#E5A93C]" />;
-    case "travel-spirituality":
-      return <Compass className="size-5 text-[#E5A93C]" />;
-    case "current-dasha":
-      return <Clock className="size-5 text-[#E5A93C]" />;
-    case "remedies":
-      return <ShieldCheck className="size-5 text-[#E5A93C]" />;
-    default:
-      return <Sparkles className="size-5 text-[#E5A93C]" />;
-  }
-}
 import {
   toLocalizedDigit,
   getPlanetName,
@@ -80,6 +56,7 @@ import {
   getLocalizedAuspiciousElements,
 } from "@/lib/i18n/vedic-translations";
 import {
+  trackAudioDownloaded,
   trackAudioPlayed,
   trackPdfDownloaded,
   trackShareClicked,
@@ -251,7 +228,7 @@ export function ReadingDashboard() {
     try {
       const res = await fetch("/api/v1/tts", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders() },
         body: JSON.stringify({
           text: textToRead,
           language,
@@ -260,13 +237,14 @@ export function ReadingDashboard() {
       });
       if (res.ok) {
         const data = await res.json();
-        if (data?.audioUrl) {
+        if (data?.audio_url) {
           const a = document.createElement("a");
-          a.href = data.audioUrl;
+          a.href = `/api${data.audio_url}`;
           a.download = `${activeBirth.name}_Kundali_Audio.mp3`;
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
+          trackAudioDownloaded(selectedVoice, language);
           showToast(language === "en" ? "Audio downloaded successfully!" : "अडियो डाउनलोड भयो!");
           return;
         }
@@ -297,20 +275,23 @@ export function ReadingDashboard() {
     }
   };
 
+  // Placeholder for the single render before the redirect below fires. It used
+  // to be a real person's name and birth date, committed to the repository and
+  // shown to every visitor as their own chart (CLAUDE.md rule 9). Its `time` was
+  // also "07:30 PM", which `BirthDetailsIn` rejects — so the default chart fetch
+  // that relied on it had been 422ing silently.
   const [activeBirth, setActiveBirth] = useState<BirthDetailsIn>({
-    name: SAMPLE_BIRTH_DETAILS.name,
-    date: SAMPLE_BIRTH_DETAILS.date as any,
-    time: SAMPLE_BIRTH_DETAILS.time,
-    tz_name: "Asia/Kathmandu",
-    latitude: 27.7172,
-    longitude: 85.3240,
-    place_label: SAMPLE_BIRTH_DETAILS.place,
+    name: "",
+    date: "1900-01-01",
+    time: "00:00",
+    tz_name: "UTC",
+    latitude: 0,
+    longitude: 0,
+    place_label: "",
     time_accuracy: "exact",
   });
 
   const [activeChart, setActiveChart] = useState<Chart | null>(null);
-
-  const [reportSections, setReportSections] = useState<ReportSection[]>(MOCK_REPORT_SECTIONS);
 
   useEffect(() => {
     const stored = loadKundaliFromStorage();
@@ -318,38 +299,35 @@ export function ReadingDashboard() {
       setActiveBirth(stored.birth);
       setActiveChart(stored.chart);
     } else {
-      fetch("/api/v1/kundali", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(activeBirth),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (!data.error) setActiveChart(data);
-        })
-        .catch(console.error);
+      // Nothing to read. Previously this computed a chart for the hardcoded
+      // sample birth data and presented it as the visitor's own reading.
+      router.replace("/kundali");
     }
   }, []);
 
-  useEffect(() => {
-    if (!activeChart) return;
+  // The generated report is server state: same chart and language, same report.
+  // As a query it survives remounts instead of paying for the model again.
+  const report = useReport(
+    activeChart ? { chart: activeChart, birth: activeBirth, language } : null,
+  );
 
-    // Immediately reflect instant localized dynamic report while API completes
-    setReportSections(generateDynamicAstrologyReport(activeChart, activeBirth, language));
+  // Shown instantly while the request is in flight. Duplicates
+  // `modules/report/generator.py`; `report-generator.test.ts` and
+  // `test_report_generator.py` pin both copies to the same fixtures so they
+  // cannot drift apart silently.
+  // No useMemo: the React Compiler is enabled for this project and memoises
+  // this itself. A hand-written one it cannot verify makes it bail out of
+  // optimising the whole component, which is worse than not writing it.
+  const localReport = activeChart
+    ? generateDynamicAstrologyReport(activeChart, activeBirth, language)
+    : [];
 
-    fetch("/api/v1/report", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chart: activeChart, birth: activeBirth, language }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.report && Array.isArray(data.report)) {
-          setReportSections(data.report);
-        }
-      })
-      .catch(console.error);
-  }, [activeChart, activeBirth, language]);
+  // Derived, not stored. Holding this in state meant two effects writing to it
+  // and a render pass between each — the report is simply "the server's if it
+  // arrived, otherwise the local one", which is a value, not a lifecycle.
+  const reportSections: ReportSection[] = report.data?.report.length
+    ? report.data.report
+    : localReport;
 
   const filterCategory = (id: string) => {
     setActiveCategory(id);
@@ -895,8 +873,15 @@ export function ReadingDashboard() {
                   <button
                     onClick={() => {
                       if (isPlaying) {
-                        stopSpeech();
+                        // Pause, not stop. This button is labelled "Pause
+                        // Audio" but called stopSpeech(), which discarded the
+                        // audio — so play restarted a ten-minute reading from
+                        // the beginning.
+                        pauseSpeech();
                         setIsPlaying(false);
+                      } else if (isPaused()) {
+                        resumeSpeech();
+                        setIsPlaying(true);
                       } else {
                         const textToRead = visibleSections
                           .map((s) => {
@@ -1108,56 +1093,13 @@ export function ReadingDashboard() {
             {/* 3. Deep Narrative Reading Cards */}
             <div className="space-y-6">
               {visibleSections.map((section) => (
-                <div
+                <ReportSectionCard
                   key={section.id}
-                  className={`rounded-[8px] border border-white/10 bg-[#161B2B] p-6 space-y-4 transition-all duration-200 ${
-                    selectedHouse === 10 && section.id === "career-finance"
-                      ? "border-l-4 border-l-[#E5A93C]"
-                      : ""
-                  }`}
-                >
-                  {/* Title & Icon */}
-                  <div className="flex items-center gap-3">
-                    <span className="grid size-9 place-items-center rounded-[8px] bg-[#090A10] border border-white/10">
-                      {renderSectionIcon(section.id)}
-                    </span>
-                    <div>
-                      <h3 className="font-serif text-base font-bold text-[#F8FAFC]">{section.title}</h3>
-                      <p className="text-xs text-[#CBD5E1]">{section.subtitle}</p>
-                    </div>
-                  </div>
-
-                  {/* Deep Reading Body */}
-                  <div className="space-y-3 text-sm leading-relaxed text-[#E2E8F0] font-sans">
-                    {section.content.map((p: string, idx: number) => (
-                      <p key={idx}>{p}</p>
-                    ))}
-                  </div>
-
-                  {/* Executive Summary Box (Below actual text) */}
-                  <div className="rounded-[8px] border border-[#E5A93C]/40 bg-[#090A10] p-3 text-xs font-bold text-[#FDE68A]">
-                    {section.summary}
-                  </div>
-
-                  {/* Astrological Grounding Footnotes */}
-                  <div className="border-t border-white/10 pt-3">
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-[#E5A93C] mb-1.5">
-                      {t.astrologicalFootnotes}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {section.reasoning.map((r: any, idx: number) => (
-                        <button
-                          key={idx}
-                          onClick={() => setSelectedHouse(10)}
-                          className="inline-flex items-center gap-1.5 rounded-[8px] border border-white/10 bg-[#090A10] px-2.5 py-1 text-xs text-[#F8FAFC] hover:border-[#E5A93C] transition"
-                        >
-                          <MapPin className="size-3.5 text-[#6366F1]" />
-                          <span>{r.placement}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                  section={section}
+                  isHighlighted={selectedHouse === 10 && section.id === "career-finance"}
+                  footnotesLabel={t.astrologicalFootnotes}
+                  onPlacementClick={() => setSelectedHouse(10)}
+                />
               ))}
             </div>
 
@@ -1298,7 +1240,7 @@ export function ReadingDashboard() {
             <div key={section.id} className="rounded-[8px] border border-white/10 bg-[#161B2B] p-5 space-y-3">
               <div className="flex items-center gap-2">
                 <span className="grid size-7 place-items-center rounded-[6px] bg-[#090A10] border border-white/10">
-                  {renderSectionIcon(section.id)}
+                  <SectionIcon sectionId={section.id} className="size-4 text-[#E5A93C]" />
                 </span>
                 <h3 className="font-serif text-base font-bold text-[#F8FAFC]">{section.title}</h3>
               </div>
