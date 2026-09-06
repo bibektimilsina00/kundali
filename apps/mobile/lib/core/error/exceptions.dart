@@ -1,7 +1,7 @@
 /// Data-layer vocabulary. These never escape a repository — see failure.dart.
 library;
 
-import 'package:kundali/core/error/failure.dart';
+import 'package:nakhatra/core/error/failure.dart';
 
 sealed class AppException implements Exception {
   const AppException(this.message);

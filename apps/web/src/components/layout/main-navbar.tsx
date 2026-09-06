@@ -2,23 +2,28 @@
 
 import Link from "next/link";
 import { CustomLanguageSelector } from "@/components/ui/custom-language-selector";
-import { Sparkles, HeartHandshake, User, LogOut, BookmarkCheck } from "lucide-react";
-import { useAuth } from "@/features/auth/auth-context";
+import { User, LogOut, BookmarkCheck } from "lucide-react";
+
+import { NakhatraMark } from "@/components/ui/nakhatra-mark";
+import { useLogout, useSession } from "@/features/auth/hooks/use-auth";
+import { useAuthStore } from "@/features/auth/store/auth-store";
+import { useSavedKundalis } from "@/features/vault/hooks/use-vault";
 
 export function MainNavbar() {
-  const { user, openAuthModal, logout, savedKundalis } = useAuth();
+  const { user } = useSession();
+  const openAuthModal = useAuthStore((s) => s.openAuthModal);
+  const logout = useLogout();
+  const { data: savedKundalis = [] } = useSavedKundalis();
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#090A10]/90 backdrop-blur-xl transition-all">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-8 py-3">
         {/* Left: Branding */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="grid size-9 place-items-center rounded-[8px] bg-gradient-to-br from-[#F3C766] via-[#E5A93C] to-[#B87A14] text-[#090A10] font-bold shadow-md shadow-[#E5A93C]/15 transition-transform duration-300 group-hover:scale-105">
-            <Sparkles className="size-5 text-[#090A10] stroke-[2.2]" />
-          </div>
+          <NakhatraMark className="size-9 text-[#E5A93C] transition-transform duration-300 group-hover:scale-105 group-hover:text-[#F3C766]" />
           <div>
-            <span className="block font-serif text-base font-bold tracking-wider text-[#F8FAFC] group-hover:text-[#F3C766] transition">
-              KUNDALI.AI
+            <span className="block font-logo text-base font-bold tracking-wider text-[#F8FAFC] group-hover:text-[#F3C766] transition">
+              NAKHATRA
             </span>
             <span className="block text-[10px] font-semibold uppercase tracking-widest text-[#E5A93C]">
               Precision Sidereal Astronomy
@@ -28,14 +33,6 @@ export function MainNavbar() {
 
         {/* Navigation Links & Actions */}
         <div className="flex items-center gap-3 sm:gap-4">
-          <Link
-            href="/milan"
-            className="flex items-center gap-1.5 rounded-[8px] border border-[#E5A93C]/30 bg-[#161B2B] px-3 py-1.5 text-xs font-semibold text-[#F3C766] transition hover:bg-[#E5A93C]/15"
-          >
-            <HeartHandshake className="size-4 text-[#E5A93C]" />
-            <span className="hidden sm:inline">Kundali Milan</span>
-          </Link>
-
           {/* Reusable Custom Language Selector */}
           <CustomLanguageSelector />
 

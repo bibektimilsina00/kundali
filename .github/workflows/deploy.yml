@@ -1,4 +1,4 @@
-name: CI/CD Build & Deploy Kundali Microservices to Server
+name: CI/CD Build & Deploy Nakhatra Microservices to Server
 
 on:
   push:
@@ -46,7 +46,7 @@ jobs:
           file: ./apps/api/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/kundali-api:latest
+          tags: ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/nakhatra-api:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -59,8 +59,8 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/kundali-web:latest
-            ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/kundali:latest
+            ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/nakhatra-web:latest
+            ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/nakhatra:latest
           build-args: |
             NEXT_PUBLIC_POSTHOG_KEY=${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
             NEXT_PUBLIC_POSTHOG_HOST=${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
@@ -85,7 +85,7 @@ jobs:
           username: ${{ env.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           source: "docker-compose.yml"
-          target: "~/kundali/"
+          target: "~/nakhatra/"
 
       - name: Deploy Microservices on Remote Server (ubuntu@161.118.246.132)
         uses: appleboy/ssh-action@v1.0.3
@@ -96,15 +96,15 @@ jobs:
           script: |
             set -e
             echo "========================================="
-            echo "🚀 Launching Kundali Microservices Stack"
+            echo "🚀 Launching Nakhatra Microservices Stack"
             echo "========================================="
 
             # 1. Login to GHCR on the remote server
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
             # 2. Prepare deployment directory
-            mkdir -p ~/kundali
-            cd ~/kundali
+            mkdir -p ~/nakhatra
+            cd ~/nakhatra
 
             # 3. Dynamically generate .env file from GitHub Secrets
             echo "Generating production .env configuration..."
@@ -112,10 +112,10 @@ jobs:
             PORT=3000
             NODE_ENV=production
             PYTHON_PATH=python3
-            POSTGRES_DB=kundali
-            POSTGRES_USER=kundali
-            POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD || 'kundalipassword' }}"
-            FASTAPI_URL=http://kundali_api:8000
+            POSTGRES_DB=nakhatra
+            POSTGRES_USER=nakhatra
+            POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD || 'nakhatrapassword' }}"
+            FASTAPI_URL=http://nakhatra_api:8000
             AGENT_ROUTER_API_KEY="${{ secrets.AGENT_ROUTER_API_KEY }}"
             AGENT_ROUTER_BASE_URL="${{ secrets.AGENT_ROUTER_BASE_URL }}"
             AGENT_ROUTER_MODEL="${{ secrets.AGENT_ROUTER_MODEL }}"
@@ -137,19 +137,75 @@ jobs:
             echo "Pulling latest microservice images..."
             docker compose pull || docker-compose pull
 
-            # 5. Stop single container if previously running standalone
-            docker stop kundali-app || true
-            docker rm kundali-app || true
+            # 5. Stop anything left from before the rename.
+            #    These names are deliberately still `kundali*` — that is what
+            #    they exist under on the server. Renaming them here would
+            #    leave them running forever, holding ports 3000 and 5432.
+            docker stop kundali-app 2>/dev/null || true
+            docker rm kundali-app 2>/dev/null || true
 
-            # 6. Launch 3 microservices (kundali_postgres, kundali_api, kundali_web)
+            # 5a. One-time migration off the pre-rename stack.
+            #     The compose project name used to come from the directory, so
+            #     ~/kundali and ~/nakhatra do not share a volume. The database
+            #     has to be carried across by hand, exactly once.
+            BACKUP_DIR=~/nakhatra/backups
+            RESTORE_MARK=~/nakhatra/.restored-from-kundali
+            PENDING=""
+            if [ ! -f "$RESTORE_MARK" ] && docker ps -a --format '{{.Names}}' | grep -qx 'kundali_postgres'; then
+              echo "Found the pre-rename stack — taking a dump before touching anything."
+              mkdir -p "$BACKUP_DIR"
+              PENDING="$BACKUP_DIR/kundali-$(date +%Y%m%d-%H%M%S).sql"
+
+              docker start kundali_postgres >/dev/null 2>&1 || true
+              for i in $(seq 1 30); do
+                docker exec kundali_postgres pg_isready -U kundali -d kundali >/dev/null 2>&1 && break
+                sleep 2
+              done
+
+              # --no-owner/--no-acl: the old role is named `kundali` and does
+              # not exist in the new cluster; without these the restore fails
+              # on every GRANT.
+              docker exec kundali_postgres \
+                pg_dump -U kundali -d kundali --no-owner --no-acl > "$PENDING" || true
+
+              if [ -s "$PENDING" ]; then
+                echo "Dumped $(wc -c < "$PENDING") bytes to $PENDING"
+                # Release the ports. The old volume is deliberately left in
+                # place, so this is reversible until someone prunes it.
+                (cd ~/kundali 2>/dev/null && (docker compose down || docker-compose down)) || true
+                docker rm -f kundali_postgres kundali_api kundali_web 2>/dev/null || true
+              else
+                echo "::error::pg_dump produced nothing — refusing to tear down the old stack."
+                exit 1
+              fi
+            fi
+
+            # 6. Launch 3 microservices (nakhatra_postgres, nakhatra_api, nakhatra_web)
             echo "Starting docker compose stack..."
             docker compose up -d || docker-compose up -d
+
+            # 6a. Restore the pre-rename database into the renamed one, once.
+            if [ -n "$PENDING" ] && [ -s "$PENDING" ]; then
+              echo "Waiting for nakhatra_postgres before restoring..."
+              for i in $(seq 1 45); do
+                docker exec nakhatra_postgres pg_isready -U nakhatra -d nakhatra >/dev/null 2>&1 && break
+                sleep 2
+              done
+              if docker exec -i nakhatra_postgres psql -v ON_ERROR_STOP=1 -U nakhatra -d nakhatra < "$PENDING"; then
+                touch "$RESTORE_MARK"
+                echo "Restored the previous database into 'nakhatra'."
+              else
+                echo "::error::Restore failed. The dump is kept at $PENDING and the"
+                echo "::error::old volume was not removed, so this is recoverable."
+                exit 1
+              fi
+            fi
 
             # 7. Clean up unused images to preserve VPS disk space
             docker image prune -f
 
             echo "========================================="
-            echo "✅ Kundali Microservices Stack Deployed Successfully!"
+            echo "✅ Nakhatra Microservices Stack Deployed Successfully!"
             echo "🌐 Web App Live at: http://${{ env.SERVER_HOST }}:3000"
             echo "🌐 Web App (Alt Port): http://${{ env.SERVER_HOST }}:29000"
             echo "🔌 FastAPI Backend: http://${{ env.SERVER_HOST }}:28001/health"

@@ -1,8 +1,8 @@
 library;
 
-import 'package:kundali/core/result.dart';
-import 'package:kundali/features/kundali/domain/entities/kundali.dart';
-import 'package:kundali/features/kundali/domain/repositories/kundali_repository.dart';
+import 'package:nakhatra/core/result.dart';
+import 'package:nakhatra/features/kundali/domain/entities/kundali.dart';
+import 'package:nakhatra/features/kundali/domain/repositories/kundali_repository.dart';
 
 /// Honest note (docs/mobile.md §10): this is currently pass-through. It is kept
 /// because it is where orchestration will land — "load the chart, and if it is

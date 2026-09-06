@@ -3,7 +3,14 @@
 import React, { useState } from "react";
 import { MainNavbar } from "@/components/layout/main-navbar";
 import { CustomPlaceInput } from "@/components/ui/custom-place-input";
-import { useAuth, SavedKundali } from "@/features/auth/auth-context";
+import { useSession } from "@/features/auth/hooks/use-auth";
+import { useAuthStore } from "@/features/auth/store/auth-store";
+import { useSavedKundalis } from "@/features/vault/hooks/use-vault";
+import type { SavedKundali } from "@/features/vault/types";
+import { placeFromSavedKundali } from "@/features/milan/from-saved-kundali";
+import { useCalculateMatch } from "@/features/milan/hooks/use-calculate-match";
+import type { MilanResponse } from "@/features/milan/types";
+import { trackEvent } from "@/providers/posthog-provider";
 import { Place } from "@/features/kundali/types";
 import {
   HeartHandshake,
@@ -29,42 +36,10 @@ const DEFAULT_PLACE: Place = {
   matched_as: "Kathmandu",
 };
 
-interface MilanResult {
-  groom_name: string;
-  bride_name: string;
-  total_guna: number;
-  max_guna: number;
-  percentage: number;
-  recommendation: string;
-  kutas: Array<{
-    name: string;
-    obtained: number;
-    max_points: number;
-    description: string;
-  }>;
-  groom_manglik: {
-    is_manglik: boolean;
-    houses: number[];
-    severity: string;
-    is_canceled: boolean;
-    cancellation_reason?: string;
-  };
-  bride_manglik: {
-    is_manglik: boolean;
-    houses: number[];
-    severity: string;
-    is_canceled: boolean;
-    cancellation_reason?: string;
-  };
-  manglik_compatibility: {
-    compatible: boolean;
-    canceled: boolean;
-    reason: string;
-  };
-}
-
 export default function MilanPage() {
-  const { user, savedKundalis, openAuthModal } = useAuth();
+  const { user } = useSession();
+  const openAuthModal = useAuthStore((s) => s.openAuthModal);
+  const { data: savedKundalis = [] } = useSavedKundalis();
 
   // Groom (Var) State
   const [groomName, setGroomName] = useState("Var (Groom)");
@@ -79,43 +54,36 @@ export default function MilanPage() {
   const [bridePlace, setBridePlace] = useState<Place>(DEFAULT_PLACE);
 
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<MilanResult | null>(null);
+  const [result, setResult] = useState<MilanResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const calculateMatch = useCalculateMatch();
 
   const handleSelectGroomSaved = (k: SavedKundali) => {
+    const place = placeFromSavedKundali(k);
+    if (!place) {
+      setError(
+        `"${k.name}" was saved before birthplace timezones were recorded. ` +
+          "Pick the birthplace below so the chart is calculated correctly.",
+      );
+    }
     setGroomName(k.name);
     setGroomDob(k.dob);
     setGroomTob(k.tob.slice(0, 5));
-    setGroomPlace({
-      id: Math.floor(Math.random() * 10000) + 1,
-      name: k.place_name,
-      label: k.place_name,
-      country_code: "NP",
-      country: "Nepal",
-      latitude: k.lat,
-      longitude: k.lon,
-      tz_name: "Asia/Kathmandu",
-      admin1: "",
-      matched_as: k.place_name,
-    });
+    if (place) setGroomPlace(place);
   };
 
   const handleSelectBrideSaved = (k: SavedKundali) => {
+    const place = placeFromSavedKundali(k);
+    if (!place) {
+      setError(
+        `"${k.name}" was saved before birthplace timezones were recorded. ` +
+          "Pick the birthplace below so the chart is calculated correctly.",
+      );
+    }
     setBrideName(k.name);
     setBrideDob(k.dob);
     setBrideTob(k.tob.slice(0, 5));
-    setBridePlace({
-      id: Math.floor(Math.random() * 10000) + 1,
-      name: k.place_name,
-      label: k.place_name,
-      country_code: "NP",
-      country: "Nepal",
-      latitude: k.lat,
-      longitude: k.lon,
-      tz_name: "Asia/Kathmandu",
-      admin1: "",
-      matched_as: k.place_name,
-    });
+    if (place) setBridePlace(place);
   };
 
   const handleCalculateMatch = async (e: React.FormEvent) => {
@@ -134,6 +102,7 @@ export default function MilanPage() {
           longitude: groomPlace.longitude,
           tz_name: groomPlace.tz_name,
           place_label: groomPlace.label,
+          time_accuracy: "exact" as const,
         },
         bride_name: brideName,
         bride: {
@@ -144,24 +113,15 @@ export default function MilanPage() {
           longitude: bridePlace.longitude,
           tz_name: bridePlace.tz_name,
           place_label: bridePlace.label,
+          time_accuracy: "exact" as const,
         },
       };
 
-      const res = await fetch("/api/v1/milan/match", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.details || errData.error || "Matchmaking calculation failed.");
-      }
-
-      const data = await res.json();
-      setResult(data);
-    } catch (err: any) {
-      setError(err.message || "Failed to calculate match.");
+      setResult(await calculateMatch.mutateAsync(payload));
+    } catch (err) {
+      // `errData.error` is the envelope object; throwing it rendered as
+      // "[object Object]". ApiError parses it and carries a usable message.
+      setError(err instanceof Error ? err.message : "Failed to calculate match.");
     } finally {
       setLoading(false);
     }
@@ -209,7 +169,7 @@ export default function MilanPage() {
                     <BookmarkCheck className="size-3 text-[#E5A93C]" /> Select from Cloud Vault
                   </span>
                   <div className="flex flex-wrap gap-1.5">
-                    {savedKundalis.map((k) => (
+                    {savedKundalis.map((k: SavedKundali) => (
                       <button
                         key={k.id}
                         type="button"
@@ -289,7 +249,7 @@ export default function MilanPage() {
                     <BookmarkCheck className="size-3 text-[#E5A93C]" /> Select from Cloud Vault
                   </span>
                   <div className="flex flex-wrap gap-1.5">
-                    {savedKundalis.map((k) => (
+                    {savedKundalis.map((k: SavedKundali) => (
                       <button
                         key={k.id}
                         type="button"

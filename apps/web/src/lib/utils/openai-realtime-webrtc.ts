@@ -1,3 +1,4 @@
+import { authHeaders } from "@/features/auth/store/auth-store";
 import type { Chart, BirthDetailsIn } from "@/features/kundali/types";
 
 export type RealtimeWebRTCCallbacks = {
@@ -31,7 +32,7 @@ export class OpenAIRealtimeWebRTCClient {
       // 1. Fetch Ephemeral Session Token from Next.js server
       const tokenRes = await fetch("/api/v1/realtime-session", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders() },
         body: JSON.stringify({ chart, birth, language, voice }),
       });
 

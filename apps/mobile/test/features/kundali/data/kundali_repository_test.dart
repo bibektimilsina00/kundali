@@ -4,15 +4,15 @@
 library;
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kundali/core/error/exceptions.dart';
-import 'package:kundali/core/error/failure.dart';
-import 'package:kundali/core/result.dart';
-import 'package:kundali/features/kundali/data/datasources/kundali_local_datasource.dart';
-import 'package:kundali/features/kundali/data/datasources/kundali_remote_datasource.dart';
-import 'package:kundali/features/kundali/data/models/kundali_dto.dart';
-import 'package:kundali/features/kundali/data/repositories/kundali_repository_impl.dart';
-import 'package:kundali/features/kundali/domain/entities/birth_details.dart';
-import 'package:kundali/features/kundali/domain/entities/kundali.dart';
+import 'package:nakhatra/core/error/exceptions.dart';
+import 'package:nakhatra/core/error/failure.dart';
+import 'package:nakhatra/core/result.dart';
+import 'package:nakhatra/features/kundali/data/datasources/kundali_local_datasource.dart';
+import 'package:nakhatra/features/kundali/data/datasources/kundali_remote_datasource.dart';
+import 'package:nakhatra/features/kundali/data/models/kundali_dto.dart';
+import 'package:nakhatra/features/kundali/data/repositories/kundali_repository_impl.dart';
+import 'package:nakhatra/features/kundali/domain/entities/birth_details.dart';
+import 'package:nakhatra/features/kundali/domain/entities/kundali.dart';
 
 KundaliDto _dto(String lagna) => KundaliDto(
       lagnaSign: lagna,

@@ -1,0 +1,55 @@
+"""Wire contract for the voice endpoints."""
+
+from __future__ import annotations
+
+from typing import Literal
+
+from pydantic import BaseModel, Field
+
+from app.modules.kundali.schemas import BirthDetailsIn, ChartOut
+
+# The Realtime and TTS voices OpenAI offers. Anything else is rejected rather
+# than silently swapped, so a typo in a client shows up as an error.
+Voice = Literal[
+    "onyx", "ash", "sage", "coral", "echo", "alloy", "shimmer", "ballad", "verse"
+]
+Language = Literal["en", "ne", "hi"]
+
+
+class SpeakRequest(BaseModel):
+    text: str = Field(..., min_length=1, max_length=8000)
+    voice: Voice = "onyx"
+    language: Language = "en"
+
+
+class SpeakResponse(BaseModel):
+    audio_url: str = Field(description="Path to the mp3, served by GET /v1/tts/audio/{name}.")
+    spoken_text: str = Field(description="What was actually synthesised, after markdown removal.")
+    cached: bool
+    source: str = Field(description="Which engine produced it, e.g. 'openai_tts_onyx'.")
+
+
+class TranscriptResponse(BaseModel):
+    text: str
+
+
+class RealtimeSessionRequest(BaseModel):
+    chart: ChartOut
+    birth: BirthDetailsIn
+    language: Language = "en"
+    voice: Voice = "ash"
+
+
+class RealtimeSessionResponse(BaseModel):
+    client_secret: str | None = Field(
+        default=None,
+        description="Ephemeral key for the browser's WebRTC connection. Null when "
+        "the Realtime API is unavailable on this account tier.",
+    )
+    model: str | None = None
+    instructions: str | None = None
+    fallback: str | None = Field(
+        default=None,
+        description="Set to 'media_recorder_whisper' when the client should fall "
+        "back to recording and transcribing instead of a live session.",
+    )

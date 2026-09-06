@@ -10,6 +10,7 @@ from __future__ import annotations
 from functools import lru_cache
 from typing import Literal
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -31,10 +32,31 @@ class Settings(BaseSettings):
     LLM_API_KEY: str = ""
     LLM_MODEL: str = "claude-opus-5"
 
+    # Voice. OpenAI-specific: TTS, Whisper and the Realtime API have no
+    # AgentRouter equivalent, so this is a second provider rather than the same
+    # key under another name.
+    OPENAI_API_KEY: str = ""
+    TTS_CACHE_DIR: str = ""
+
     CORS_ORIGINS: list[str] = []
-    JWT_SECRET: str = "kundali-dev-secret-key-change-in-production-2026"
+
+    # No default. A committed fallback secret means anyone who can read this
+    # repository can mint a token for any user in any deployment that forgot to
+    # set it — and a default guarantees nothing ever tells you it was forgotten.
+    JWT_SECRET: str = ""
     JWT_ALGORITHM: str = "HS256"
     DATABASE_URL: str | None = None
+
+    @field_validator("JWT_SECRET")
+    @classmethod
+    def _usable_secret(cls, value: str) -> str:
+        if len(value) < 32:
+            raise ValueError(
+                "JWT_SECRET must be at least 32 characters. Generate one with "
+                "`openssl rand -hex 32` and put it in apps/api/.env. Refusing to "
+                "boot rather than sign tokens with a weak or absent secret."
+            )
+        return value
 
 
 @lru_cache

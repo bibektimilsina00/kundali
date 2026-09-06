@@ -1,3 +1,5 @@
+import { authHeaders } from "@/features/auth/store/auth-store";
+
 export type SpeechOptions = {
   rate?: number;
   pitch?: number;
@@ -26,7 +28,8 @@ export async function speakText(text: string, options: SpeechOptions = {}) {
     // Call server HD MP3 Audio Synthesis Route
     const res = await fetch("/api/v1/tts", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      // Synthesis costs money per call, so the endpoint is authenticated.
+      headers: { "Content-Type": "application/json", ...authHeaders() },
       body: JSON.stringify({
         text,
         language: options.language || "en",
@@ -36,11 +39,12 @@ export async function speakText(text: string, options: SpeechOptions = {}) {
 
     if (res.ok) {
       const data = await res.json();
-      if (data?.spokenText) {
-        options.onSpokenText?.(data.spokenText, data.source || "hd_mp3_audio_engine");
+      if (data?.spoken_text) {
+        options.onSpokenText?.(data.spoken_text, data.source || "hd_mp3_audio_engine");
       }
-      if (data?.audioUrl) {
-        const audio = new Audio(data.audioUrl);
+      if (data?.audio_url) {
+        // The API returns its own path; the browser reaches it through the proxy.
+        const audio = new Audio(`/api${data.audio_url}`);
         audio.playbackRate = options.rate ?? 1.0;
         audio.volume = options.volume ?? 1.0;
 
@@ -60,7 +64,7 @@ export async function speakText(text: string, options: SpeechOptions = {}) {
         audio.onerror = (err) => {
           console.warn("HD Audio playback error, trying fallback:", err);
           currentAudio = null;
-          fallbackWebSpeech(data.spokenText || text, options);
+          fallbackWebSpeech(data.spoken_text || text, options);
         };
 
         currentAudio = audio;
@@ -214,4 +218,16 @@ export function isSpeaking(): boolean {
   }
 
   return false;
+}
+
+/**
+ * True when audio is loaded but paused — i.e. there is something to resume.
+ *
+ * Distinct from `isSpeaking()`, which is false both when paused and when
+ * nothing is loaded at all. The play button needs to tell those apart, or it
+ * restarts a ten-minute reading instead of continuing it.
+ */
+export function isPaused(): boolean {
+  if (typeof window === "undefined") return false;
+  return currentAudio !== null && currentAudio.paused && !currentAudio.ended;
 }

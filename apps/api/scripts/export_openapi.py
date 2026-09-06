@@ -9,10 +9,16 @@ make `make contract-check` fail at random and train everyone to ignore it.
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+# Settings refuses to build without a real JWT_SECRET, and rightly so. This
+# process only introspects route signatures — it never signs a token — so a
+# placeholder is correct here and must never be a fallback anywhere else.
+os.environ.setdefault("JWT_SECRET", "openapi-export-placeholder-not-a-real-secret")
 
 from app.main import create_app  # noqa: E402
 

@@ -1,8 +1,8 @@
 library;
 
 import 'package:equatable/equatable.dart';
-import 'package:kundali/core/error/failure.dart';
-import 'package:kundali/features/kundali/domain/entities/kundali.dart';
+import 'package:nakhatra/core/error/failure.dart';
+import 'package:nakhatra/features/kundali/domain/entities/kundali.dart';
 
 /// Sealed, so the widget layer switches exhaustively and a new state produces
 /// a compile error rather than a blank screen.

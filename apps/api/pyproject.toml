@@ -1,5 +1,5 @@
 [project]
-name = "kundali-api"
+name = "nakhatra-api"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
@@ -10,6 +10,13 @@ dependencies = [
     "pydantic-settings>=2.5",
     "email-validator>=2.3.0",
     "psycopg2-binary>=2.9.12",
+    "argon2-cffi>=25.1.0",
+    "pyjwt>=2.13.0",
+    "anthropic>=1.4.0",
+    "alembic>=1.19.2",
+    "sqlmodel>=0.0.42",
+    "httpx>=0.28.1",
+    "python-multipart>=0.0.32",
 ]
 
 [dependency-groups]
@@ -46,6 +53,16 @@ forbidden_modules = [
     "fastapi", "sqlmodel", "sqlalchemy", "anthropic", "redis", "httpx",
     "app.modules", "app.core", "app.integrations",
 ]
+
+[[tool.importlinter.contracts]]
+# integrations/ wraps third-party services for modules to call. The dependency
+# runs one way: a module imports an integration, never the reverse. Without this
+# an integration reaches back into a module "just for a schema" and the two can
+# no longer be reasoned about, or tested, separately.
+name = "integrations do not depend on modules"
+type = "forbidden"
+source_modules = ["app.integrations"]
+forbidden_modules = ["app.modules"]
 
 [[tool.importlinter.contracts]]
 name = "swisseph is imported directly in exactly one module"

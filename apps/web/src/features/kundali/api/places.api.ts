@@ -112,101 +112,34 @@ export const DEFAULT_POPULAR_PLACES: Place[] = [
   },
 ];
 
-function resolveTimezoneFromCoords(countryCode: string, lng: number): string {
-  const cc = countryCode.toUpperCase();
-  if (cc === "NP") return "Asia/Kathmandu";
-  if (cc === "IN") return "Asia/Kolkata";
-  if (cc === "GB") return "Europe/London";
-  if (cc === "JP") return "Asia/Tokyo";
-  if (cc === "AE") return "Asia/Dubai";
-  if (cc === "AU") return lng > 140 ? "Australia/Sydney" : "Australia/Perth";
-  if (cc === "CA") return lng < -100 ? "America/Vancouver" : "America/Toronto";
-  if (cc === "US") {
-    if (lng < -115) return "America/Los_Angeles";
-    if (lng < -100) return "America/Denver";
-    if (lng < -85) return "America/Chicago";
-    return "America/New_York";
-  }
-  return "UTC";
-}
-
+/**
+ * Search birthplaces.
+ *
+ * One source: `/v1/places`, which resolves each result's IANA zone from a
+ * 786,650-row GeoNames index — every populated place in Nepal and India plus
+ * everywhere worldwide over 1,000 people, alternate names included.
+ *
+ * This previously fell back to OpenStreetMap and then guessed the timezone from
+ * the country code, defaulting to `"UTC"` for anything unlisted. A birth in
+ * Berlin came back as UTC — one hour off in winter, two in summer — and produced
+ * a chart that looked entirely normal. Guessing a zone is the specific mistake
+ * CLAUDE.md rule 5 exists to prevent, and the API already does it properly.
+ */
 export async function searchPlaces(
   query: string,
   signal?: AbortSignal,
   limit: number = 20,
 ): Promise<Place[]> {
-  if (!query || query.trim().length < 2) {
+  const cleanQuery = query.trim();
+  if (cleanQuery.length < 2) {
+    // Before the user has typed anything searchable, offer somewhere to start.
+    // Every entry carries a hand-checked IANA zone.
     return DEFAULT_POPULAR_PLACES;
   }
 
-  const cleanQuery = query.trim();
-
-  // 1. Try local FastAPI endpoint /v1/places
-  try {
-    const res = await apiFetch<{ results: Place[] }>(
-      `/v1/places?q=${encodeURIComponent(cleanQuery)}&limit=${limit}`,
-      { signal },
-    );
-    if (res.results && res.results.length > 0) {
-      return res.results;
-    }
-  } catch (err) {
-    // API server may be offline
-  }
-
-  // 2. Try OpenStreetMap Nominatim Geocoding API for worldwide coverage
-  try {
-    const osmUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-      cleanQuery,
-    )}&addressdetails=1&limit=${limit}`;
-
-    const res = await fetch(osmUrl, { signal });
-    if (res.ok) {
-      const items = (await res.json()) as any[];
-      if (Array.isArray(items) && items.length > 0) {
-        return items.map((item, idx) => {
-          const lat = parseFloat(item.lat);
-          const lon = parseFloat(item.lon);
-          const countryCode = item.address?.country_code?.toUpperCase() ?? "XX";
-          const countryName = item.address?.country ?? "";
-          const cityName =
-            item.address?.city ||
-            item.address?.town ||
-            item.address?.village ||
-            item.name ||
-            cleanQuery;
-          const state = item.address?.state || item.address?.region || "";
-
-          const labelParts = [cityName, state, countryName].filter(Boolean);
-          const label = labelParts.length > 0 ? labelParts.join(", ") : item.display_name;
-
-          return {
-            id: item.place_id || idx + 100,
-            label,
-            name: cityName,
-            country_code: countryCode,
-            country: countryName,
-            tz_name: resolveTimezoneFromCoords(countryCode, lon),
-            latitude: lat,
-            longitude: lon,
-            admin1: state,
-            matched_as: cityName,
-          };
-        });
-      }
-    }
-  } catch (err) {
-    console.warn("OSM Nominatim search fallback failed", err);
-  }
-
-  // 3. Local fallback matching against popular places dataset
-  const q = cleanQuery.toLowerCase();
-  const matched = DEFAULT_POPULAR_PLACES.filter(
-    (p) =>
-      p.label.toLowerCase().includes(q) ||
-      p.name.toLowerCase().includes(q) ||
-      p.country.toLowerCase().includes(q),
+  const { results } = await apiFetch<{ results: Place[] }>(
+    `/v1/places?q=${encodeURIComponent(cleanQuery)}&limit=${limit}`,
+    { signal },
   );
-
-  return matched.length > 0 ? matched : DEFAULT_POPULAR_PLACES;
+  return results;
 }

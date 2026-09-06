@@ -2,17 +2,17 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kundali/app/router.dart';
-import 'package:kundali/app/theme/app_theme.dart';
+import 'package:nakhatra/app/router.dart';
+import 'package:nakhatra/app/theme/app_theme.dart';
 
-class KundaliApp extends StatefulWidget {
-  const KundaliApp({super.key});
+class NakhatraApp extends StatefulWidget {
+  const NakhatraApp({super.key});
 
   @override
-  State<KundaliApp> createState() => _KundaliAppState();
+  State<NakhatraApp> createState() => _NakhatraAppState();
 }
 
-class _KundaliAppState extends State<KundaliApp> {
+class _NakhatraAppState extends State<NakhatraApp> {
   // Built once: rebuilding a GoRouter drops navigation state.
   late final GoRouter _router = buildRouter();
 

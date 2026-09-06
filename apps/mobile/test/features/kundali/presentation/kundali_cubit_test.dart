@@ -2,15 +2,15 @@ library;
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kundali/core/error/failure.dart';
-import 'package:kundali/core/result.dart';
-import 'package:kundali/features/kundali/domain/entities/kundali.dart';
-import 'package:kundali/features/kundali/domain/repositories/kundali_repository.dart';
-import 'package:kundali/features/kundali/domain/entities/birth_details.dart';
-import 'package:kundali/features/kundali/domain/usecases/create_kundali.dart';
-import 'package:kundali/features/kundali/domain/usecases/get_kundali.dart';
-import 'package:kundali/features/kundali/presentation/cubit/kundali_cubit.dart';
-import 'package:kundali/features/kundali/presentation/cubit/kundali_state.dart';
+import 'package:nakhatra/core/error/failure.dart';
+import 'package:nakhatra/core/result.dart';
+import 'package:nakhatra/features/kundali/domain/entities/kundali.dart';
+import 'package:nakhatra/features/kundali/domain/repositories/kundali_repository.dart';
+import 'package:nakhatra/features/kundali/domain/entities/birth_details.dart';
+import 'package:nakhatra/features/kundali/domain/usecases/create_kundali.dart';
+import 'package:nakhatra/features/kundali/domain/usecases/get_kundali.dart';
+import 'package:nakhatra/features/kundali/presentation/cubit/kundali_cubit.dart';
+import 'package:nakhatra/features/kundali/presentation/cubit/kundali_state.dart';
 
 const _chart = Kundali(
   lagnaSign: 'Cancer',

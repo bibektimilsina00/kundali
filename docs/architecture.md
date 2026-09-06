@@ -1,7 +1,7 @@
 # Architecture
 
 **Status:** decided, pre-code. Change it here first, then in code.
-**Product spec:** [`../kundali.md`](../kundali.md) — this doc does not restate it.
+**Product spec:** [`../nakhatra.md`](../nakhatra.md) — this doc does not restate it.
 
 ---
 
@@ -47,7 +47,7 @@ That is the whole tree. Notably absent, and deliberately:
 | `packages-python/astrology-core` | Same boundary is enforced by a lint rule at zero cost (§4). Publishing it as a distribution is packaging, not isolation. | A second Python consumer exists, or you open-source the engine. |
 | `apps/api/.../modules/{astrology,dasha,transits}` | Dasha and transits are *calculations*, not features. They have no routes, no tables, no repository. Giving them module folders creates three empty shells. | Never — they live in `astrology_core`. |
 | `docs/api/` | FastAPI serves OpenAPI at `/docs`. A hand-written API doc drifts within a week. | Never. |
-| `docs/product/vision.md` | `kundali.md` is the product spec. A second copy diverges. | Never. |
+| `docs/product/vision.md` | `nakhatra.md` is the product spec. A second copy diverges. | Never. |
 
 ---
 

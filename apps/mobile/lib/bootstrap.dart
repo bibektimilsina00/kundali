@@ -3,7 +3,7 @@ library;
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
-import 'package:kundali/app/di.dart';
+import 'package:nakhatra/app/di.dart';
 
 /// Single entry point for startup, wrapped in a guarded zone so an async error
 /// during DI surfaces instead of vanishing.

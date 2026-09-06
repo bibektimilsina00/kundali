@@ -1,7 +1,7 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'package:kundali/features/kundali/domain/entities/kundali.dart';
+import 'package:nakhatra/features/kundali/domain/entities/kundali.dart';
 
 /// Deliberately plain. The North Indian chart is a CustomPainter and is real
 /// standalone work; this list proves the layer contract end to end without it.

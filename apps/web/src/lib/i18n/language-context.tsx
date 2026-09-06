@@ -5,7 +5,9 @@ import { Language, translations, TranslationCatalog } from "./translations";
 
 export type { Language };
 
-const STORAGE_KEY = "kundali_app_language";
+const STORAGE_KEY = "nakhatra_app_language";
+// Read the pre-rename key once so an existing visitor keeps their language.
+const LEGACY_STORAGE_KEY = "kundali_app_language";
 
 interface LanguageContextType {
   language: Language;
@@ -25,7 +27,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
-        const stored = localStorage.getItem(STORAGE_KEY) as Language;
+        const stored = (localStorage.getItem(STORAGE_KEY) ??
+          localStorage.getItem(LEGACY_STORAGE_KEY)) as Language;
         if (stored && (stored === "en" || stored === "ne" || stored === "hi")) {
           setLanguageState(stored);
         }

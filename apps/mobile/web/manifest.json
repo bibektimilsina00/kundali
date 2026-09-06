@@ -1,11 +1,11 @@
 {
-    "name": "kundali",
-    "short_name": "kundali",
+    "name": "Nakhatra",
+    "short_name": "Nakhatra",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Precision Vedic astrology, computed not guessed.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

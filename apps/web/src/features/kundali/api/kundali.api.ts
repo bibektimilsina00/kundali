@@ -1,3 +1,4 @@
+import { ApiError } from "@/lib/api/errors";
 import type { BirthDetailsForm } from "@/features/kundali/schema/birth-details";
 import type { BirthDetailsIn, Chart, Place } from "@/features/kundali/types";
 
@@ -22,8 +23,10 @@ export async function createKundali(body: BirthDetailsIn): Promise<Chart> {
   });
 
   if (!res.ok) {
-    const errorData = await res.json().catch(() => ({}));
-    throw new Error(errorData.error || "Failed to calculate astronomical chart");
+    // The envelope is {error: {code, message, details}}, so `errorData.error` is
+    // an object — throwing it directly rendered as "[object Object]". ApiError
+    // parses it and exposes `code` for callers to switch on.
+    throw new ApiError(res.status, await res.json().catch(() => undefined));
   }
 
   return await res.json();

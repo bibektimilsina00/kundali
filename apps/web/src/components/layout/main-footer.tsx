@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useTranslation, type Language } from "@/lib/i18n/language-context";
 import { CustomLanguageSelector } from "@/components/ui/custom-language-selector";
-import { Sparkles, Globe, ShieldCheck, Compass, Radio, Layers } from "lucide-react";
+import { Globe, ShieldCheck, Compass, Radio, Layers } from "lucide-react";
+
+import { NakhatraMark } from "@/components/ui/nakhatra-mark";
 
 export function MainFooter() {
   const { language, setLanguage, t } = useTranslation();
@@ -15,10 +17,8 @@ export function MainFooter() {
           {/* Brand Col */}
           <div className="space-y-3 md:col-span-1">
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="grid size-7.5 place-items-center rounded-[8px] bg-[#E5A93C] text-[#090A10] font-bold shadow-sm transition group-hover:scale-105">
-                <Sparkles className="size-4 text-[#090A10]" />
-              </div>
-              <span className="font-serif font-bold text-sm text-[#F8FAFC]">KUNDALI.AI</span>
+              <NakhatraMark className="size-7 text-[#E5A93C] transition group-hover:scale-105" />
+              <span className="font-logo font-bold text-sm text-[#F8FAFC]">NAKHATRA</span>
             </Link>
             <p className="text-xs text-[#94A3B8] leading-relaxed">
               Precision Sidereal Swiss Ephemeris calculations, Vimshottari Dasha timelines, and real-time AI Astrologer.
@@ -45,6 +45,14 @@ export function MainFooter() {
                 <Link href="/reading/live" className="hover:text-[#F3C766] transition flex items-center gap-1.5">
                   <Radio className="size-3 text-rose-400" />
                   Live AI Consultation
+                </Link>
+              </li>
+              <li>
+                <Link href="/#astrologers" className="hover:text-[#F3C766] transition flex items-center gap-1.5">
+                  Talk to an Astrologer
+                  <span className="rounded-full bg-[#E5A93C]/15 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#E5A93C]">
+                    Soon
+                  </span>
                 </Link>
               </li>
             </ul>
@@ -74,7 +82,7 @@ export function MainFooter() {
         </div>
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-[#94A3B8]/70">
-          <p>© {new Date().getFullYear()} Kundali AI. Calculated via Swiss Ephemeris Lahiri Sidereal Ayanamsa.</p>
+          <p>© {new Date().getFullYear()} Nakhatra. Calculated via Swiss Ephemeris Lahiri Sidereal Ayanamsa.</p>
           <p>All Rights Reserved.</p>
         </div>
       </div>

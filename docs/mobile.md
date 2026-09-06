@@ -69,7 +69,7 @@ const _rules = <_Rule>[
       why: 'a Cubit importing a DTO is how clean architecture quietly collapses'),
   _Rule('core_knows_no_features',
       pathContains: 'lib/core/',
-      forbidden: ['package:kundali/features/'],
+      forbidden: ['package:nakhatra/features/'],
       why: 'features import core; core must never import one back'),
 ];
 // features_are_islands is derived from the path, not enumerated, so a new

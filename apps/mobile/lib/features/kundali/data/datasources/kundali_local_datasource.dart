@@ -18,7 +18,7 @@ library;
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:kundali/features/kundali/data/models/kundali_dto.dart';
+import 'package:nakhatra/features/kundali/data/models/kundali_dto.dart';
 
 abstract interface class KundaliLocalDataSource {
   Future<KundaliDto?> read();

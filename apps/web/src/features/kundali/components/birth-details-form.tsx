@@ -2,14 +2,15 @@
 
 import { useState } from "react";
 
-import { DatePicker } from "@/features/kundali/components/inputs/date-picker";
-import { PlaceCombobox } from "@/features/kundali/components/inputs/place-combobox";
-import { TimePicker } from "@/features/kundali/components/inputs/time-picker";
+import { CustomPlaceInput } from "@/components/ui/custom-place-input";
+import { ModernDatePicker } from "@/components/ui/modern-date-picker";
+import { ModernTimePicker } from "@/components/ui/modern-time-picker";
 import {
   birthDetailsSchema,
   type BirthDetailsForm as FormValues,
 } from "@/features/kundali/schema/birth-details";
 import type { Place } from "@/features/kundali/types";
+import { convertBsToAd } from "@/lib/utils/date-converter";
 
 type Props = {
   onSubmit: (values: FormValues, place: Place) => void;
@@ -29,13 +30,26 @@ const FIELD_MAP: Record<string, string> = {
   name: "name",
 };
 
+/**
+ * The original birth-details UI — era-switching calendar, clock picker,
+ * place autocomplete and the gender toggle — on the current architecture:
+ * zod at the boundary, a mutation for the call, and 422 field errors
+ * landing on the input that caused them.
+ */
 export function BirthDetailsForm({ onSubmit, pending, serverFieldErrors }: Props) {
-  const [values, setValues] = useState<FormValues>({
-    name: "",
-    date: "",
-    time: "",
-    timeAccuracy: "exact",
-  });
+  const [name, setName] = useState("");
+  // ponytail: UI only, exactly as it always was. The chart does not depend
+  // on it and `BirthDetailsIn` has no field for it — adding one is an API
+  // change, and rule 7 makes that a deliberate decision, not a side effect.
+  const [gender, setGender] = useState<"male" | "female" | "other">("male");
+  const [era, setEra] = useState<"AD" | "BS">("AD");
+  const [day, setDay] = useState("");
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
+  const [hour, setHour] = useState("");
+  const [minute, setMinute] = useState("");
+  const [ampm, setAmPm] = useState<"AM" | "PM">("AM");
+  const [approximateTime, setApproximateTime] = useState(false);
   const [place, setPlace] = useState<Place | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -49,105 +63,172 @@ export function BirthDetailsForm({ onSubmit, pending, serverFieldErrors }: Props
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    const parsed = birthDetailsSchema.safeParse(values);
-    const next: Record<string, string> = {};
-    if (!parsed.success) {
-      for (const issue of parsed.error.issues) next[String(issue.path[0])] = issue.message;
+
+    // The pickers hand back parts; the schema wants an ISO date and 24h time.
+    const missing: Record<string, string> = {};
+    if (!day || !month || !year) missing.date = "Pick your day, month and year of birth";
+    if (!hour || !minute) missing.time = "Pick your birth hour and minute";
+    if (!place) missing.place = "Search and pick your birthplace";
+
+    let date = "";
+    if (day && month && year) {
+      date =
+        era === "BS"
+          ? convertBsToAd(Number(year), Number(month), Number(day)).iso
+          : `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     }
-    if (!place) next.place = "Search and pick your birthplace";
+
+    let time = "";
+    if (hour && minute) {
+      let h = Number(hour);
+      if (ampm === "PM" && h < 12) h += 12;
+      if (ampm === "AM" && h === 12) h = 0;
+      time = `${String(h).padStart(2, "0")}:${minute.padStart(2, "0")}`;
+    }
+
+    const parsed = birthDetailsSchema.safeParse({
+      name,
+      date,
+      time,
+      timeAccuracy: approximateTime ? "approximate" : "exact",
+    });
+
+    const next = { ...missing };
+    if (!parsed.success) {
+      for (const issue of parsed.error.issues) {
+        const field = String(issue.path[0]);
+        // A missing-parts message is more useful than "Pick a date".
+        next[field] ??= issue.message;
+      }
+    }
     setErrors(next);
-    if (parsed.success && place) onSubmit(parsed.data, place);
+    if (parsed.success && place && !Object.keys(missing).length) onSubmit(parsed.data, place);
   }
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="mx-auto max-w-lg space-y-6 rounded-[8px] border border-white/10 bg-[#161B2B] p-7 sm:p-9 text-[#94A3B8]"
+      className="mx-auto w-full max-w-lg rounded-[8px] border border-white/10 bg-[#161B2B] p-6 sm:p-7"
     >
-      <div>
-        <h2 className="font-serif text-2xl font-bold text-[#F8FAFC]">Your birth details</h2>
-        <p className="mt-2 text-xs leading-relaxed text-[#94A3B8]">
+      <div className="mb-5">
+        <h2 className="font-serif text-xl font-bold text-[#F8FAFC]">Your birth details</h2>
+        <p className="mt-1 text-xs leading-relaxed text-[#94A3B8]">
           Birth time sets the ascendant, and the ascendant sets every house in your Kundali.
         </p>
       </div>
 
-      <Field label="Name" error={shown.name}>
-        <input
-          className={`w-full rounded-[8px] border bg-[#090A10] px-3.5 py-2.5 text-xs text-[#F8FAFC] placeholder-[#94A3B8]/40 outline-none transition ${
-            shown.name ? "border-rose-500" : "border-white/10 focus:border-[#E5A93C]"
-          }`}
-          value={values.name}
-          onChange={(e) => setValues({ ...values, name: e.target.value })}
-          placeholder="Enter your full name"
-        />
-      </Field>
+      <div className="space-y-4">
+        <Field label="Full name" required error={shown.name}>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+              if (errors.name) setErrors({ ...errors, name: "" });
+            }}
+            placeholder="Full name"
+            className={`w-full rounded-[8px] border bg-[#090A10] px-3.5 py-2.5 text-xs text-[#F8FAFC] placeholder-[#94A3B8]/40 transition focus:outline-none ${
+              shown.name ? "border-rose-500" : "border-white/10 focus:border-[#E5A93C]"
+            }`}
+          />
+        </Field>
 
-      <Field label="Date of birth (AD / BS)" error={shown.date}>
-        <DatePicker
-          value={values.date}
-          onChange={(date) => setValues({ ...values, date })}
-          error={shown.date}
-        />
-      </Field>
+        <Field label="Gender">
+          <div className="grid grid-cols-3 gap-2 rounded-[8px] border border-white/10 bg-[#090A10] p-1">
+            {(["male", "female", "other"] as const).map((g) => (
+              <button
+                key={g}
+                type="button"
+                onClick={() => setGender(g)}
+                aria-pressed={gender === g}
+                className={`rounded-[6px] py-1.5 text-xs font-bold capitalize transition ${
+                  gender === g
+                    ? "bg-[#E5A93C] text-[#090A10]"
+                    : "text-[#94A3B8] hover:text-[#F8FAFC]"
+                }`}
+              >
+                {g}
+              </button>
+            ))}
+          </div>
+        </Field>
 
-      <Field label="Time of birth" error={shown.time}>
-        <TimePicker
-          value={values.time}
-          onChange={(time) => setValues({ ...values, time })}
-          error={shown.time}
-        />
-      </Field>
+        <Field label="Date of birth" required error={shown.date}>
+          <ModernDatePicker
+            era={era}
+            onEraChange={setEra}
+            day={day}
+            month={month}
+            year={year}
+            onDateChange={(d, m, y) => {
+              setDay(d);
+              setMonth(m);
+              setYear(y);
+              if (errors.date) setErrors({ ...errors, date: "" });
+            }}
+            error={shown.date}
+          />
+        </Field>
 
-      <Field label="Place of birth" error={shown.place}>
-        <PlaceCombobox value={place} onChange={setPlace} error={shown.place} />
-      </Field>
+        <Field label="Time of birth" required error={shown.time}>
+          <ModernTimePicker
+            hour={hour}
+            minute={minute}
+            ampm={ampm}
+            approximateTime={approximateTime}
+            onTimeChange={(h, m, ap) => {
+              setHour(h);
+              setMinute(m);
+              setAmPm(ap);
+              if (errors.time) setErrors({ ...errors, time: "" });
+            }}
+            onApproximateChange={setApproximateTime}
+            error={shown.time}
+          />
+        </Field>
 
-      <Field label="How accurate is the time?">
-        <div className="flex gap-2">
-          {(["exact", "approximate", "unknown"] as const).map((value) => (
-            <button
-              key={value}
-              type="button"
-              onClick={() => setValues({ ...values, timeAccuracy: value })}
-              className={`flex-1 rounded-[8px] border px-3 py-2 text-xs capitalize font-bold transition ${
-                values.timeAccuracy === value
-                  ? "border-[#E5A93C] bg-[#E5A93C] text-[#090A10]"
-                  : "border-white/10 bg-[#090A10] text-[#94A3B8] hover:text-[#F8FAFC]"
-              }`}
-            >
-              {value === "unknown" ? "Not sure" : value}
-            </button>
-          ))}
-        </div>
-      </Field>
+        <Field label="Place of birth" required error={shown.place}>
+          <CustomPlaceInput
+            value={place?.label ?? ""}
+            placeholder="Search city, e.g. Kathmandu or San Francisco"
+            onChange={(p) => {
+              setPlace(p);
+              if (errors.place) setErrors({ ...errors, place: "" });
+            }}
+          />
+        </Field>
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="w-full rounded-[8px] bg-[#E5A93C] hover:bg-[#F3C766] px-4 py-3.5 text-sm font-bold text-[#090A10] transition disabled:opacity-50"
-      >
-        {pending ? "Calculating your birth chart…" : "Create my Kundali"}
-      </button>
+        <button
+          type="submit"
+          disabled={pending}
+          className="mt-1 flex w-full items-center justify-center gap-2 rounded-[8px] bg-[#E5A93C] py-3.5 text-sm font-bold text-[#090A10] shadow-md transition hover:bg-[#F3C766] disabled:opacity-50"
+        >
+          <span>{pending ? "Calculating your birth chart…" : "✨ Calculate Kundali"}</span>
+          {!pending && <span className="text-base">→</span>}
+        </button>
+      </div>
     </form>
   );
 }
 
 function Field({
   label,
+  required,
   error,
   children,
 }: {
   label: string;
+  required?: boolean;
   error?: string;
   children: React.ReactNode;
 }) {
   return (
     <div>
-      <span className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-[#94A3B8]">
-        {label}
+      <span className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-[#CBD5E1]">
+        {label} {required && <span className="text-[#E5A93C]">*</span>}
       </span>
       {children}
-      {error && <p className="mt-1 text-[11px] font-medium text-rose-400">{error}</p>}
+      {error && <p className="mt-1 text-xs font-medium text-rose-400">{error}</p>}
     </div>
   );
 }

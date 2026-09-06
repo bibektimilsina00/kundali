@@ -1,0 +1,8 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#E5A93C" role="img" aria-label="Nakhatra">
+  <g stroke-width="3.2" stroke-linejoin="round">
+    <rect x="12" y="12" width="76" height="76" rx="1.5" />
+    <path d="M50 12 L88 50 L50 88 L12 50 Z" />
+    <path d="M12 12 L88 88 M88 12 L12 88" stroke-width="2" opacity="0.55" />
+  </g>
+  <path d="M50 12 L69 31 L50 50 L31 31 Z" fill="#F3C766" stroke="none" />
+</svg>

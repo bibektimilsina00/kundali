@@ -1,11 +1,11 @@
 library;
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kundali/core/result.dart';
-import 'package:kundali/features/kundali/domain/entities/birth_details.dart';
-import 'package:kundali/features/kundali/domain/usecases/create_kundali.dart';
-import 'package:kundali/features/kundali/domain/usecases/get_kundali.dart';
-import 'package:kundali/features/kundali/presentation/cubit/kundali_state.dart';
+import 'package:nakhatra/core/result.dart';
+import 'package:nakhatra/features/kundali/domain/entities/birth_details.dart';
+import 'package:nakhatra/features/kundali/domain/usecases/create_kundali.dart';
+import 'package:nakhatra/features/kundali/domain/usecases/get_kundali.dart';
+import 'package:nakhatra/features/kundali/presentation/cubit/kundali_state.dart';
 
 /// Cubit, not Bloc: load and refresh, no event concurrency worth naming.
 /// `ai_astrologer` gets a Bloc because there the ordering of overlapping

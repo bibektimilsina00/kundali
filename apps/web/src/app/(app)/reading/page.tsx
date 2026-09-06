@@ -1,4 +1,4 @@
-import { ReadingDashboard } from "@/features/mvp/components/reading-dashboard";
+import { ReadingDashboard } from "@/features/report/components/reading-dashboard";
 
 export default function DirectReadingPage() {
   return <ReadingDashboard />;

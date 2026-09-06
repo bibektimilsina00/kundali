@@ -121,4 +121,3 @@ export function CustomLanguageSelector({
 }
 
 // Alias for convenience
-export const LanguageSelector = CustomLanguageSelector;

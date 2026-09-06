@@ -5,7 +5,7 @@ before making structural changes.
 
 ## What this is
 
-AI Vedic astrology platform. Product spec: [`kundali.md`](kundali.md).
+AI Vedic astrology platform. Product spec: [`nakhatra.md`](nakhatra.md).
 One backend, two clients: `apps/api` (FastAPI + uv + SQLModel), `apps/web`
 (Next.js + TS), `apps/mobile` (Flutter + BLoC).
 

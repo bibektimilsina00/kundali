@@ -1,9 +1,9 @@
 library;
 
 import 'package:dio/dio.dart';
-import 'package:kundali/core/error/exceptions.dart';
-import 'package:kundali/features/kundali/data/models/kundali_dto.dart';
-import 'package:kundali/features/kundali/domain/entities/birth_details.dart';
+import 'package:nakhatra/core/error/exceptions.dart';
+import 'package:nakhatra/features/kundali/data/models/kundali_dto.dart';
+import 'package:nakhatra/features/kundali/domain/entities/birth_details.dart';
 
 abstract interface class KundaliRemoteDataSource {
   Future<KundaliDto> fetch();

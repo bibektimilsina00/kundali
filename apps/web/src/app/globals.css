@@ -14,8 +14,37 @@
   --radius-md: 8px;
   --radius-lg: 8px;
 
-  --font-serif: var(--font-serif-face), Georgia, serif;
-  --font-body: var(--font-body-face), ui-sans-serif, system-ui, sans-serif;
+  /* The platform's own UI face — SF Pro on Apple, Segoe UI on Windows, Roboto
+     on Android. No download, no flash, and it never looks slightly foreign the
+     way an imitation of a system face does. */
+  --font-body: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* `font-serif` resolves to the same stack on purpose. Cinzel has no true
+     lowercase — its minuscules are small capitals — which suits a logotype and
+     fights the reader in a heading. Rather than edit 74 call sites, the token
+     points at the readable face and the display face keeps its own token. */
+  --font-serif: var(--font-body);
+
+  /* Cinzel, reserved for the wordmark. An inscriptional Roman face is exactly
+     right set once, in capitals, with wide tracking. */
+  --font-logo: var(--font-serif-face), Georgia, serif;
+
+  /* Marketing palette — the same values the landing demo was built on. */
+  --color-ink: #070810;
+  --color-ink2: #0C0F19;
+  --color-card: #141928;
+  --color-gold: #E5A93C;
+  --color-gold2: #F3C766;
+  --color-gold3: #B87A14;
+  --color-paper: #F8FAFC;
+  --color-muted: #94A3B8;
+  --color-faint: #5F6B7F;
+
+  --font-sys: var(--font-sora), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-disp: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
 }
 
 html {
@@ -144,4 +173,64 @@ body {
 }
 .animate-equalizer-5 {
   animation: equalizerWave 0.85s ease-in-out infinite 0.15s;
+}
+
+/* One lit segment tracing the login panels' inner edges. */
+@keyframes login-trace { to { stroke-dashoffset: -1000; } }
+.login-trace { animation: login-trace 26s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .login-trace { animation: none; opacity: 0; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Marketing site. Ported verbatim from design/landing-prototype.html
+   ══════════════════════════════════════════════════════════════ */
+
+:focus-visible { outline:2px solid rgba(229,169,60,.75); outline-offset:2px; border-radius:4px }
+:focus:not(:focus-visible) { outline:none }
+
+.reveal { opacity:0; transform:translateY(26px);
+  transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1) }
+.reveal.in { opacity:1; transform:none }
+.reveal[data-d="1"]{transition-delay:.08s} .reveal[data-d="2"]{transition-delay:.16s}
+.reveal[data-d="3"]{transition-delay:.24s} .reveal[data-d="4"]{transition-delay:.32s}
+
+.grain::after { content:""; position:absolute; inset:0; pointer-events:none; opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E") }
+
+.glass { background:rgba(20,25,40,.55); backdrop-filter:blur(14px) }
+
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+.bob { animation:bob 2.6s ease-in-out infinite }
+
+/* Header menus. Hidden by visibility rather than display so they can
+   fade, and so focus cannot land inside a closed one. */
+.navpanel { opacity:0; visibility:hidden; transform:translateY(-6px);
+            transition:opacity .18s ease, transform .18s ease, visibility .18s }
+.navmenu[data-open="true"] > .navpanel { opacity:1; visibility:visible; transform:translateY(0) }
+.navmenu[data-open="true"] .navchev { transform:rotate(180deg) }
+.navmenu[data-open="true"] > .navbtn { color:#F8FAFC }
+
+/* Hero charts. Cells are built once and only their contents change, so
+   these transitions survive a tick and hover/selection is never lost. */
+.cell { fill:#E5A93C; fill-opacity:0; pointer-events:all; cursor:pointer;
+        transition:fill-opacity .3s ease }
+.cell.lagna { fill-opacity:.10 }
+.cell.sel   { fill-opacity:.22 }
+.cell:hover { fill-opacity:.18 }   /* last, so it wins the tie on specificity */
+.cellt { fill:#E5A93C; fill-opacity:.72; pointer-events:none;
+         transition:opacity .55s ease }
+
+.pv { opacity:0; transition:opacity .45s ease }
+
+details.faq > summary { list-style:none }
+details.faq > summary::-webkit-details-marker { display:none }
+details.faq[open] .chev { transform:rotate(45deg); border-color:rgba(229,169,60,.55);
+                          background:rgba(229,169,60,.1) }
+details.faq[open] > summary { color:#F3C766 }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity:1; transform:none }
+  .bob { animation:none }
+  .navpanel, .cell, .cellt { transition:none }
 }

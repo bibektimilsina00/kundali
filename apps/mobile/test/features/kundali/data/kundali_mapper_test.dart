@@ -17,9 +17,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kundali/features/kundali/data/mappers/kundali_mapper.dart';
-import 'package:kundali/features/kundali/data/models/kundali_dto.dart';
-import 'package:kundali/features/kundali/domain/entities/kundali.dart';
+import 'package:nakhatra/features/kundali/data/mappers/kundali_mapper.dart';
+import 'package:nakhatra/features/kundali/data/models/kundali_dto.dart';
+import 'package:nakhatra/features/kundali/domain/entities/kundali.dart';
 
 Map<String, dynamic> _fixture() => jsonDecode(
       File('test/fixtures/chart_response.json').readAsStringSync(),
