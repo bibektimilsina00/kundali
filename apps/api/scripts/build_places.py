@@ -107,6 +107,9 @@ def country_names() -> dict[str, str]:
     return out
 
 
+FUZZY_MIN_POPULATION = 1000
+
+
 def main() -> int:
     DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     if DB_PATH.exists():
@@ -186,6 +189,16 @@ def main() -> int:
     db.executescript("""
         CREATE INDEX idx_alias_term ON alias(term);
         CREATE INDEX idx_place_pop ON place(population DESC);
+    """)
+
+    # Spelling tolerance. Restricted to places anyone is plausibly born in —
+    # indexing all 786k would triple the file for hamlets nobody misspells.
+    print("building the spelling index …", flush=True)
+    db.executescript(f"""
+        CREATE VIRTUAL TABLE fuzzy USING fts5(term, tokenize='trigram');
+        INSERT INTO fuzzy(term)
+          SELECT DISTINCT a.term FROM alias a JOIN place p ON p.id = a.place_id
+           WHERE p.population >= {FUZZY_MIN_POPULATION};
     """)
     db.execute("ANALYZE")
     db.commit()
