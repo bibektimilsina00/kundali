@@ -2,39 +2,45 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { ModernDatePicker } from "@/components/ui/modern-date-picker";
 import { ModernTimePicker } from "@/components/ui/modern-time-picker";
 import { CustomPlaceInput } from "@/components/ui/custom-place-input";
 import { createKundali } from "@/features/kundali/api/kundali.api";
 import { saveKundaliToStorage } from "@/features/kundali/store/kundali-store";
 import type { BirthDetailsIn, Place } from "@/features/kundali/types";
-import { AD_MONTHS, BS_MONTHS, convertBsToAd } from "@/lib/utils/date-converter";
-import { GeneratingScreen } from "@/features/mvp/components/generating-screen";
+import { convertBsToAd } from "@/lib/utils/date-converter";
+import { GeneratingScreen } from "@/features/kundali/components/generating-screen";
+import { HeroKundali } from "@/features/marketing/components/hero-kundali";
+import { PillarsSection } from "@/features/marketing/components/pillars-section";
+import {
+  AccuracySection,
+  AstrologersSection,
+  ChartSection,
+  ClosingSection,
+  ContentsSection,
+  ConversationSection,
+  FaqSection,
+  HowItWorksSection,
+  MilanSection,
+  ReadingSection,
+} from "@/features/marketing/components/home-sections";
 import { MainNavbar } from "@/components/layout/main-navbar";
 import { MainFooter } from "@/components/layout/main-footer";
 import { useTranslation } from "@/lib/i18n/language-context";
-import { Language } from "@/lib/i18n/translations";
 import { trackKundaliGenerated } from "@/lib/utils/analytics";
 import {
+  Check,
   User,
   Calendar,
   Clock,
   MapPin,
   Sparkles,
   ArrowRight,
-  Zap,
-  Flame,
-  Radio,
-  Orbit,
-  BarChart3,
-  Mic,
-  ScrollText,
 } from "lucide-react";
 
 export function HomepageHero() {
   const router = useRouter();
-  const { language, setLanguage, t } = useTranslation();
+  const { language, t } = useTranslation();
   const [name, setName] = useState("");
   const [gender, setGender] = useState<"male" | "female" | "other">("male");
   const [era, setEra] = useState<"AD" | "BS">("AD");
@@ -82,7 +88,7 @@ export function HomepageHero() {
 
     const birthDetails: BirthDetailsIn = {
       name: name.trim(),
-      date: formattedDate as any,
+      date: formattedDate,
       time: formattedTime,
       tz_name: selectedPlace!.tz_name,
       latitude: selectedPlace!.latitude,
@@ -95,9 +101,8 @@ export function HomepageHero() {
       const chart = await createKundali(birthDetails);
       saveKundaliToStorage(birthDetails, chart);
       trackKundaliGenerated({
-        name: birthDetails.name,
-        place: birthDetails.place_label,
         language,
+        timeAccuracy: birthDetails.time_accuracy,
       });
     } catch (err) {
       console.error("Failed to generate Kundali", err);
@@ -118,71 +123,62 @@ export function HomepageHero() {
       <main className="mx-auto max-w-7xl px-6 py-10 lg:py-14">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          {/* LEFT SIDE: Sacred Geometry Vector Art & Value Proposition */}
-          <div className="lg:col-span-7 space-y-6">
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[#F8FAFC] leading-[1.2]">
-              {t.heroTitle}
-            </h1>
-
-            <p className="text-base text-[#CBD5E1] leading-relaxed max-w-xl">
-              {t.heroSub}
-            </p>
-
-            {/* Sacred Geometry Astrological Illustration Art */}
-            <div className="relative my-4 rounded-[8px] border border-white/10 bg-[#161B2B] p-6 overflow-hidden">
-              <div className="absolute -right-10 -bottom-10 size-48 rounded-full bg-[#E5A93C]/10 blur-2xl pointer-events-none" />
-              
-              <div className="flex flex-col sm:flex-row items-center gap-6">
-                {/* SVG Mandala Artwork */}
-                <div className="relative size-36 shrink-0 flex items-center justify-center">
-                  <svg className="size-full stroke-[#E5A93C]" viewBox="0 0 200 200" fill="none">
-                    <circle cx="100" cy="100" r="95" strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
-                    <circle cx="100" cy="100" r="75" stroke="#F3C766" strokeWidth="1.2" />
-                    <rect x="25" y="25" width="150" height="150" strokeWidth="1.5" />
-                    <line x1="25" y1="25" x2="175" y2="175" strokeWidth="1" />
-                    <line x1="175" y1="25" x2="25" y2="175" strokeWidth="1" />
-                    <polygon points="100,25 175,100 100,175 25,100" strokeWidth="1.5" strokeDasharray="4 2" />
-                    <circle cx="100" cy="100" r="8" fill="#E5A93C" />
-                  </svg>
-                </div>
-
-                <div className="space-y-2 text-xs">
-                  <div className="flex items-center gap-2 font-bold text-[#F8FAFC]">
-                    <span className="text-[#E5A93C]">🌌 {t.feature1Title}</span>
-                  </div>
-                  <p className="text-[#94A3B8] leading-relaxed">
-                    {t.feature1Desc}
-                  </p>
-                  <div className="flex flex-wrap gap-2 pt-1">
-                    <span className="rounded-[6px] border border-white/10 bg-[#090A10] px-2 py-1 text-[10px] font-semibold text-[#F3C766]">D1 Lagna</span>
-                    <span className="rounded-[6px] border border-white/10 bg-[#090A10] px-2 py-1 text-[10px] font-semibold text-[#F3C766]">D9 Navamsha</span>
-                    <span className="rounded-[6px] border border-white/10 bg-[#090A10] px-2 py-1 text-[10px] font-semibold text-[#F3C766]">16 Vargas</span>
-                    <span className="rounded-[6px] border border-white/10 bg-[#090A10] px-2 py-1 text-[10px] font-semibold text-[#F3C766]">Vimshottari Dasha</span>
-                  </div>
-                </div>
-              </div>
+          {/* LEFT: the pitch, standing on a real chart. */}
+          <div className="relative lg:col-span-7">
+            {/* The chart is the ground the copy sits on, not an image beside it.
+                Anchored right so it fills the gap the text leaves. */}
+            <div className="pointer-events-none absolute -top-2 right-0 hidden aspect-square w-[330px] opacity-50 lg:block xl:w-[370px]">
+              <HeroKundali />
             </div>
 
-            {/* Feature Highlights Strip */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-              <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-3.5 text-xs space-y-1">
-                <span className="block text-[#E5A93C] font-bold text-sm flex items-center gap-1.5">
-                  <Zap className="size-4 text-[#E5A93C]" /> {t.feature1Title}
-                </span>
-                <span className="text-[#94A3B8]">{t.feature1Desc}</span>
+            <div className="relative space-y-6">
+              <span className="inline-flex items-center gap-2 rounded-full border border-[#E5A93C]/30 bg-[#161B2B] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#F3C766]">
+                <Sparkles className="size-3.5" />
+                Sidereal · Lahiri · Whole sign
+              </span>
+
+              <h1 className="max-w-[19ch] text-balance font-serif text-4xl font-bold leading-[1.12] text-[#F8FAFC] sm:text-5xl">
+                {t.heroTitle}
+              </h1>
+
+              <p className="max-w-xl text-[17px] leading-relaxed text-[#CBD5E1]">
+                {t.heroSub}
+              </p>
+
+              {/* The four things the platform does, before anything else. */}
+              <div className="flex flex-wrap gap-2 pt-1">
+                {[
+                  ["Kundali", "#chart"],
+                  ["Analysis", "#reading"],
+                  ["AI astrologer", "#ask"],
+                  ["Milan", "#milan"],
+                  ["Real astrologers", "#astrologers"],
+                ].map(([label, href]) => (
+                  <a
+                    key={label}
+                    href={href}
+                    className="rounded-full border border-white/12 bg-[#161B2B]/80 px-3.5 py-1.5 text-[13px] text-[#CBD5E1] backdrop-blur-sm transition-colors hover:border-[#E5A93C]/40 hover:text-[#F3C766]"
+                  >
+                    {label}
+                  </a>
+                ))}
               </div>
-              <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-3.5 text-xs space-y-1">
-                <span className="block text-[#E5A93C] font-bold text-sm flex items-center gap-1.5">
-                  <Flame className="size-4 text-[#E5A93C]" /> {t.feature2Title}
-                </span>
-                <span className="text-[#94A3B8]">{t.feature2Desc}</span>
-              </div>
-              <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-3.5 text-xs space-y-1">
-                <span className="block text-[#6366F1] font-bold text-sm flex items-center gap-1.5">
-                  <Radio className="size-4 text-[#6366F1]" /> {t.feature3Title}
-                </span>
-                <span className="text-[#94A3B8]">{t.feature3Desc}</span>
-              </div>
+
+              <ul className="space-y-3 pt-2 text-[15px]">
+                {[
+                  ["Historical time zones", "The offset your birthplace actually used that year, not today's."],
+                  ["The AI never calculates", "Positions come from the ephemeris. It reads them; it cannot invent one."],
+                  ["Free to start", "See your full chart without an account."],
+                ].map(([title, body]) => (
+                  <li key={title} className="flex gap-3">
+                    <Check className="mt-0.5 size-[18px] shrink-0 text-[#E5A93C]" />
+                    <span>
+                      <strong className="font-semibold text-[#F8FAFC]">{title}.</strong>{" "}
+                      <span className="text-[#94A3B8]">{body}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
@@ -318,66 +314,108 @@ export function HomepageHero() {
         </div>
       </main>
 
-      {/* 3. Feature Showcase Section */}
-      <section className="border-t border-white/10 bg-[#0D101A] py-16" id="features">
-        <div className="mx-auto max-w-7xl px-6 space-y-12">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#E5A93C]">Engine Architecture</span>
-            <h2 className="font-serif text-2xl sm:text-4xl font-bold text-[#F8FAFC]">
-              Designed for Absolute Astronomical Accuracy
+      {/* How it works — the two halves, and why the split matters. */}
+      <section className="border-t border-white/10 bg-[#0D101A] py-20" id="how">
+        <div className="mx-auto max-w-5xl space-y-14 px-6">
+          <div className="mx-auto max-w-2xl space-y-3 text-center">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#E5A93C]">
+              How it works
+            </span>
+            <h2 className="font-serif text-2xl font-bold text-[#F8FAFC] sm:text-3xl">
+              The maths and the meaning are kept apart
             </h2>
-            <p className="text-sm text-[#94A3B8]">
-              Combining Swiss Ephemeris sidereal calculation standards with state-of-the-art AI intelligence.
+            <p className="text-[15px] leading-relaxed text-[#94A3B8]">
+              Most AI astrology asks a language model to do both, and a language model
+              will happily invent a planetary position that sounds right. Here it never
+              gets the chance.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Card 1 */}
-            <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-6 space-y-4 transition hover:border-[#E5A93C]/50">
-              <div className="size-12 rounded-[8px] bg-[#090A10] border border-white/10 flex items-center justify-center text-[#E5A93C]">
-                <Orbit className="size-6 text-[#E5A93C]" />
-              </div>
-              <h3 className="font-serif text-base font-bold text-[#F8FAFC]">Swiss Ephemeris Core</h3>
-              <p className="text-xs leading-relaxed text-[#94A3B8]">
-                Computes planetary degrees, house cusps, retrogrades, and historical IANA timezone offsets with 0.001° accuracy.
+          <div className="grid gap-6 md:grid-cols-2">
+            <article className="space-y-3 rounded-[10px] border border-white/10 bg-[#161B2B] p-7">
+              <span className="font-mono text-xs text-[#64748B]">01</span>
+              <h3 className="font-serif text-lg font-bold text-[#F8FAFC]">
+                The ephemeris calculates
+              </h3>
+              <p className="text-[15px] leading-relaxed text-[#94A3B8]">
+                Your birth moment is converted to universal time using the zone your
+                birthplace kept that year, then Swiss Ephemeris gives every planetary
+                longitude. Lahiri ayanamsa, whole-sign houses, mean nodes. The same
+                inputs always give the same chart.
               </p>
-            </div>
+            </article>
 
-            {/* Card 2 */}
-            <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-6 space-y-4 transition hover:border-[#E5A93C]/50">
-              <div className="size-12 rounded-[8px] bg-[#090A10] border border-white/10 flex items-center justify-center text-[#F3C766]">
-                <BarChart3 className="size-6 text-[#F3C766]" />
-              </div>
-              <h3 className="font-serif text-base font-bold text-[#F8FAFC]">Dual D1 &amp; D9 Charts</h3>
-              <p className="text-xs leading-relaxed text-[#94A3B8]">
-                Side-by-side North Indian and South Indian interactive charts with house inspector and smart multi-column layout.
+            <article className="space-y-3 rounded-[10px] border border-white/10 bg-[#161B2B] p-7">
+              <span className="font-mono text-xs text-[#64748B]">02</span>
+              <h3 className="font-serif text-lg font-bold text-[#F8FAFC]">
+                The astrologer reads it
+              </h3>
+              <p className="text-[15px] leading-relaxed text-[#94A3B8]">
+                The finished chart is handed to the AI as data. It can interpret,
+                compare and explain — but it is never asked to work out a degree or a
+                date, so it cannot get one wrong.
               </p>
-            </div>
+            </article>
+          </div>
+        </div>
+      </section>
 
-            {/* Card 3 */}
-            <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-6 space-y-4 transition hover:border-[#E5A93C]/50">
-              <div className="size-12 rounded-[8px] bg-[#090A10] border border-white/10 flex items-center justify-center text-[#6366F1]">
-                <Mic className="size-6 text-[#6366F1]" />
-              </div>
-              <h3 className="font-serif text-base font-bold text-[#F8FAFC]">Spoken Audio &amp; Voice</h3>
-              <p className="text-xs leading-relaxed text-[#94A3B8]">
-                OpenRouter TTS audio narration with natural voice speed controls and real-time live voice consultation.
-              </p>
-            </div>
+      {/* The time zone argument: specific, checkable, and the thing most
+          competitors quietly get wrong. */}
+      <section className="border-t border-white/10 py-20">
+        <div className="mx-auto grid max-w-5xl items-center gap-10 px-6 md:grid-cols-5">
+          <div className="space-y-4 md:col-span-3">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#E5A93C]">
+              Why charts disagree
+            </span>
+            <h2 className="font-serif text-2xl font-bold text-[#F8FAFC] sm:text-3xl">
+              Kathmandu has not always been +5:45
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#94A3B8]">
+              It kept +5:30 until 1986, and local mean time of +5:41:16 before that. A
+              1975 birth calculated with today&apos;s offset lands fifteen minutes off —
+              roughly <strong className="font-semibold text-[#F8FAFC]">3.75° of
+              ascendant</strong>, enough to move your lagna into the wrong sign.
+            </p>
+            <p className="text-[15px] leading-relaxed text-[#94A3B8]">
+              We store the zone by name and look up what it meant on your date. It is a
+              small thing that quietly decides whether the rest of the chart is worth
+              reading.
+            </p>
+          </div>
 
-            {/* Card 4 */}
-            <div className="rounded-[8px] border border-white/10 bg-[#161B2B] p-6 space-y-4 transition hover:border-[#E5A93C]/50">
-              <div className="size-12 rounded-[8px] bg-[#090A10] border border-white/10 flex items-center justify-center text-[#E5A93C]">
-                <ScrollText className="size-6 text-[#E5A93C]" />
+          <div className="md:col-span-2">
+            <div className="space-y-3 rounded-[10px] border border-white/10 bg-[#161B2B] p-6 font-mono text-[13px]">
+              <div className="mb-1 text-xs uppercase tracking-widest text-[#64748B]">
+                Kathmandu, 14 June 1975
               </div>
-              <h3 className="font-serif text-base font-bold text-[#F8FAFC]">16 Varga Divisions</h3>
-              <p className="text-xs leading-relaxed text-[#94A3B8]">
-                Complete breakdown of divisional charts from D1 Rashi up to D60 Shashtiamsa with Vimshottari time lord timelines.
+              <div className="flex items-baseline justify-between gap-4 border-b border-white/10 pb-3">
+                <span className="text-[#94A3B8]">Today&apos;s offset</span>
+                <span className="text-rose-400">+5:45</span>
+              </div>
+              <div className="flex items-baseline justify-between gap-4 pb-1">
+                <span className="text-[#94A3B8]">Actual, that year</span>
+                <span className="text-[#E5A93C]">+5:30</span>
+              </div>
+              <p className="pt-2 font-sans text-xs leading-relaxed text-[#64748B]">
+                Fifteen minutes of clock time, about 3.75 degrees of ascendant.
               </p>
             </div>
           </div>
         </div>
       </section>
+
+      <PillarsSection />
+      <ChartSection />
+      <HowItWorksSection />
+      <ContentsSection />
+      <ReadingSection />
+      <ConversationSection />
+      <MilanSection />
+      <AccuracySection />
+      <AstrologersSection />
+      <FaqSection />
+      <ClosingSection />
 
       {/* 4. Footer */}
       <MainFooter />

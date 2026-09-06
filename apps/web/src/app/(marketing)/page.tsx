@@ -1,5 +1,5 @@
-import { HomepageHero } from "@/features/mvp/components/homepage-hero";
+import { MarketingPage } from "@/features/marketing/components/marketing-page";
 
-export default function MarketingPage() {
-  return <HomepageHero />;
+export default function Page() {
+  return <MarketingPage />;
 }
