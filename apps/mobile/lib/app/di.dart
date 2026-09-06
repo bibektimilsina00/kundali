@@ -14,16 +14,16 @@ library;
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:kundali/core/network/api_client.dart';
-import 'package:kundali/core/network/auth_interceptor.dart';
-import 'package:kundali/core/storage/secure_store.dart';
-import 'package:kundali/features/kundali/data/datasources/kundali_local_datasource.dart';
-import 'package:kundali/features/kundali/data/datasources/kundali_remote_datasource.dart';
-import 'package:kundali/features/kundali/data/repositories/kundali_repository_impl.dart';
-import 'package:kundali/features/kundali/domain/repositories/kundali_repository.dart';
-import 'package:kundali/features/kundali/domain/usecases/create_kundali.dart';
-import 'package:kundali/features/kundali/domain/usecases/get_kundali.dart';
-import 'package:kundali/features/kundali/presentation/cubit/kundali_cubit.dart';
+import 'package:nakhatra/core/network/api_client.dart';
+import 'package:nakhatra/core/network/auth_interceptor.dart';
+import 'package:nakhatra/core/storage/secure_store.dart';
+import 'package:nakhatra/features/kundali/data/datasources/kundali_local_datasource.dart';
+import 'package:nakhatra/features/kundali/data/datasources/kundali_remote_datasource.dart';
+import 'package:nakhatra/features/kundali/data/repositories/kundali_repository_impl.dart';
+import 'package:nakhatra/features/kundali/domain/repositories/kundali_repository.dart';
+import 'package:nakhatra/features/kundali/domain/usecases/create_kundali.dart';
+import 'package:nakhatra/features/kundali/domain/usecases/get_kundali.dart';
+import 'package:nakhatra/features/kundali/presentation/cubit/kundali_cubit.dart';
 
 final getIt = GetIt.instance;
 

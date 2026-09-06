@@ -43,26 +43,26 @@ const _rules = <_Rule>[
       'package:get_it/',
       '/data/',
       '/presentation/',
-      'package:kundali/api/',
+      'package:nakhatra/api/',
     ],
     why: 'domain must run under plain `dart test` with no Flutter binding',
   ),
   _Rule(
     'presentation_never_touches_data',
     pathContains: '/presentation/',
-    forbidden: ['/data/', 'package:kundali/api/'],
+    forbidden: ['/data/', 'package:nakhatra/api/'],
     why: 'a Cubit importing a DTO or datasource is how clean architecture '
         'quietly collapses — it still compiles, it just stops being clean',
   ),
   _Rule(
     'core_knows_no_features',
     pathContains: 'lib/core/',
-    forbidden: ['package:kundali/features/'],
+    forbidden: ['package:nakhatra/features/'],
     why: 'features import core; core must never import one back',
   ),
 ];
 
-const _featureRoot = 'package:kundali/features/';
+const _featureRoot = 'package:nakhatra/features/';
 const _featureDir = 'lib/features/';
 
 /// Pure: the whole point is that --self-test can drive it.
@@ -165,31 +165,31 @@ void _selfTest() {
     (
       'presentation_never_touches_data',
       'lib/features/kundali/presentation/cubit/kundali_cubit.dart',
-      ["import 'package:kundali/features/kundali/data/models/kundali_dto.dart';"],
+      ["import 'package:nakhatra/features/kundali/data/models/kundali_dto.dart';"],
       true,
     ),
     (
       'presentation may use domain',
       'lib/features/kundali/presentation/cubit/kundali_cubit.dart',
-      ["import 'package:kundali/features/kundali/domain/usecases/get_kundali.dart';"],
+      ["import 'package:nakhatra/features/kundali/domain/usecases/get_kundali.dart';"],
       false,
     ),
     (
       'core_knows_no_features',
       'lib/core/di.dart',
-      ["import 'package:kundali/features/kundali/domain/repositories/kundali_repository.dart';"],
+      ["import 'package:nakhatra/features/kundali/domain/repositories/kundali_repository.dart';"],
       true,
     ),
     (
       'features_are_islands',
       'lib/features/horoscope/data/x.dart',
-      ["import 'package:kundali/features/kundali/domain/entities/kundali.dart';"],
+      ["import 'package:nakhatra/features/kundali/domain/entities/kundali.dart';"],
       true,
     ),
     (
       'a feature may import itself',
       'lib/features/kundali/data/repositories/kundali_repository_impl.dart',
-      ["import 'package:kundali/features/kundali/domain/entities/kundali.dart';"],
+      ["import 'package:nakhatra/features/kundali/domain/entities/kundali.dart';"],
       false,
     ),
   ];

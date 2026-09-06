@@ -2,10 +2,10 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kundali/features/kundali/presentation/cubit/kundali_cubit.dart';
-import 'package:kundali/features/kundali/presentation/pages/birth_details_page.dart';
-import 'package:kundali/features/kundali/presentation/cubit/kundali_state.dart';
-import 'package:kundali/features/kundali/presentation/widgets/planet_list.dart';
+import 'package:nakhatra/features/kundali/presentation/cubit/kundali_cubit.dart';
+import 'package:nakhatra/features/kundali/presentation/pages/birth_details_page.dart';
+import 'package:nakhatra/features/kundali/presentation/cubit/kundali_state.dart';
+import 'package:nakhatra/features/kundali/presentation/widgets/planet_list.dart';
 
 class KundaliPage extends StatelessWidget {
   const KundaliPage({super.key});

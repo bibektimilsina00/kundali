@@ -2,9 +2,9 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kundali/features/kundali/domain/entities/birth_details.dart';
-import 'package:kundali/features/kundali/domain/entities/place.dart';
-import 'package:kundali/features/kundali/presentation/cubit/kundali_cubit.dart';
+import 'package:nakhatra/features/kundali/domain/entities/birth_details.dart';
+import 'package:nakhatra/features/kundali/domain/entities/place.dart';
+import 'package:nakhatra/features/kundali/presentation/cubit/kundali_cubit.dart';
 
 /// Lives in `kundali/`, not a separate `onboarding/` feature: one form is not
 /// a feature. The multi-step welcome flow of spec §6 is what would earn its

@@ -7,8 +7,8 @@
 /// failure that policy exists to prevent.
 library;
 
-import 'package:kundali/features/kundali/data/models/kundali_dto.dart';
-import 'package:kundali/features/kundali/domain/entities/kundali.dart';
+import 'package:nakhatra/features/kundali/data/models/kundali_dto.dart';
+import 'package:nakhatra/features/kundali/domain/entities/kundali.dart';
 
 extension KundaliDtoMapper on KundaliDto {
   Kundali toEntity() => Kundali(

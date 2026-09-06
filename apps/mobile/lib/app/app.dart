@@ -2,8 +2,8 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kundali/app/router.dart';
-import 'package:kundali/app/theme/app_theme.dart';
+import 'package:nakhatra/app/router.dart';
+import 'package:nakhatra/app/theme/app_theme.dart';
 
 class KundaliApp extends StatefulWidget {
   const KundaliApp({super.key});

@@ -5,7 +5,7 @@
 /// everywhere that must handle it.
 library;
 
-import 'package:kundali/core/error/failure.dart';
+import 'package:nakhatra/core/error/failure.dart';
 
 sealed class Result<T> {
   const Result();

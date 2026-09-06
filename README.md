@@ -1,4 +1,4 @@
-# Kundali
+# Nakhatra
 
 AI-powered Vedic astrology platform. A personal AI astrologer that already
 knows your birth chart.

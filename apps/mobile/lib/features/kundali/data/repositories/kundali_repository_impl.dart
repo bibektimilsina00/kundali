@@ -1,13 +1,13 @@
 library;
 
-import 'package:kundali/core/error/exceptions.dart';
-import 'package:kundali/core/result.dart';
-import 'package:kundali/features/kundali/data/datasources/kundali_local_datasource.dart';
-import 'package:kundali/features/kundali/data/datasources/kundali_remote_datasource.dart';
-import 'package:kundali/features/kundali/data/mappers/kundali_mapper.dart';
-import 'package:kundali/features/kundali/domain/entities/birth_details.dart';
-import 'package:kundali/features/kundali/domain/entities/kundali.dart';
-import 'package:kundali/features/kundali/domain/repositories/kundali_repository.dart';
+import 'package:nakhatra/core/error/exceptions.dart';
+import 'package:nakhatra/core/result.dart';
+import 'package:nakhatra/features/kundali/data/datasources/kundali_local_datasource.dart';
+import 'package:nakhatra/features/kundali/data/datasources/kundali_remote_datasource.dart';
+import 'package:nakhatra/features/kundali/data/mappers/kundali_mapper.dart';
+import 'package:nakhatra/features/kundali/domain/entities/birth_details.dart';
+import 'package:nakhatra/features/kundali/domain/entities/kundali.dart';
+import 'package:nakhatra/features/kundali/domain/repositories/kundali_repository.dart';
 
 final class KundaliRepositoryImpl implements KundaliRepository {
   const KundaliRepositoryImpl(this._remote, this._local);

@@ -8,7 +8,7 @@ library;
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:kundali/core/storage/secure_store.dart';
+import 'package:nakhatra/core/storage/secure_store.dart';
 
 class AuthInterceptor extends Interceptor {
   AuthInterceptor({

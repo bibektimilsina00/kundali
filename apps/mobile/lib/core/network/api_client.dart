@@ -4,7 +4,7 @@
 library;
 
 import 'package:dio/dio.dart';
-import 'package:kundali/core/error/exceptions.dart';
+import 'package:nakhatra/core/error/exceptions.dart';
 
 Dio buildApiClient({required String baseUrl, required List<Interceptor> interceptors}) {
   final dio = Dio(
