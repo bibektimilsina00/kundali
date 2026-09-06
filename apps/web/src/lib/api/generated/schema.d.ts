@@ -21,6 +21,77 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/auth/login": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Exchange credentials for a token */
+        post: operations["login_v1_auth_login_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/auth/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** The signed-in user's profile */
+        get: operations["me_v1_auth_me_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/auth/signup": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create an account */
+        post: operations["signup_v1_auth_signup_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/chat": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Ask the astrologer about a chart
+         * @description Answers a question against an already-computed chart. The chart is supplied by the caller and read, never recalculated — the model is not asked to derive positions or dates.
+         */
+        post: operations["chat_v1_chat_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/kundali": {
         parameters: {
             query?: never;
@@ -37,6 +108,23 @@ export interface paths {
          *     See docs/astrology-methodology.md for every methodology decision.
          */
         post: operations["create_kundali_v1_kundali_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/milan/match": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Match */
+        post: operations["match_v1_milan_match_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -61,6 +149,190 @@ export interface paths {
         get: operations["search_v1_places_get"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/realtime-session": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Open a live voice consultation */
+        post: operations["realtime_session_v1_realtime_session_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/report": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Generate a seven-section reading for a chart
+         * @description Reads an already-computed chart. `source` says whether the model or the deterministic generator produced it; both return the same seven sections.
+         */
+        post: operations["report_v1_report_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/transcribe": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Transcribe speech */
+        post: operations["transcribe_v1_transcribe_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/tts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Synthesise speech */
+        post: operations["speak_v1_tts_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/tts/audio/{name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Fetch synthesised audio
+         * @description Serve a cached mp3.
+         *
+         *     Deliberately unauthenticated: the browser fetches this from an `<audio>` tag,
+         *     which sends no Authorization header. The name is a SHA-256 of the text, so it
+         *     is unguessable, and `cache.path_for` rejects anything that is not a name this
+         *     service could have written.
+         */
+        get: operations["audio_v1_tts_audio__name__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/vault/kundalis": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Kundalis */
+        get: operations["list_kundalis_v1_vault_kundalis_get"];
+        put?: never;
+        /** Save Kundali */
+        post: operations["save_kundali_v1_vault_kundalis_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/vault/kundalis/{kundali_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Delete Kundali */
+        delete: operations["delete_kundali_v1_vault_kundalis__kundali_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/vault/sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Sessions */
+        get: operations["list_sessions_v1_vault_sessions_get"];
+        put?: never;
+        /** Create Session */
+        post: operations["create_session_v1_vault_sessions_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/vault/sessions/{session_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Session */
+        get: operations["get_session_v1_vault_sessions__session_id__get"];
+        put?: never;
+        post?: never;
+        /** Delete Session */
+        delete: operations["delete_session_v1_vault_sessions__session_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/vault/sessions/{session_id}/messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Add Message */
+        post: operations["add_message_v1_vault_sessions__session_id__messages_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -146,6 +418,16 @@ export interface components {
              */
             tz_name: string;
         };
+        /** Body_transcribe_v1_transcribe_post */
+        Body_transcribe_v1_transcribe_post: {
+            /** File */
+            file: string;
+            /**
+             * Language
+             * @default
+             */
+            language: string;
+        };
         /** ChartOut */
         ChartOut: {
             avakhada: components["schemas"]["AvakhadaOut"];
@@ -179,6 +461,104 @@ export interface components {
             planets: components["schemas"]["PlanetOut"][];
             /** Vargas */
             vargas: components["schemas"]["VargaChartOut"][];
+        };
+        /** ChatMessageIn */
+        ChatMessageIn: {
+            /** Content */
+            content: string;
+            /** Sender */
+            sender: string;
+        };
+        /** ChatMessageOut */
+        ChatMessageOut: {
+            /** Content */
+            content: string;
+            /** Created At */
+            created_at: string;
+            /** Id */
+            id: string;
+            /** Sender */
+            sender: string;
+            /** Session Id */
+            session_id: string;
+        };
+        /** ChatRequest */
+        ChatRequest: {
+            birth: components["schemas"]["BirthDetailsIn"];
+            chart: components["schemas"]["ChartOut"];
+            /**
+             * Language
+             * @default en
+             * @enum {string}
+             */
+            language: "en" | "ne" | "hi";
+            /**
+             * Messages
+             * @description Conversation so far. Only the most recent turns are sent to the model.
+             */
+            messages?: components["schemas"]["ChatTurn"][];
+            /** Query */
+            query: string;
+        };
+        /** ChatResponse */
+        ChatResponse: {
+            /**
+             * Astrological Basis
+             * @description Short tag naming the placement the answer rests on, e.g. '10th House Virgo · Exalted Mercury in D1'.
+             * @default
+             */
+            astrological_basis: string;
+            /**
+             * Highlight House
+             * @description House for the client to highlight in the chart, if the answer is about one. Null when no single house is implicated.
+             */
+            highlight_house?: number | null;
+            /** Text */
+            text: string;
+        };
+        /** ChatSessionIn */
+        ChatSessionIn: {
+            /** Kundali Id */
+            kundali_id?: string | null;
+            /**
+             * Title
+             * @default Kundali Chat
+             */
+            title: string;
+        };
+        /** ChatSessionOut */
+        ChatSessionOut: {
+            /** Created At */
+            created_at: string;
+            /** Id */
+            id: string;
+            /** Kundali Id */
+            kundali_id?: string | null;
+            /**
+             * Messages
+             * @description Always empty in the session *list* — loading every message body for every session made that endpoint one query per session. Fetch a single session to get its messages.
+             * @default []
+             */
+            messages: components["schemas"]["ChatMessageOut"][];
+            /** Title */
+            title: string;
+            /** Updated At */
+            updated_at: string;
+            /** User Id */
+            user_id: string;
+        };
+        /**
+         * ChatTurn
+         * @description One prior turn, as the client already stores it.
+         */
+        ChatTurn: {
+            /**
+             * Sender
+             * @enum {string}
+             */
+            sender: "user" | "astrologer";
+            /** Text */
+            text: string;
         };
         /** DashaOut */
         DashaOut: {
@@ -234,6 +614,79 @@ export interface components {
              * @description 0-11, Aries=0. The traditional North Indian chart prints the rashi number (sign_index + 1) in each house.
              */
             sign_index: number;
+        };
+        /** KutaOut */
+        KutaOut: {
+            /** Description */
+            description: string;
+            /** Max Points */
+            max_points: number;
+            /** Name */
+            name: string;
+            /** Obtained */
+            obtained: number;
+        };
+        /** ManglikCompatibilityOut */
+        ManglikCompatibilityOut: {
+            /** Canceled */
+            canceled: boolean;
+            /** Compatible */
+            compatible: boolean;
+            /** Reason */
+            reason: string;
+        };
+        /** ManglikOut */
+        ManglikOut: {
+            /** Cancellation Reason */
+            cancellation_reason?: string | null;
+            /** Houses */
+            houses: number[];
+            /** Is Canceled */
+            is_canceled: boolean;
+            /** Is Manglik */
+            is_manglik: boolean;
+            /** Severity */
+            severity: string;
+        };
+        /** MilanRequest */
+        MilanRequest: {
+            bride: components["schemas"]["BirthDetailsIn"];
+            /**
+             * Bride Name
+             * @default Bride
+             */
+            bride_name: string;
+            groom: components["schemas"]["BirthDetailsIn"];
+            /**
+             * Groom Name
+             * @default Groom
+             */
+            groom_name: string;
+        };
+        /** MilanResponse */
+        MilanResponse: {
+            bride_chart: components["schemas"]["ChartOut"];
+            bride_manglik: components["schemas"]["ManglikOut"];
+            /** Bride Name */
+            bride_name: string;
+            groom_chart: components["schemas"]["ChartOut"];
+            groom_manglik: components["schemas"]["ManglikOut"];
+            /** Groom Name */
+            groom_name: string;
+            /** Kutas */
+            kutas: components["schemas"]["KutaOut"][];
+            manglik_compatibility: components["schemas"]["ManglikCompatibilityOut"];
+            /**
+             * Max Guna
+             * @default 36
+             */
+            max_guna: number;
+            /** Percentage */
+            percentage: number;
+            /** Recommendation */
+            recommendation: string;
+            /** Total Guna */
+            total_guna: number;
         };
         /** NakshatraOut */
         NakshatraOut: {
@@ -381,6 +834,262 @@ export interface components {
             /** Sign Index */
             sign_index: number;
         };
+        /** RealtimeSessionRequest */
+        RealtimeSessionRequest: {
+            birth: components["schemas"]["BirthDetailsIn"];
+            chart: components["schemas"]["ChartOut"];
+            /**
+             * Language
+             * @default en
+             * @enum {string}
+             */
+            language: "en" | "ne" | "hi";
+            /**
+             * Voice
+             * @default ash
+             * @enum {string}
+             */
+            voice: "onyx" | "ash" | "sage" | "coral" | "echo" | "alloy" | "shimmer" | "ballad" | "verse";
+        };
+        /** RealtimeSessionResponse */
+        RealtimeSessionResponse: {
+            /**
+             * Client Secret
+             * @description Ephemeral key for the browser's WebRTC connection. Null when the Realtime API is unavailable on this account tier.
+             */
+            client_secret?: string | null;
+            /**
+             * Fallback
+             * @description Set to 'media_recorder_whisper' when the client should fall back to recording and transcribing instead of a live session.
+             */
+            fallback?: string | null;
+            /** Instructions */
+            instructions?: string | null;
+            /** Model */
+            model?: string | null;
+        };
+        /**
+         * ReportReason
+         * @description The placement an assertion rests on. Every section shows its working.
+         */
+        ReportReason: {
+            /** Explanation */
+            explanation: string;
+            /** Placement */
+            placement: string;
+        };
+        /** ReportRequest */
+        ReportRequest: {
+            birth: components["schemas"]["BirthDetailsIn"];
+            chart: components["schemas"]["ChartOut"];
+            /**
+             * Language
+             * @default en
+             * @enum {string}
+             */
+            language: "en" | "ne" | "hi";
+        };
+        /** ReportResponse */
+        ReportResponse: {
+            /** Report */
+            report: components["schemas"]["ReportSection"][];
+            /**
+             * Source
+             * @description 'rule_engine' means the deterministic generator produced this — a complete report, not a degraded one. Surfaced so the client can tell the two apart rather than guess.
+             * @enum {string}
+             */
+            source: "llm" | "rule_engine";
+        };
+        /** ReportSection */
+        ReportSection: {
+            /** Content */
+            content: string[];
+            /** Icon */
+            icon: string;
+            /** Id */
+            id: string;
+            /** Reasoning */
+            reasoning: components["schemas"]["ReportReason"][];
+            /** Subtitle */
+            subtitle: string;
+            /** Summary */
+            summary: string;
+            /** Title */
+            title: string;
+        };
+        /** SavedKundaliIn */
+        SavedKundaliIn: {
+            /** Dob */
+            dob: string;
+            /**
+             * Gender
+             * @default male
+             */
+            gender: string;
+            /** Lat */
+            lat: number;
+            /**
+             * Lon
+             * @description East positive
+             */
+            lon: number;
+            /** Name */
+            name: string;
+            /** Place Name */
+            place_name: string;
+            /** Tob */
+            tob: string;
+            /**
+             * Tz Name
+             * @description IANA zone name. Optional only because clients that predate this field still post without it — send it. A stored UTC offset is wrong for any historical date whose zone has since changed, and the chart it produces looks entirely normal.
+             * @example Asia/Kathmandu
+             */
+            tz_name?: string | null;
+            /**
+             * Tz Offset
+             * @deprecated
+             * @description Superseded by tz_name. Retained so old clients keep working.
+             */
+            tz_offset: number;
+        };
+        /** SavedKundaliOut */
+        SavedKundaliOut: {
+            /** @description The saved birth data in the same shape `/v1/kundali` accepts, so a saved chart can be recalculated without translation. Null when the row predates `tz_name` — such a row cannot be recalculated correctly and needs a backfill rather than a guessed offset. */
+            birth?: components["schemas"]["BirthDetailsIn"] | null;
+            /** Created At */
+            created_at: string;
+            /** Dob */
+            dob: string;
+            /**
+             * Gender
+             * @default male
+             */
+            gender: string;
+            /** Id */
+            id: string;
+            /** Lat */
+            lat: number;
+            /**
+             * Lon
+             * @description East positive
+             */
+            lon: number;
+            /** Name */
+            name: string;
+            /** Place Name */
+            place_name: string;
+            /** Tob */
+            tob: string;
+            /**
+             * Tz Name
+             * @description IANA zone name. Optional only because clients that predate this field still post without it — send it. A stored UTC offset is wrong for any historical date whose zone has since changed, and the chart it produces looks entirely normal.
+             * @example Asia/Kathmandu
+             */
+            tz_name?: string | null;
+            /**
+             * Tz Offset
+             * @deprecated
+             * @description Superseded by tz_name. Retained so old clients keep working.
+             */
+            tz_offset: number;
+            /** User Id */
+            user_id: string;
+        };
+        /** SpeakRequest */
+        SpeakRequest: {
+            /**
+             * Language
+             * @default en
+             * @enum {string}
+             */
+            language: "en" | "ne" | "hi";
+            /** Text */
+            text: string;
+            /**
+             * Voice
+             * @default onyx
+             * @enum {string}
+             */
+            voice: "onyx" | "ash" | "sage" | "coral" | "echo" | "alloy" | "shimmer" | "ballad" | "verse";
+        };
+        /** SpeakResponse */
+        SpeakResponse: {
+            /**
+             * Audio Url
+             * @description Path to the mp3, served by GET /v1/tts/audio/{name}.
+             */
+            audio_url: string;
+            /** Cached */
+            cached: boolean;
+            /**
+             * Source
+             * @description Which engine produced it, e.g. 'openai_tts_onyx'.
+             */
+            source: string;
+            /**
+             * Spoken Text
+             * @description What was actually synthesised, after markdown removal.
+             */
+            spoken_text: string;
+        };
+        /** TokenResponse */
+        TokenResponse: {
+            /** Access Token */
+            access_token: string;
+            /**
+             * Expires In
+             * @description Token lifetime in seconds. Without it a client only learns the token expired by receiving a 401.
+             * @default 2592000
+             */
+            expires_in: number;
+            /**
+             * Token Type
+             * @default bearer
+             */
+            token_type: string;
+            user: components["schemas"]["UserProfileOut"];
+        };
+        /** TranscriptResponse */
+        TranscriptResponse: {
+            /** Text */
+            text: string;
+        };
+        /** UserLoginIn */
+        UserLoginIn: {
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+            /** Password */
+            password: string;
+        };
+        /** UserProfileOut */
+        UserProfileOut: {
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Email */
+            email: string;
+            /** Full Name */
+            full_name: string;
+            /** Id */
+            id: string;
+        };
+        /** UserSignupIn */
+        UserSignupIn: {
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+            /** Full Name */
+            full_name: string;
+            /** Password */
+            password: string;
+        };
         /** ValidationError */
         ValidationError: {
             /** Context */
@@ -460,6 +1169,138 @@ export interface operations {
             };
         };
     };
+    login_v1_auth_login_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserLoginIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TokenResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    me_v1_auth_me_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserProfileOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    signup_v1_auth_signup_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserSignupIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TokenResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    chat_v1_chat_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ChatRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ChatResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     create_kundali_v1_kundali_post: {
         parameters: {
             query?: {
@@ -496,6 +1337,39 @@ export interface operations {
             };
         };
     };
+    match_v1_milan_match_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MilanRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MilanResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     search_v1_places_get: {
         parameters: {
             query: {
@@ -516,6 +1390,447 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["PlaceSearchOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    realtime_session_v1_realtime_session_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RealtimeSessionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RealtimeSessionResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    report_v1_report_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReportRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReportResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    transcribe_v1_transcribe_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_transcribe_v1_transcribe_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TranscriptResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    speak_v1_tts_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SpeakRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SpeakResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    audio_v1_tts_audio__name__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                name: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_kundalis_v1_vault_kundalis_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SavedKundaliOut"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    save_kundali_v1_vault_kundalis_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SavedKundaliIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SavedKundaliOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_kundali_v1_vault_kundalis__kundali_id__delete: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path: {
+                kundali_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: boolean;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_sessions_v1_vault_sessions_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ChatSessionOut"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_session_v1_vault_sessions_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ChatSessionIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ChatSessionOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_session_v1_vault_sessions__session_id__get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path: {
+                session_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ChatSessionOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_session_v1_vault_sessions__session_id__delete: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path: {
+                session_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: boolean;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    add_message_v1_vault_sessions__session_id__messages_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path: {
+                session_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ChatMessageIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ChatMessageOut"];
                 };
             };
             /** @description Validation Error */

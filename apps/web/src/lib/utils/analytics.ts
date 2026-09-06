@@ -1,25 +1,34 @@
 import posthog from "posthog-js";
 
-export function trackEvent(eventName: string, properties?: Record<string, any>) {
-  if (typeof window !== "undefined" && process.env.NEXT_PUBLIC_POSTHOG_KEY) {
-    try {
-      posthog.capture(eventName, properties);
-    } catch (e) {
-      console.warn("Analytics capture error:", e);
-    }
+export function trackEvent(eventName: string, properties?: Record<string, unknown>) {
+  if (
+    typeof window !== "undefined" &&
+    process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN &&
+    process.env.NEXT_PUBLIC_POSTHOG_HOST
+  ) {
+    posthog.capture(eventName, properties);
   }
 }
 
-export function trackKundaliGenerated(details: { name: string; place: string; language: string }) {
+export function trackKundaliGenerated(details: {
+  language: string;
+  timeAccuracy: "exact" | "approximate" | "unknown";
+}) {
   trackEvent("kundali_generated", {
-    seeker_name: details.name,
-    place: details.place,
     language: details.language,
+    time_accuracy: details.timeAccuracy,
   });
 }
 
 export function trackAudioPlayed(voice: string, language: string) {
   trackEvent("audio_played", {
+    voice,
+    language,
+  });
+}
+
+export function trackAudioDownloaded(voice: string, language: string) {
+  trackEvent("audio_downloaded", {
     voice,
     language,
   });
@@ -39,4 +48,14 @@ export function trackShareClicked(type: "page" | "audio") {
 
 export function trackLiveVoiceStarted() {
   trackEvent("live_voice_started");
+}
+
+export function trackAiChatMessageSent(
+  language: string,
+  interactionMode: "text" | "live_voice",
+) {
+  trackEvent("ai_chat_message_sent", {
+    language,
+    interaction_mode: interactionMode,
+  });
 }

@@ -1,28 +1,33 @@
 /**
- * One fetch wrapper. Every request goes through it so error translation and
- * auth live in exactly one place.
+ * One fetch wrapper. Every feature's `api.ts` goes through it, so error
+ * translation lives in exactly one place instead of six copies of the same
+ * `if (!res.ok) throw new ApiError(...)`.
+ *
+ * Requests go to `/api/...`, the Next proxy, not to FastAPI directly. One route
+ * to the backend means one place that forwards auth, one place that masks
+ * upstream detail, and no dependence on browser CORS.
  */
 
 import { ApiError, type ApiErrorBody, NetworkError } from "./errors";
-
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
 type RequestOptions = {
   method?: "GET" | "POST" | "PATCH" | "DELETE";
   body?: unknown;
   signal?: AbortSignal;
+  /** Extra headers, typically `authHeaders()` from the auth store. */
+  headers?: Record<string, string>;
 };
 
 export async function apiFetch<T>(
   path: string,
-  { method = "GET", body, signal }: RequestOptions = {},
+  { method = "GET", body, signal, headers = {} }: RequestOptions = {},
 ): Promise<T> {
   let response: Response;
   try {
-    response = await fetch(`${BASE_URL}${path}`, {
+    response = await fetch(`/api${path}`, {
       method,
       signal,
-      headers: body ? { "Content-Type": "application/json" } : undefined,
+      headers: body ? { "Content-Type": "application/json", ...headers } : headers,
       body: body === undefined ? undefined : JSON.stringify(body),
     });
   } catch {

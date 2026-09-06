@@ -1,48 +1,33 @@
-import { NextResponse } from "next/server";
+const API_URL = process.env.FASTAPI_URL || process.env.KUNDALI_API_URL || "http://127.0.0.1:8000";
 
+/**
+ * Forward a multipart upload to FastAPI.
+ *
+ * Not `proxy()`: that helper reads the body as text, which destroys a binary
+ * audio part. The body is streamed through with its original Content-Type so the
+ * multipart boundary survives.
+ */
 export async function POST(req: Request) {
   try {
-    const apiKey = process.env.OPENAI_API_KEY;
-    if (!apiKey) {
-      return NextResponse.json(
-        { error: "OPENAI_API_KEY environment variable is not configured" },
-        { status: 500 }
-      );
-    }
-
-    const formData = await req.formData();
-    const audioFile = formData.get("file") as File;
-    const language = (formData.get("language") as string) || "";
-
-    if (!audioFile) {
-      return NextResponse.json({ error: "No audio file provided" }, { status: 400 });
-    }
-
-    const whisperFormData = new FormData();
-    whisperFormData.append("file", audioFile, "speech.webm");
-    whisperFormData.append("model", "whisper-1");
-    if (language) {
-      whisperFormData.append("language", language);
-    }
-
-    const response = await fetch("https://api.openai.com/v1/audio/transcriptions", {
+    const auth = req.headers.get("authorization");
+    const res = await fetch(`${API_URL}/v1/transcribe`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${apiKey}`,
+        ...(req.headers.get("content-type")
+          ? { "Content-Type": req.headers.get("content-type")! }
+          : {}),
+        ...(auth ? { Authorization: auth } : {}),
       },
-      body: whisperFormData,
-    });
-
-    if (!response.ok) {
-      const errText = await response.text();
-      console.error("OpenAI Whisper Transcription Error:", errText);
-      return NextResponse.json({ error: errText }, { status: response.status });
-    }
-
-    const data = await response.json();
-    return NextResponse.json({ text: data.text });
-  } catch (err: any) {
-    console.error("Transcribe API error:", err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
+      body: req.body,
+      // Required by fetch when streaming a request body.
+      duplex: "half",
+    } as RequestInit & { duplex: "half" });
+    return Response.json(await res.json(), { status: res.status });
+  } catch (err) {
+    console.error("proxy /v1/transcribe failed", err);
+    return Response.json(
+      { error: { code: "service_unavailable", message: "Could not transcribe that audio." } },
+      { status: 502 },
+    );
   }
 }

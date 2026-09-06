@@ -161,8 +161,8 @@ export const translations: Record<Language, TranslationCatalog> = {
     selectLanguage: "Language",
 
     heroTagline: "Precision Sidereal Ephemeris & Live AI Guidance",
-    heroTitle: "Discover Your Cosmic Blueprint with Precision Vedic Astrology",
-    heroSub: "Instant high-precision planetary calculations, Dasha timelines, and 1-on-1 audio consultation with your Master Astrologer.",
+    heroTitle: "Your kundali, calculated to the degree",
+    heroSub: "Swiss Ephemeris computes every position. The AI astrologer reads what is actually there \u2014 it cannot invent a placement, a dasha, or a date.",
     birthDetails: "Enter Birth Details",
     fullName: "Full Name",
     birthDate: "Date of Birth",
@@ -304,8 +304,8 @@ export const translations: Record<Language, TranslationCatalog> = {
     selectLanguage: "भाषा",
 
     heroTagline: "सटीक वैदिक कुण्डली र प्रत्यक्ष एआई ज्योतिषी परामर्श",
-    heroTitle: "सटीक वैदिक ज्योतिषको साथ आफ्नो जन्मकुण्डली विश्लेषण गर्नुहोस्",
-    heroSub: "तत्काल सटीक ग्रह गणित, विंशोत्तरी दशा समयरेखा, र तपाइँको मास्टर ज्योतिषीसँग प्रत्यक्ष १-अन-१ परामर्श।",
+    heroTitle: "तपाईंको कुण्डली, अंशसम्म सटीक",
+    heroSub: "स्विस इफेमेरिसले हरेक ग्रहस्थिति गणना गर्छ। एआई ज्योतिषीले त्यहाँ भएकै कुरा पढ्छ — कुनै ग्रह, दशा वा मिति आफैं बनाउँदैन।",
     birthDetails: "जन्म विवरण प्रविष्ट गर्नुहोस्",
     fullName: "पूरा नाम",
     birthDate: "जन्म मिति",
@@ -447,8 +447,8 @@ export const translations: Record<Language, TranslationCatalog> = {
     selectLanguage: "भाषा",
 
     heroTagline: "सटीक वैदिक कुंडली एवं लाइव एआई ज्योतिषी मार्गदर्शन",
-    heroTitle: "सटीक वैदिक ज्योतिष के साथ अपनी जन्मकुंडली का विश्लेषण करें",
-    heroSub: "तत्काल सटीक ग्रह गणना, विंशोत्तरी दशा समयरेखा, और आपके मास्टर ज्योतिषी के साथ 1-ऑन-1 ऑडियो परामर्श।",
+    heroTitle: "आपकी कुंडली, अंश तक सटीक",
+    heroSub: "स्विस इफेमेरिस हर ग्रह स्थिति की गणना करता है। एआई ज्योतिषी वही पढ़ता है जो वास्तव में है — वह कोई ग्रह, दशा या तिथि स्वयं नहीं गढ़ता।",
     birthDetails: "जन्म विवरण दर्ज करें",
     fullName: "पूरा नाम",
     birthDate: "जन्म तिथि",
