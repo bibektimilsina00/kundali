@@ -3,7 +3,7 @@
 Status: **planning**. Nothing here is built. This document exists to be argued
 with before any code is written.
 
-Builds on [`kundali.md`](../kundali.md) §40 (Human Astrologer), §41 (AI → Human
+Builds on [`nakhatra.md`](../nakhatra.md) §40 (Human Astrologer), §41 (AI → Human
 Handoff) and *Future User Types*, which already sketch this. Where this document
 disagrees with those sections, this one is newer — but the disagreement should
 be resolved deliberately, not silently.
@@ -39,7 +39,7 @@ The astrologer starts the conversation already informed. The seeker does not
 retype their birth details or re-explain their situation. That is the product;
 the directory is just the part that makes it navigable.
 
-`kundali.md` §41 calls this "one of the strongest future features". It should be
+`nakhatra.md` §41 calls this "one of the strongest future features". It should be
 the first thing built, not the last.
 
 ---
@@ -59,7 +59,7 @@ Everything they have today, plus:
 
 ### Astrologer / Pandit
 
-A new account type. `kundali.md` treats Astrologer and Pandit as separate user
+A new account type. `nakhatra.md` treats Astrologer and Pandit as separate user
 types; they differ in **what they offer** (readings vs rituals) rather than in
 how their account works, so the plan is one role with a `practice_type` rather
 than two parallel implementations.
@@ -172,7 +172,7 @@ These are the decisions. Everything else is typing.
 ### 7.1 Consent is the whole trust story
 
 Birth data is sensitive (CLAUDE.md rule 9), and this feature's entire purpose is
-showing it to a stranger. `kundali.md` §39 already commits to the user
+showing it to a stranger. `nakhatra.md` §39 already commits to the user
 controlling "whether their Kundali and conversation history are shared".
 
 Requirements:

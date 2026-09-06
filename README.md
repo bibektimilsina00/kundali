@@ -9,7 +9,7 @@ knows your birth chart.
 
 | | |
 |---|---|
-| [`kundali.md`](kundali.md) | Product & feature specification |
+| [`nakhatra.md`](nakhatra.md) | Product & feature specification |
 | [`docs/architecture.md`](docs/architecture.md) | Repo layout, module shape, boundaries, data model |
 | [`docs/astrology-methodology.md`](docs/astrology-methodology.md) | Ayanamsa, house system, dasha rules, test strategy |
 | [`docs/ai-astrologer.md`](docs/ai-astrologer.md) | Model, context, tools, prompts, safety, streaming |

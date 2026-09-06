@@ -181,7 +181,7 @@ graph LR
     B -->|"JSON"| A
 ```
 
-[router.py](file:///Users/bibektimilsina/projects/kundali/apps/api/src/app/modules/kundali/router.py) → [service.py](file:///Users/bibektimilsina/projects/kundali/apps/api/src/app/modules/kundali/service.py) → `astrology_core` → back
+[router.py](file:///Users/bibektimilsina/projects/nakhatra/apps/api/src/app/modules/kundali/router.py) → [service.py](file:///Users/bibektimilsina/projects/nakhatra/apps/api/src/app/modules/kundali/service.py) → `astrology_core` → back
 
 ### Frontend Call Chain (✅ Clean — use as template)
 
@@ -193,7 +193,7 @@ graph LR
     D -->|"proxy fetch"| E["FastAPI backend"]
 ```
 
-[birth-details-form.tsx](file:///Users/bibektimilsina/projects/kundali/apps/web/src/features/kundali/components/birth-details-form.tsx) → [use-create-kundali.ts](file:///Users/bibektimilsina/projects/kundali/apps/web/src/features/kundali/hooks/use-create-kundali.ts) → [kundali.api.ts](file:///Users/bibektimilsina/projects/kundali/apps/web/src/features/kundali/api/kundali.api.ts) → API route → FastAPI
+[birth-details-form.tsx](file:///Users/bibektimilsina/projects/nakhatra/apps/web/src/features/kundali/components/birth-details-form.tsx) → [use-create-kundali.ts](file:///Users/bibektimilsina/projects/nakhatra/apps/web/src/features/kundali/hooks/use-create-kundali.ts) → [kundali.api.ts](file:///Users/bibektimilsina/projects/nakhatra/apps/web/src/features/kundali/api/kundali.api.ts) → API route → FastAPI
 
 ### What to copy from the reference — and what not to
 
@@ -326,7 +326,7 @@ it must not import `app.modules` — the dependency runs the other way.
 
 
 ### Current State (❌ Anemic)
-[auth/router.py](file:///Users/bibektimilsina/projects/kundali/apps/api/src/app/modules/auth/router.py) has raw SQL in route handlers. No `service.py` or `repository.py`.
+[auth/router.py](file:///Users/bibektimilsina/projects/nakhatra/apps/api/src/app/modules/auth/router.py) has raw SQL in route handlers. No `service.py` or `repository.py`.
 
 ### Target Structure
 ```
@@ -700,7 +700,7 @@ def me(user_id: str = Depends(get_current_user)) -> UserProfileOut:
 
 
 ### Current State (❌ Anemic)
-[vault/router.py](file:///Users/bibektimilsina/projects/kundali/apps/api/src/app/modules/vault/router.py) — 232 lines of inline SQL across 7 endpoints.
+[vault/router.py](file:///Users/bibektimilsina/projects/nakhatra/apps/api/src/app/modules/vault/router.py) — 232 lines of inline SQL across 7 endpoints.
 
 ### Target Structure
 ```
@@ -1045,7 +1045,7 @@ Once analytics show no old builds calling the endpoint, the flat fields can go �
 
 
 ### Why
-All chat/LLM logic currently lives in [apps/web/src/app/api/v1/chat/route.ts](file:///Users/bibektimilsina/projects/kundali/apps/web/src/app/api/v1/chat/route.ts) (Next.js). This must move to FastAPI.
+All chat/LLM logic currently lives in [apps/web/src/app/api/v1/chat/route.ts](file:///Users/bibektimilsina/projects/nakhatra/apps/web/src/app/api/v1/chat/route.ts) (Next.js). This must move to FastAPI.
 
 ### Target Structure
 ```
@@ -1083,7 +1083,7 @@ class ChatResponse(BaseModel):
 
 ### Step 3.2: Create `chat/prompts.py`
 
-Move the entire contents of [astrologer-prompt.ts](file:///Users/bibektimilsina/projects/kundali/apps/web/src/features/kundali/api/astrologer-prompt.ts) and [chart-ai-context.ts](file:///Users/bibektimilsina/projects/kundali/apps/web/src/features/kundali/api/chart-ai-context.ts) to Python:
+Move the entire contents of [astrologer-prompt.ts](file:///Users/bibektimilsina/projects/nakhatra/apps/web/src/features/kundali/api/astrologer-prompt.ts) and [chart-ai-context.ts](file:///Users/bibektimilsina/projects/nakhatra/apps/web/src/features/kundali/api/chart-ai-context.ts) to Python:
 
 ```python
 """Astrologer AI system prompt builders. Moved from frontend TypeScript."""
@@ -1265,7 +1265,7 @@ export async function POST(req: Request) {
 
 
 ### Why
-Report generation lives in [apps/web/src/app/api/v1/report/route.ts](file:///Users/bibektimilsina/projects/kundali/apps/web/src/app/api/v1/report/route.ts) and [report-generator.ts](file:///Users/bibektimilsina/projects/kundali/apps/web/src/features/kundali/api/report-generator.ts) (441 lines of frontend logic).
+Report generation lives in [apps/web/src/app/api/v1/report/route.ts](file:///Users/bibektimilsina/projects/nakhatra/apps/web/src/app/api/v1/report/route.ts) and [report-generator.ts](file:///Users/bibektimilsina/projects/nakhatra/apps/web/src/features/kundali/api/report-generator.ts) (441 lines of frontend logic).
 
 ### Target Structure
 ```
@@ -1348,7 +1348,7 @@ modules/report/
 
 
 ### Why
-[apps/web/src/app/api/v1/tts/route.ts](file:///Users/bibektimilsina/projects/kundali/apps/web/src/app/api/v1/tts/route.ts) (188 lines) contains text processing, OpenAI TTS API calls, Google TTS fallback, and disk caching — all in a Next.js API route.
+[apps/web/src/app/api/v1/tts/route.ts](file:///Users/bibektimilsina/projects/nakhatra/apps/web/src/app/api/v1/tts/route.ts) (188 lines) contains text processing, OpenAI TTS API calls, Google TTS fallback, and disk caching — all in a Next.js API route.
 
 ### Target Structure
 ```

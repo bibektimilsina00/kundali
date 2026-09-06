@@ -1,4 +1,4 @@
-name: CI/CD Build & Deploy Kundali Microservices to Server
+name: CI/CD Build & Deploy Nakhatra Microservices to Server
 
 on:
   push:
@@ -46,7 +46,7 @@ jobs:
           file: ./apps/api/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/kundali-api:latest
+          tags: ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/nakhatra-api:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -59,8 +59,8 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/kundali-web:latest
-            ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/kundali:latest
+            ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/nakhatra-web:latest
+            ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/nakhatra:latest
           build-args: |
             NEXT_PUBLIC_POSTHOG_KEY=${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
             NEXT_PUBLIC_POSTHOG_HOST=${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
@@ -85,7 +85,7 @@ jobs:
           username: ${{ env.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           source: "docker-compose.yml"
-          target: "~/kundali/"
+          target: "~/nakhatra/"
 
       - name: Deploy Microservices on Remote Server (ubuntu@161.118.246.132)
         uses: appleboy/ssh-action@v1.0.3
@@ -96,15 +96,15 @@ jobs:
           script: |
             set -e
             echo "========================================="
-            echo "🚀 Launching Kundali Microservices Stack"
+            echo "🚀 Launching Nakhatra Microservices Stack"
             echo "========================================="
 
             # 1. Login to GHCR on the remote server
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
             # 2. Prepare deployment directory
-            mkdir -p ~/kundali
-            cd ~/kundali
+            mkdir -p ~/nakhatra
+            cd ~/nakhatra
 
             # 3. Dynamically generate .env file from GitHub Secrets
             echo "Generating production .env configuration..."
@@ -112,10 +112,10 @@ jobs:
             PORT=3000
             NODE_ENV=production
             PYTHON_PATH=python3
-            POSTGRES_DB=kundali
-            POSTGRES_USER=kundali
-            POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD || 'kundalipassword' }}"
-            FASTAPI_URL=http://kundali_api:8000
+            POSTGRES_DB=nakhatra
+            POSTGRES_USER=nakhatra
+            POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD || 'nakhatrapassword' }}"
+            FASTAPI_URL=http://nakhatra_api:8000
             AGENT_ROUTER_API_KEY="${{ secrets.AGENT_ROUTER_API_KEY }}"
             AGENT_ROUTER_BASE_URL="${{ secrets.AGENT_ROUTER_BASE_URL }}"
             AGENT_ROUTER_MODEL="${{ secrets.AGENT_ROUTER_MODEL }}"
@@ -137,11 +137,14 @@ jobs:
             echo "Pulling latest microservice images..."
             docker compose pull || docker-compose pull
 
-            # 5. Stop single container if previously running standalone
+            # 5. Stop the pre-rename standalone container, if one is still
+            #    running. Deliberately still `kundali-app` — that is the name
+            #    it exists under on the server; renaming it here would leave
+            #    it running forever.
             docker stop kundali-app || true
             docker rm kundali-app || true
 
-            # 6. Launch 3 microservices (kundali_postgres, kundali_api, kundali_web)
+            # 6. Launch 3 microservices (nakhatra_postgres, nakhatra_api, nakhatra_web)
             echo "Starting docker compose stack..."
             docker compose up -d || docker-compose up -d
 
@@ -149,7 +152,7 @@ jobs:
             docker image prune -f
 
             echo "========================================="
-            echo "✅ Kundali Microservices Stack Deployed Successfully!"
+            echo "✅ Nakhatra Microservices Stack Deployed Successfully!"
             echo "🌐 Web App Live at: http://${{ env.SERVER_HOST }}:3000"
             echo "🌐 Web App (Alt Port): http://${{ env.SERVER_HOST }}:29000"
             echo "🔌 FastAPI Backend: http://${{ env.SERVER_HOST }}:28001/health"
